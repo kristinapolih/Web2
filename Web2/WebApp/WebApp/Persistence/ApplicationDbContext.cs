@@ -21,6 +21,16 @@ namespace WebApp.Persistence
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<WebApp.Models.Stanica> Stanicas { get; set; }
+        public DbSet<Stanica> Stanicas { get; set; }
+        public DbSet<Stavka> Stavkas { get; set; }
+        public DbSet<RedVoznje> RedVoznjes { get; set; }
+        public DbSet<Linija> Linijas { get; set; }
+        public DbSet<Korisnik> Korisniks { get; set; }
+        public DbSet<Koordinate> Koordinates { get; set; }
+        public DbSet<Koeficijent> Koeficijents { get; set; }
+        public DbSet<Karta> Kartas { get; set; }
+        public DbSet<CenovnikStavka> CenovnikStavkas { get; set; }
+        public DbSet<Cenovnik> Cenovniks { get; set; }
+        public DbSet<Adresa> Adresas { get; set; }
     }
 }

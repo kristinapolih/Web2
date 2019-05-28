@@ -295,3 +295,4 @@ C:\Users\e3106-2015\Documents\Blok08\Projekat\Web2\Web2\WebApp\WebApp\bin\Micros
 C:\Users\e3106-2015\Documents\Blok08\Projekat\Web2\Web2\WebApp\WebApp\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\e3106-2015\Documents\Blok08\Projekat\Web2\Web2\WebApp\WebApp\bin\System.Web.Http.Owin.xml
 C:\Users\e3106-2015\Documents\Blok08\Projekat\Web2\Web2\WebApp\WebApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\e3106-2015\Documents\Blok08\Projekat\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.Migrations.FirstMigration.resources
