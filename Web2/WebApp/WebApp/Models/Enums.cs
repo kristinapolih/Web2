@@ -21,9 +21,9 @@ namespace WebApp.Models
 
     public enum TipPutnika
     {
-        Djacka,
-        Penzionerska,
-        Regularna
+        Djak,
+        Penzioner,
+        Regularni
     }
 
     public enum ProcesVerifikacije

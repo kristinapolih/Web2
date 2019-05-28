@@ -17,6 +17,27 @@ namespace WebApp.Persistence.UnitOfWork
             _context = context;
         }
 
+        [Dependency]
+        public IStanicaRepository StanicaRepository { get; set; }
+        [Dependency]
+        public IRedVoznjeRepository RedVoznjeRepository { get; set; }
+        [Dependency]
+        public ILinijaRepository LinijaRepository { get; set; }
+        [Dependency]
+        public IKorisnikRepository KorisnikRepository { get; set; }
+        [Dependency]
+        public IKoordinateRepository KoordinateRepository { get; set; }
+        [Dependency]
+        public IKoeficijentRepository KoeficijentRepository { get; set; }
+        [Dependency]
+        public IKartaRepository KartaRepository { get; set; }
+        [Dependency]
+        public ICenovnikRepository CenovnikRepository { get; set; }
+        [Dependency]
+        public ICenovnikStavkaRepository CenovnikStavkaRepository { get; set; }
+        [Dependency]
+        public IAdresaRepository AdresaRepository { get; set; }
+
         public int Complete()
         {
             return _context.SaveChanges();

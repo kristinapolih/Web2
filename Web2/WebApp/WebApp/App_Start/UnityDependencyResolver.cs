@@ -70,6 +70,9 @@ namespace WebApp.App_Start
            
             container.RegisterType<DbContext, ApplicationDbContext>(new PerResolveLifetimeManager());
             container.RegisterType<IUnitOfWork, DemoUnitOfWork>();
+
+            //TODO
+            //stavljamo resolvere za nase klase
         }
 
         public void Dispose()

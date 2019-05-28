@@ -18,6 +18,7 @@ namespace WebApp.Models
         public string slika;
         public ProcesVerifikacije stanje;
 
+        #region Props
         public int ID
         {
             get { return iD; }
@@ -68,6 +69,7 @@ namespace WebApp.Models
             get { return stanje; }
             set { stanje = value; }
         }
+#endregion
 
         public Korisnik()
         {

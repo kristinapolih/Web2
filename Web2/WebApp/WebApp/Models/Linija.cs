@@ -9,7 +9,9 @@ namespace WebApp.Models
     {
         public int iD;
         public int redniBroj;
+        public TipVoznje tipVoznje;
         public List<int> iDStanica;
+        public string polasci;
 
         public int ID
         {
@@ -21,10 +23,20 @@ namespace WebApp.Models
             get { return redniBroj; }
             set { redniBroj = value; }
         }
+        public TipVoznje TipVoznje
+        {
+            get { return tipVoznje; }
+            set { tipVoznje = value; }
+        }
         public List<int> IDStanica
         {
             get { return iDStanica; }
             set { iDStanica = value; }
+        }
+        public string Polasci
+        {
+            get { return polasci; }
+            set { polasci = value; }
         }
     }
 }
