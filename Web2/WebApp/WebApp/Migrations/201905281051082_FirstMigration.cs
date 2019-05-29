@@ -129,21 +129,10 @@ namespace WebApp.Migrations
                     })
                 .PrimaryKey(t => t.ID);
             
-            DropTable("dbo.Products");
         }
         
         public override void Down()
         {
-            CreateTable(
-                "dbo.Products",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Price = c.Decimal(nullable: false, precision: 18, scale: 2),
-                    })
-                .PrimaryKey(t => t.Id);
-            
             DropTable("dbo.Stavkas");
             DropTable("dbo.Stanicas");
             DropTable("dbo.RedVoznjes");
