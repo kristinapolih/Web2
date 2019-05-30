@@ -1,3 +1,4 @@
+
 <div class="limiter">
 	<div class="container-login100">
 		<div class="wrap-login100">
@@ -5,45 +6,54 @@
 				<img src="./assets/img-01.png" alt="IMG">
 			</div>
 
-			<form class="login100-form validate-form">
+			
+			<form class="login100-form validate-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 				<span class="login100-form-title">
-					Member Login
+					Prijavljivanje
 				</span>
 
-				<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.com">
-					<input class="input100" type="text" name="email" placeholder="Email">
+
+				<div class="wrap-input100 validate-input" >
+					<input class="input100" type="text" formControlName="email" placeholder="Email" required required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
 					<span class="focus-input100"></span>
 					<span class="symbol-input100">
 						<i class="fa fa-envelope" aria-hidden="true"></i>
 					</span>
 				</div>
+				<div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="alert alert-danger">
+					<div *ngIf="f.email.errors.required">
+					  Email je obavezan.
+					</div>
+					<div *ngIf="f.email.errors && f.email.errors.pattern" class="alert alert-danger">
+						Email nije u ispravnom formatu.
+					</div>
+				</div>
 
-				<div class="wrap-input100 validate-input" data-validate = "Password is required">
-					<input class="input100" type="password" name="pass" placeholder="Password">
+
+				<div class="wrap-input100 validate-input" >
+					<input class="input100" type="password" formControlName="pass" placeholder="Lozinka" required>
 					<span class="focus-input100"></span>
 					<span class="symbol-input100">
 						<i class="fa fa-lock" aria-hidden="true"></i>
 					</span>
 				</div>
+				<div *ngIf="f.pass.invalid && (f.pass.dirty || f.pass.touched)" class="alert alert-danger">
+					<div *ngIf="f.pass.errors.required">
+					  Lozinka je obavezna.
+					</div>
+				</div>
 				
+
 				<div class="container-login100-form-btn">
-					<button class="login100-form-btn">
-						Login
+					<button type="submit" class="login100-form-btn" [disabled]="!loginForm.valid">
+						Prijavite se
 					</button>
 				</div>
 
-				<div class="text-center p-t-12">
-					<span class="txt1">
-						Forgot
-					</span>
-					<a class="txt2" href="#">
-						Username / Password?
-					</a>
-				</div>
 
 				<div class="text-center p-t-136" id="navbarTogglerDemo03">
 					<a class="txt2" routerLink="/registracija">
-						Create your Account
+						Napravite nalog
 						<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 					</a>
 				</div>

@@ -1,4 +1,8 @@
+
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
+import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';  
 import { Routes, RouterModule } from '@angular/router';
 import { RedVoznjeComponent } from './red-voznje/red-voznje.component';
 import { MrezaLinijaComponent } from './mreza-linija/mreza-linija.component';
@@ -6,6 +10,7 @@ import { TrenutnaLokacijaVozilaComponent } from './trenutna-lokacija-vozila/tren
 import { CenovnikComponent } from './cenovnik/cenovnik.component';
 import { LoginComponent } from './login/login.component';
 import { RegistracijaComponent } from 'src/app/registracija/registracija.component';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
   { path: '', component: RedVoznjeComponent },
@@ -18,7 +23,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    BrowserModule, 
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(routes)
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

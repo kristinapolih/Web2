@@ -1,119 +1,96 @@
 <div class="limiter">
-	<div class="container-login100">
-		<div class="wrap-login100"> 
-					<h1>Gradski i prigradski red vožnje</h1>
-					<p>
-            <!--datum-->
-                    </p>   
-                    <form id="rvform" name="rvform" action="redvoznje.php" method="get">
-                       
-                        <table class="cenovnik-form" width="100%">
-                        <tbody><tr>
-                            <td width="210px">
-                                <span class="lightblue-box-label"> Red vožnje važi od </span>
-                            </td>
-                            <td align="left">
-                               	<select class="selectbox dropdown" id="vaziod" onchange="lista_linija();" name="vaziod">
-                                                                        <option value="2019-05-25"> 
-                                        25.05.2019 
-                                    </option>
-                                    		<!--danasnji datum-->
-                            	</select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="210px">
-                                <span class="lightblue-box-label">Red vožnje </span>
-                            </td>
-                            <td align="left">
-                               
-                                <select class="selectbox dropdown" id="rv" onchange="lista_linija();" name="rv">
-                                    <option value="rvg" selected="">Gradski</option>
-                                    <option value="rvp">Prigradski</option>
-                                </select> 
-                               
-                            </td>
-                        </tr>
+    <div class="container-redVoznje100">
+          <div class="wrap-redVoznje100">
+					  
+                    <form [formGroup]="redVoznjeForm" (ngSubmit)="onSubmit()" class="login100-form validate-form">
+                            <span class="login100-form-title  p-b-59">
+                                    Gradski i prigradski red vožnje
+                            </span>
+                            <p><!--datum danasnji--></p> 
+
+
+                            <div class="wrap-input100 validate-input">
+                                    <span class="label-input100">Red vožnje važi od</span>
+                                    <!-- datum od kada vazi-->
+                                    <input class="input100" type="text" readonly>
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-reg100">
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                      </span>
+                                  </div>
+                        
+
+                                  <div class="wrap-input100 validate-input">
+                                        <span class="label-input100">Red vožnje</span>
+                                        <select class="selectbox input100" formControlName="redvoznje">
+                                          <option value="Gradski" selected>Gradski</option>
+                                          <option value="Prigradski"> Prigradski</option>
+                                        </select>
+                                        <span class="focus-input100"></span>
+                                        <span class="symbol-reg100">
+                                            <i class="fa fa-bus" aria-hidden="true"></i>
+                                          </span>
+                                      </div>
+
+
+                                      <div class="wrap-input100 validate-input">
+                                            <span class="label-input100">Dan</span>
+                                            <select class="selectbox input100" formControlName="dan">
+                                              <option value="RadniDan" selected>Radni dan</option>
+                                              <option value="S">Subota</option>
+                                            <option value="N">Nedelja</option>
+                                            </select>
+                                            <span class="focus-input100"></span>
+                                            <span class="symbol-reg100">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                              </span>
+                                          </div>
+
+
+                                          <div class="wrap-input100 validate-input">
+                                                <span class="label-input100">Linija</span>
+                                                <select class="selectbox input100" formControlName="linija">
+                                                        <option value="1*">1 KLISA-CENTAR-LIMAN I</option>
+                                                        <option value="2.">2 CENTAR - NOVO NASELJE</option>
+                                                        <option value="3.">3 PETROVARADIN-CENTAR-DETELINARA</option>
+                                                        <option value="3A.">3A ZEL.STANICA - POBEDA</option>
+                                                        <option value="4*">4 LIMAN IV - CENTAR - Z.STANICA</option>
+                                                        <option value="5">5 TEMERINSKI PUT-CENTAR-AVIJATIČAR.NASELJE</option>
+                                                        <option value="6">6 PODBARA-CENTAR-ADICE</option>
+                                                        <option value="6A">6A ADICE - VETERNIK (O.S.MARIJA TRANDAFIL)</option>
+                                                        <option value="7A.">7A N.NASELJE-Z.STAN-F.PIJA-LIMAN4-N.NASELJE</option>
+                                                        <option value="7B.">7B N.NASELJE-LIMAN4-F.PIJA-Z.STAN-N.NASELJE</option>
+                                                        <option value="8">8 NOVO NASELJE-CENTAR-LIMAN I</option>
+                                                        <option value="9.">9 NOVO NASELJE - LIMAN - PETROVARADIN</option>
+                                                        <option value="10">10 CENTAR-INDUST.ZONA JUG</option>
+                                                        <option value="11A.">11A Z.STANICA-BOLNICA-LIMAN-Z.STANICA</option>
+                                                        <option value="11B.">11B Z.STANICA-LIMAN-BOLNICA-Z.STANICA</option>
+                                                        <option value="12.">12 CENTAR-TELEP</option>
+                                                        <option value="13">13 DETELINARA - GRBAVICA - UNIVERZITET</option>
+                                                        <option value="14">14 CENTAR - SAJLOVO</option>
+                                                        <option value="15">15 CENTAR-INDUSTR.ZONA SEVER</option>
+                                                        <option value="16.">16 ZELE.STANICA-PRISTANISNA ZONA</option>
+                                                        <option value="17*">17 BIG TC - CENTAR</option>
+                                                        <option value="18A">18A N.NASELJE-DETELINARA-CENTAR-LIMAN-N.NASELJE</option>
+                                                        <option value="18B">18B N.NASELJE-LIMAN-CENTAR-DETELINARA-N.NASELJE</option>
+                                                        <option value="20">20 ZEL.STANICA - LESNINA</option>
+                                                </select>
+                                                <span class="focus-input100"></span>
+                                                <span class="symbol-reg100">
+                                                    <i class="fa fa-bus" aria-hidden="true"></i>
+                                                  </span>
+                                              </div>
                         
                         
-                        <tr>
-                            <td align="left">
-                                <span class="lightblue-box-label">
-                                	Dan
-                                </span>
-                            </td>
-                            <td align="left">
-                                
-                                <select class="selectbox dropdown" id="dan" onchange="lista_linija();" name="dan">
-                                    <option value="R" selected="">Radni dan</option>
-                                    <option value="S">Subota</option>
-                                    <option value="N">Nedelja</option>
-                                </select> 
-                                
-                            </td>
-                        </tr>
-                        
-                        
-                        <tr>
-                            <td align="left">
-                            
-                            	<span class="lightblue-box-label">
-                            		Linija
-                                	<br>
-                               	</span>
-                            
-                            </td>
-                            <td align="left" valign="top">    
-                                    <div id="lista_linija">		
-                        <select id="linija" class="listbox dropdown" size="5" name="linija[]" multiple="">
-			<option value="1*">1 KLISA-CENTAR-LIMAN I</option>
-    		<option value="2.">2 CENTAR - NOVO NASELJE</option>
-    		<option value="3.">3 PETROVARADIN-CENTAR-DETELINARA</option>
-    		<option value="3A.">3A ZEL.STANICA - POBEDA</option>
-    		<option value="4*">4 LIMAN IV - CENTAR - Z.STANICA</option>
-    		<option value="5">5 TEMERINSKI PUT-CENTAR-AVIJATIČAR.NASELJE</option>
-    		<option value="6">6 PODBARA-CENTAR-ADICE</option>
-    		<option value="6A">6A ADICE - VETERNIK (O.S.MARIJA TRANDAFIL)</option>
-    		<option value="7A.">7A N.NASELJE-Z.STAN-F.PIJA-LIMAN4-N.NASELJE</option>
-    		<option value="7B.">7B N.NASELJE-LIMAN4-F.PIJA-Z.STAN-N.NASELJE</option>
-    		<option value="8">8 NOVO NASELJE-CENTAR-LIMAN I</option>
-    		<option value="9.">9 NOVO NASELJE - LIMAN - PETROVARADIN</option>
-    		<option value="10">10 CENTAR-INDUST.ZONA JUG</option>
-    		<option value="11A.">11A Z.STANICA-BOLNICA-LIMAN-Z.STANICA</option>
-    		<option value="11B.">11B Z.STANICA-LIMAN-BOLNICA-Z.STANICA</option>
-    		<option value="12.">12 CENTAR-TELEP</option>
-    		<option value="13">13 DETELINARA - GRBAVICA - UNIVERZITET</option>
-    		<option value="14">14 CENTAR - SAJLOVO</option>
-    		<option value="15">15 CENTAR-INDUSTR.ZONA SEVER</option>
-    		<option value="16.">16 ZELE.STANICA-PRISTANISNA ZONA</option>
-    		<option value="17*">17 BIG TC - CENTAR</option>
-    		<option value="18A">18A N.NASELJE-DETELINARA-CENTAR-LIMAN-N.NASELJE</option>
-    		<option value="18B">18B N.NASELJE-LIMAN-CENTAR-DETELINARA-N.NASELJE</option>
-    		<option value="20">20 ZEL.STANICA - LESNINA</option>
-    </select></div>                               
-                            </td>
-                         </tr>
-                         <tr>    
-                             
-                            <td></td>
-                            <td>
-                            
-                            <div align="right">
-                            	<button type="button" id="blue-button" onclick="ispis_polazaka()">ПРИКАЖИ</button>
-                            </div>
-                            </td>
-                        </tr>
-                        
-                    </tbody></table>
-				</form>
-               
-                <br clear="all">
-                <div id="ispis-polazaka"></div>
-                
-                <br>
-                
-                <div align="left">
- 
+                                              <div class="container-login100-form-btn">
+                                                    <div class="wrap-login100-form-btn">
+                                                      <div class="login100-form-bgbtn"></div>
+                                                      <button type="submit" [disabled]="!redVoznjeForm.valid" class="login100-form-btn">
+                                                        Prikaži
+                                                      </button>
+                                                    </div>  
+                                                </div>
+ </form>
 	</div>
 </div>
 </div>
