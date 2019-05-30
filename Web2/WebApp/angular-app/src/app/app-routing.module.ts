@@ -5,6 +5,7 @@ import { MrezaLinijaComponent } from './mreza-linija/mreza-linija.component';
 import { TrenutnaLokacijaVozilaComponent } from './trenutna-lokacija-vozila/trenutna-lokacija-vozila.component';
 import { CenovnikComponent } from './cenovnik/cenovnik.component';
 import { LoginComponent } from './login/login.component';
+import { RegistracijaComponent } from 'src/app/registracija/registracija.component';
 
 const routes: Routes = [
   { path: '', component: RedVoznjeComponent },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'mreza-linija', component: MrezaLinijaComponent },
   { path: 'trenutna-lokacija-vozila', component: TrenutnaLokacijaVozilaComponent },
   { path: 'cenovnik', component: CenovnikComponent },
-  { path: 'prijavite-se', component: LoginComponent }
+  { path: 'prijavite-se', component: LoginComponent },
+  { path: 'registracija', component: RegistracijaComponent }
 ];
 
 @NgModule({

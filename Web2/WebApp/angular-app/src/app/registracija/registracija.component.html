@@ -1,3 +1,105 @@
-<p>
-  registracija works!
-</p>
+<div class="limiter">
+  <div class="container-login100">
+    <div class="login100-more"></div>
+
+    <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
+      <form class="login100-form validate-form">
+        <span class="login100-form-title p-b-59">
+          Registracija
+        </span>
+<!-- ime, prezime, pass pass, email, adresa, datum rodjenja, type of user, slika -->
+        <div class="wrap-input100 validate-input" data-validate="Ime je obavezno">
+          <span class="label-input100">Ime</span>
+          <input class="input100" type="text" name="name" placeholder="Ime...">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+              <i class="fa fa-font" aria-hidden="true"></i>
+            </span>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Prezime je obavezno">
+          <span class="label-input100">Prezime</span>
+          <input class="input100" type="text" name="surname" placeholder="Prezime...">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+              <i class="fa fa-font" aria-hidden="true"></i>
+            </span>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate = "Validna email adresa: someone@gmail.com">
+          <span class="label-input100">Email</span>
+          <input class="input100" type="text" name="email" placeholder="Email adresa...">
+          <span class="focus-input100"> </span>
+          <span class="symbol-input100">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </span>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate = "Lozinka je neophodna">
+          <span class="label-input100">Lozinka</span>
+          <input class="input100" type="text" name="pass" placeholder="*************">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate = "Ponovljena lozinka je neophodna">
+          <span class="label-input100">Ponovljena lozinka</span>
+          <input class="input100" type="text" name="repeat-pass" placeholder="*************">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate = "Adresa je neophodna">
+          <span class="label-input100">Adresa</span>
+          <input class="input100" type="text" name="address" placeholder="Adresa...">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+              <i class="fa fa-home" aria-hidden="true"></i>
+            </span>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate = "Datum rodjenja je nophodan">
+          <span class="label-input100">Datum rodjenja</span>
+          <input class="input100" type="date" name="datumRodjenja" placeholder="Datum rodjenja...">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </span>
+        </div>
+
+        <div class="wrap-input100 validate-input">
+          <span class="label-input100">Tip putnika</span>
+          <select class="selectbox input100">
+            <option value="RegularniPutnik">Regularni putnik</option>
+            <option value="Djak"> Djak</option>
+            <option value="Penzioner">Penzioner</option>
+          </select>
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </span>
+        </div>
+
+<!--TODO slika da se pojavi ako se odabere djak ili penzioner-->
+
+        <div class="container-login100-form-btn">
+          <div class="wrap-login100-form-btn">
+            <div class="login100-form-bgbtn"></div>
+            <button class="login100-form-btn">
+              Registruj se
+            </button>
+          </div>
+
+          <a routerLink="/prijavite-se" class="dis-block txt2 hov1 p-r-30 p-t-10 p-b-10 p-l-30">
+            Uloguj se
+            <i class="fa fa-long-arrow-right m-l-5"></i>
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

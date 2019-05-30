@@ -45,6 +45,7 @@
               "./node_modules/daterangepicker/moment.min.js",
               "./node_modules/daterangepicker/daterangepicker.js",
               "./node_modules/countdowntime/countdowntime.js",
+              "./node_modules/tilt/tilt.jquery.min.js",
               "./node_modules/js/main.js"
             ]
           },
