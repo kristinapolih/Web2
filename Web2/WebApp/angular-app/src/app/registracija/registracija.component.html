@@ -63,7 +63,7 @@
 
         <div class="wrap-input100 validate-input" data-validate = "Lozinka je neophodna">
           <span class="label-input100">Lozinka</span>
-          <input class="input100" type="text" formControlName="pass" required placeholder="*************">
+          <input class="input100" type="password" formControlName="pass" required placeholder="*************">
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
               <i class="fa fa-lock" aria-hidden="true"></i>
@@ -78,7 +78,7 @@
 
         <div class="wrap-input100 validate-input" data-validate = "Ponovljena lozinka je neophodna">
           <span class="label-input100">Ponovljena lozinka</span>
-          <input class="input100" type="text" formControlName="repeatpass" required placeholder="*************">
+          <input class="input100" type="password" formControlName="repeatpass" required placeholder="*************">
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
               <i class="fa fa-lock" aria-hidden="true"></i>
@@ -126,7 +126,7 @@
 
         <div class="wrap-input100 validate-input">
           <span class="label-input100">Tip putnika</span>
-          <select class="selectbox input100">
+          <select class="selectbox input100" formControlName="tipputnika">
             <option value="RegularniPutnik" selected>Regularni putnik</option>
             <option value="Djak"> Djak</option>
             <option value="Penzioner">Penzioner</option>

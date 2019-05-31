@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cenovnik',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CenovnikComponent implements OnInit {
 
-  constructor() { }
+  cenovnikForm = this.fb.group({
+    tipkarte: ['', Validators.required],
+    tipputnika: ['', Validators.required]
+  });
+
+  constructor(private fb: FormBuilder) { }
+
+  get f() { return this.cenovnikForm.controls; }
 
   ngOnInit() {
+  }
+   
+
+  onSubmit() {
+    console.warn(this.cenovnikForm.value);
   }
 
 }

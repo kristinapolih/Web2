@@ -45,11 +45,16 @@
 				
 
 				<div class="container-login100-form-btn">
-					<button type="submit" class="login100-form-btn" [disabled]="!loginForm.valid">
+					<button type="submit" class="login100-form-btn" *ngIf="!authService.isLoggedIn" [disabled]="!loginForm.valid">
 						Prijavite se
 					</button>
 				</div>
-
+				
+				<div class="container-login100-form-btn"></div>
+					<button (click)="logout()" *ngIf="authService.isLoggedIn" class="login100-form-btn">
+						Odjavite se
+					</button>
+				</div>
 
 				<div class="text-center p-t-136" id="navbarTogglerDemo03">
 					<a class="txt2" routerLink="/registracija">

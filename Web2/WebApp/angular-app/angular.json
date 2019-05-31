@@ -41,7 +41,7 @@
               "./node_modules/bootstrap/dist/js/bootstrap.min.js",
               "./node_modules/jquery/jquery-3.2.1.min.js",
               "./node_modules/animsition/js/animsition.min.js",
-              "./node_modules/select2/dist/js/select2.min.js",
+              "./node_modules/select2/select2.min.js",
               "./node_modules/daterangepicker/moment.min.js",
               "./node_modules/daterangepicker/daterangepicker.js",
               "./node_modules/countdowntime/countdowntime.js",

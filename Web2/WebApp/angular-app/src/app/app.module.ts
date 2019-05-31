@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule,FormBuilder } from '@angular/forms';
 
+import { PageNotFoundComponent }   from './page-not-found/page-not-found.component';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationButtonsComponent } from './navigation-buttons/navigation-buttons.component';
@@ -14,9 +17,11 @@ import { CenovnikComponent } from './cenovnik/cenovnik.component';
 import { LoginComponent } from './login/login.component';
 import { RegistracijaComponent } from './registracija/registracija.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
+    PageNotFoundComponent,
     NavigationButtonsComponent,
     RedVoznjeComponent,
     MrezaLinijaComponent,
@@ -30,6 +35,7 @@ import { RegistracijaComponent } from './registracija/registracija.component';
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
+    HttpClientModule,
     AccordionModule.forRoot()
   ],
   providers: [],

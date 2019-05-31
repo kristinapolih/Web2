@@ -1,3 +1,54 @@
-<p>
-  cenovnik works!
-</p>
+<div class="limiter">
+  <div class="container-redVoznje100">
+    <div class="wrap-redVoznje100">
+
+      <form [formGroup]="cenovnikForm" (ngSubmit)="onSubmit()" class="login100-form validate-form">
+        <span class="login100-form-title  p-b-59">
+          Cenovnik
+        </span>
+        <p>
+          <!--datum danasnji-->
+        </p>
+
+
+        <div class="wrap-input100 validate-input">
+          <span class="label-input100">Tip karte</span>
+          <select class="selectbox input100" formControlName="tipkarte">
+            <option value="Vremenska" selected>Vremenska</option>
+            <option value="Dnevna"> Dnevna</option>
+            <option value="Mesecna">Mesecna</option>
+            <option value="Godisnja"> Godisnja</option>
+          </select>
+          <span class="focus-input100"></span>
+          <span class="symbol-reg100">
+            <i class="fa fa-id-card" aria-hidden="true"></i>
+          </span>
+        </div>
+
+
+        <div class="wrap-input100 validate-input">
+          <span class="label-input100">Tip putnika</span>
+          <select class="selectbox input100" formControlName="tipputnika">
+            <option value="RegularniPutnik" selected>Regularni putnik</option>
+            <option value="Djak"> Djak</option>
+            <option value="Penzioner">Penzioner</option>
+          </select>
+          <span class="focus-input100"></span>
+          <span class="symbol-reg100">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </span>
+        </div>
+
+
+        <div class="container-login100-form-btn">
+          <div class="wrap-login100-form-btn">
+            <div class="login100-form-bgbtn"></div>
+            <button type="submit" [disabled]="!cenovnikForm.valid" class="login100-form-btn">
+              Prikaži
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

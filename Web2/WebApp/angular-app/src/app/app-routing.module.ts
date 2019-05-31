@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 
 import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';  
 import { Routes, RouterModule } from '@angular/router';
+
+import { AuthGuard } from './auth/auth.guard';
 import { RedVoznjeComponent } from './red-voznje/red-voznje.component';
 import { MrezaLinijaComponent } from './mreza-linija/mreza-linija.component';
 import { TrenutnaLokacijaVozilaComponent } from './trenutna-lokacija-vozila/trenutna-lokacija-vozila.component';

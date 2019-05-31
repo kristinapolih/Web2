@@ -11,13 +11,14 @@ import {AbstractControl} from '@angular/forms';
 export class RegistracijaComponent implements OnInit {
 //ime, prezime, pass pass, email, adresa, datum rodjenja, type of user, slika -->
   registracijaForm = this.fb.group({
-    name: ['', Validators.required, Validators.name, Validators.minLength(3)],
-    surname: ['', Validators.required, Validators.name, Validators.minLength(3)],
+    name: ['', Validators.required, Validators.minLength(3)],
+    surname: ['', Validators.required, Validators.minLength(3)],
     email: ['', Validators.required, Validators.email],
     pass: ['', Validators.required],
     repeatpass: ['', Validators.required],
     address: ['', Validators.required],
-    datumRodjenja: ['', Validators.required]
+    datumRodjenja: ['', Validators.required],
+    tipputnika: ['', Validators.required]
   },{
     validator: MustMatch('pass', 'repeatpass')
  });
