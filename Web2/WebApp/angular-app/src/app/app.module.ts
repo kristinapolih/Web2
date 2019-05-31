@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule,FormBuilder } from '@angular/forms';
 
-import { PageNotFoundComponent }   from './page-not-found/page-not-found.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,7 +20,6 @@ import { RegistracijaComponent } from './registracija/registracija.component';
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent,
     NavigationButtonsComponent,
     RedVoznjeComponent,
     MrezaLinijaComponent,

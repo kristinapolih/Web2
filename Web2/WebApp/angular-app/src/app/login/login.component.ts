@@ -23,17 +23,17 @@ export class LoginComponent implements OnInit {
     this.setMessage();
   }
 
-  setMessage() {
-    this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
-  }
-
   get f() { return this.loginForm.controls; }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    let poruka = this.mainService.login(this.loginForm.value);
+    let poruka = this.authService.login(this.loginForm.value).subscribe(
+      (res) => {
+        console.log(res);
+      }
+    );
     console.warn(this.loginForm.value);
   }
 
@@ -46,5 +46,9 @@ export class LoginComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.setMessage();
+  }
+
+  setMessage() {
+    this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
   }
 }

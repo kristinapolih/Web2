@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class MainServiceService {
 
   constructor(private http: HttpClient) { }
-
+/*
   login(arg: any): any
   {
     
@@ -20,5 +20,5 @@ export class MainServiceService {
       (err)=>console.log(err)
     );
   }
-
+*/
 }

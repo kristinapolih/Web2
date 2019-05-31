@@ -12,12 +12,15 @@ import { User } from './user';
 export class AuthService {
   isLoggedIn = false;
 
-  loginUrl: string = 'http://localhost:52295/oauth/token';
+  loginUrl: string = "http://localhost:52295/oauth/token";
 
   constructor(private http: HttpClient) { }
 
   login(user: User): Observable<any> {
-    return this.http.post<any>(this.loginUrl, `username=`+ user.username +`password=`+ user.password + `&grant_type=password`, { 'headers': { 'Content-type': 'x-www-form-urlencoded' } }).pipe(
+    console.log(user);
+    let par = "username="+ user.email +"&"+"password="+ user.pass + "&grant_type=password";
+    console.log(par);
+    return this.http.post<any>("http://localhost:52295/oauth/token", par, { 'headers': { 'Content-type': 'x-www-form-urlencoded' } }).pipe(
       map(res => {
         console.log(res.access_token);
 
@@ -30,8 +33,6 @@ export class AuthService {
         let role = decodedJwtData.role
 
         console.log('jwtData: ' + jwtData)
-        console.log('decodedJwtJsonData: ' + decodedJwtJsonData)
-        console.log('decodedJwtData: ' + decodedJwtData)
         console.log('Role ' + role)
 
         localStorage.setItem('jwt', jwt)

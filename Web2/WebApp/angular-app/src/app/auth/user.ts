@@ -1,6 +1,8 @@
 export class User {
-    username: string;
-    password: string;
+    email: string; 
+    pass: string;
     grant_type: string;
   }
   
+  
+  //tu?
