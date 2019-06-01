@@ -15,6 +15,7 @@ import { TrenutnaLokacijaVozilaComponent } from './trenutna-lokacija-vozila/tren
 import { CenovnikComponent } from './cenovnik/cenovnik.component';
 import { LoginComponent } from './login/login.component';
 import { RegistracijaComponent } from './registracija/registracija.component';
+import { PromeniVidiProfilComponent } from './promeni-vidi-profil/promeni-vidi-profil.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { RegistracijaComponent } from './registracija/registracija.component';
     TrenutnaLokacijaVozilaComponent,
     CenovnikComponent,
     LoginComponent,
-    RegistracijaComponent
+    RegistracijaComponent,
+    PromeniVidiProfilComponent
   ],
   imports: [
     BrowserModule,

@@ -1,34 +1,45 @@
 <header>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-expand-sm navbar-light bg-light">
-        <div class="container">  
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+  <nav class="navbar navbar-default navbar-fixed-top navbar-expand-sm navbar-light bg-light">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+        aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-          <ul class="navbar-nav nav-pills mr-auto mt-1 mt-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" routerLinkActive="active" routerLink="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLinkActive="active" routerLink="/red-voznje">Red Vožnje</a>
-            </li>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav nav-pills mr-auto mt-1 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" routerLink="#" cursor="none" pointer-events="none">
+              <p style="font-size:15px"><b>Bus NS</b></p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" routerLink="/red-voznje">Red Vožnje<span
+                class="sr-only">(current)</span></a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active" routerLink="/mreza-linija">Mreža linija</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" routerLink="/trenutna-lokacija-vozila">Trenutna lokacija vozila</a>
+            <a class="nav-link" routerLinkActive="active" routerLink="/trenutna-lokacija-vozila">Trenutna lokacija
+              vozila</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" routerLinkActive="active" routerLink="/cenovnik">Cenovnik</a>
-            </li>
-          </ul>
-            <ul class="navbar-nav nav-pills navbar-right mt-1">
-            <li class="nav-item">
-                <a class="nav-link" routerLinkActive="active" routerLink="/prijavite-se">Prijavite se</a>
-              </li>
-          </ul>
-        </div>
+            <a class="nav-link" routerLinkActive="active" routerLink="/cenovnik">Cenovnik</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav nav-pills navbar-right mt-1">
+          <li class="nav-item">
+            <a routerLinkActive="active" *ngIf="isLogged" class="nav-link" routerLink="/promeni-vidi-profil"> Profil </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" *ngIf="!isLogged" routerLink="/prijavite-se">Prijavite se</a>
+          </li>
+          <li class="nav-item">
+            <a (click)="logout()" routerLinkActive="active" *ngIf="isLogged" class="nav-link" routerLink="/prijavite-se"> Odjavite se </a>
+          </li>
+        </ul>
       </div>
-      </nav>
+    </div>
+  </nav>
 </header>

@@ -4,6 +4,7 @@ import { Validators } from '@angular/forms';
 import { MainServiceService } from 'src/app/main-service.service';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
     pass: ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder, private mainService:MainServiceService, private http: HttpClient, public authService: AuthService) 
+  constructor(private fb: FormBuilder, private router:Router, private mainService:MainServiceService, private http: HttpClient, public authService: AuthService) 
   { 
     this.setMessage();
   }
@@ -32,6 +33,20 @@ export class LoginComponent implements OnInit {
     let poruka = this.authService.login(this.loginForm.value).subscribe(
       (res) => {
         console.log(res);
+        if(localStorage.role == "User")
+        {
+          this.router.navigate(['/red-voznje']);
+        }
+        else if(localStorage.role == "Admin")
+        {
+          //TODO change
+          this.router.navigate(['/red-voznje']);
+        }
+        else if(localStorage.role == "Controller")
+        {
+          //TODO change
+          this.router.navigate(['/red-voznje']);
+        }
       }
     );
     console.warn(this.loginForm.value);

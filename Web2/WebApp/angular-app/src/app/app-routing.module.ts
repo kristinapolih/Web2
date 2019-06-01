@@ -13,6 +13,7 @@ import { CenovnikComponent } from './cenovnik/cenovnik.component';
 import { LoginComponent } from './login/login.component';
 import { RegistracijaComponent } from 'src/app/registracija/registracija.component';
 import { AppComponent } from './app.component';
+import { PromeniVidiProfilComponent } from './promeni-vidi-profil/promeni-vidi-profil.component';
 
 const routes: Routes = [
   { path: '', component: RedVoznjeComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'trenutna-lokacija-vozila', component: TrenutnaLokacijaVozilaComponent },
   { path: 'cenovnik', component: CenovnikComponent },
   { path: 'prijavite-se', component: LoginComponent },
-  { path: 'registracija', component: RegistracijaComponent }
+  { path: 'registracija', component: RegistracijaComponent },
+  { path: 'promeni-vidi-profil', component: PromeniVidiProfilComponent }
 ];
 
 @NgModule({

@@ -3,13 +3,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-registracija',
-  templateUrl: './registracija.component.html',
-  styleUrls: ['./registracija.component.css']
+  selector: 'app-promeni-vidi-profil',
+  templateUrl: './promeni-vidi-profil.component.html',
+  styleUrls: ['./promeni-vidi-profil.component.css']
 })
-export class RegistracijaComponent implements OnInit {
-//ime, prezime, pass pass, email, adresa, datum rodjenja, type of user, slika -->
-  registracijaForm = this.fb.group({
+export class PromeniVidiProfilComponent implements OnInit {
+  public menjaProfil: boolean = true;
+
+  profilForm = this.fb.group({
     name: ['', Validators.required, Validators.minLength(3)],
     surname: ['', Validators.required, Validators.minLength(3)],
     email: ['', Validators.required, Validators.email],
@@ -24,15 +25,22 @@ export class RegistracijaComponent implements OnInit {
 
   constructor(private fb: FormBuilder) { }
 
-  get f() { return this.registracijaForm.controls; }
+  get f() { return this.profilForm.controls; }
+
+  get fMenjaProfil() { return this.menjaProfil; }
 
   ngOnInit() {
   }
    
 
   onSubmit() {
-    console.warn(this.registracijaForm.value);
+    console.warn(this.profilForm.value);
   }
+
+  MenjaProfil() {
+    this.menjaProfil = true;
+  }
+
 }
 
 export function MustMatch(controlName: string, matchingControlName: string) {

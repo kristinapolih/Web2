@@ -20,7 +20,7 @@ export class AuthService {
     console.log(user);
     let par = "username="+ user.email +"&"+"password="+ user.pass + "&grant_type=password";
     console.log(par);
-    return this.http.post<any>("http://localhost:52295/oauth/token", par, { 'headers': { 'Content-type': 'x-www-form-urlencoded' } }).pipe(
+    return this.http.post<any>(this.loginUrl, par, { 'headers': { 'Content-type': 'x-www-form-urlencoded' } }).pipe(
       map(res => {
         console.log(res.access_token);
 
@@ -37,6 +37,8 @@ export class AuthService {
 
         localStorage.setItem('jwt', jwt)
         localStorage.setItem('role', role);
+
+        this.isLoggedIn = true;
       }),
 
       catchError(this.handleError<any>('login'))

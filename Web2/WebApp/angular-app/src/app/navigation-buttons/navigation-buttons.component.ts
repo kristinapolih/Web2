@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-navigation-buttons',
@@ -9,9 +10,14 @@ export class NavigationButtonsComponent implements OnInit {
 
 appTitle: string = 'BusNS';
 
-  constructor() { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
+  }
+
+  get isLogged ()
+  {
+    return this.authService.isLoggedIn;
   }
 
 }

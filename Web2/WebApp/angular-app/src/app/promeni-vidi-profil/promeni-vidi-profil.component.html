@@ -1,0 +1,165 @@
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-reg100">
+      <form [formGroup]="profilForm" (ngSubmit)="onSubmit()" class="login100-form validate-form">
+        <span class="login100-form-title p-b-59">
+          Profil
+        </span>
+
+        <div class="wrap-input100 validate-input" data-validate="Ime je obavezno">
+          <span class="label-input100">Ime</span>
+          <input class="input100" type="text" formControlName="name" value="Neko ime" [readonly]="menjaProfil" >
+          <span class="focus-input100"></span>
+          <span class="symbol-reg100">
+            <i class="fa fa-font" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched) && !menjaProfil" class="alert alert-danger">
+          <div *ngIf="f.name.errors.required">
+            Ime je obavezno.
+          </div>
+          <div *ngIf="f.name.errors.minlength">
+            Ime mora da se sastoji od minimum 3 slova.
+          </div>
+        </div>
+
+
+        <div class="wrap-input100 validate-input" data-validate="Prezime je obavezno">
+          <span class="label-input100">Prezime</span>
+          <input class="input100" type="text" formControlName="surname" [readonly]="menjaProfil" value="Neko prezime">
+          <span class="focus-input100"></span>
+          <span class="symbol-reg100">
+            <i class="fa fa-font" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div *ngIf="f.surname.invalid && (f.surname.dirty || f.surname.touched) && !menjaProfil" class="alert alert-danger">
+          <div *ngIf="f.surname.errors.required">
+            Prezime je obavezno.
+          </div>
+          <div *ngIf="f.surname.errors.minlength">
+            Prezime mora da se sastoji od minimum 3 slova.
+          </div>
+        </div>
+
+
+        <div class="wrap-input100 validate-input" data-validate="Validna email adresa: someone@gmail.com">
+          <span class="label-input100">Email</span>
+          <input class="input100" type="text" formControlName="email" required placeholder="Email adresa..." required
+            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [readonly]="menjaProfil">
+          <span class="focus-input100"> </span>
+          <span class="symbol-reg100">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched) && !menjaProfil" class="alert alert-danger">
+          <div *ngIf="f.email.errors.required">
+            Email je obavezan.
+          </div>
+          <div *ngIf="f.email.errors && f.email.errors.pattern" class="alert alert-danger">
+            Email nije u ispravnom formatu.
+          </div>
+        </div>
+
+
+        <div class="wrap-input100 validate-input" data-validate="Lozinka je neophodna">
+          <span class="label-input100">Lozinka</span>
+          <input class="input100" type="password" formControlName="pass" required placeholder="*************" [readonly]="menjaProfil">
+          <span class="focus-input100"></span>
+          <span class="symbol-reg100">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div *ngIf="f.pass.invalid && (f.pass.dirty || f.pass.touched) && !menjaProfil" class="alert alert-danger">
+          <div *ngIf="f.pass.errors.required">
+            Lozinka je obavezna.
+          </div>
+        </div>
+
+
+        <div class="wrap-input100 validate-input" data-validate="Ponovljena lozinka je neophodna">
+          <span class="label-input100">Ponovljena lozinka</span>
+          <input class="input100" type="password" formControlName="repeatpass" required placeholder="*************" [readonly]="menjaProfil">
+          <span class="focus-input100"></span>
+          <span class="symbol-reg100">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div *ngIf="f.repeatpass.invalid && (f.repeatpass.dirty || f.repeatpass.touched) && !menjaProfil" class="alert alert-danger">
+          <div *ngIf="f.repeatpass.errors.required">
+            Lozinka je obavezna.
+          </div>
+          <div *ngIf="f.repeatpass.errors.mustMatch">
+            Lozinke se moraju poklapati
+          </div>
+        </div>
+
+
+        <div class="wrap-input100 validate-input" data-validate="Adresa je neophodna">
+          <span class="label-input100">Adresa</span>
+          <input class="input100" type="text" formControlName="address" required placeholder="Adresa..." [readonly]="menjaProfil">
+          <span class="focus-input100"></span>
+          <span class="symbol-reg100">
+            <i class="fa fa-home" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div *ngIf="f.address.invalid && (f.address.dirty || f.address.touched) && !menjaProfil" class="alert alert-danger">
+          <div *ngIf="f.address.errors.required">
+            Adresa je obavezna.
+          </div>
+        </div>
+
+
+        <div class="wrap-input100 validate-input" data-validate="Datum rodjenja je nophodan">
+          <span class="label-input100">Datum rođenja</span>
+          <input class="input100" type="date" formControlName="datumRodjenja" required placeholder="Datum rodjenja..." [readonly]="menjaProfil">
+          <span class="focus-input100"></span>
+          <span class="symbol-reg100">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div *ngIf="f.datumRodjenja.invalid && (f.datumRodjenja.dirty || f.datumRodjenja.touched) && !menjaProfil"
+          class="alert alert-danger">
+          <div *ngIf="f.datumRodjenja.errors.required">
+            Datum rođenja je obavezan.
+          </div>
+        </div>
+
+
+        <div class="wrap-input100 validate-input">
+          <span class="label-input100">Tip putnika</span>
+          <select class="selectbox input100" formControlName="tipputnika">
+            <option value="RegularniPutnik" selected>Regularni putnik</option>
+            <option value="Djak"> Djak</option>
+            <option value="Penzioner">Penzioner</option>
+          </select>
+          <span class="focus-input100"></span>
+          <span class="symbol-reg100">
+            <i class="fa fa-user" aria-hidden="true"></i>
+          </span>
+        </div>
+
+        <!--TODO slika da se pojavi ako se odabere djak ili penzioner-->
+        
+        <div class="container-login100-form-btn">
+            <div class="wrap-login100-form-btn">
+              <div class="login100-form-bgbtn"></div>
+              <button (click)="MenjaProfil()" *ngIf="menjaProfil" class="login100-form-btn">
+                Izmeni profilbbbb
+              </button>
+            </div>
+          </div>
+
+
+        <div class="container-login100-form-btn">
+          <div class="wrap-login100-form-btn">
+            <div class="login100-form-bgbtn"></div>
+            <button type="submit" *ngIf="!menjaProfil" [disabled]="!profilForm.valid" class="login100-form-btn">
+              Izmeni profilaaaaa
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
