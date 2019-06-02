@@ -2,6 +2,15 @@
   <div class="container-redVoznje100">
     <div class="wrap-redVoznje100">
 
+        <div class="container-profilRight100-form-btn">
+            <div class="wrap-login100-form-btn">
+              <div class="login100-form-bgbtn"></div>
+              <button (click)="MenjaProfil()" *ngIf="mainService.isAdmin()" class="profilRight100-form-btn">
+                Izmeni profil
+              </button>
+            </div>
+          </div>
+
       <form [formGroup]="cenovnikForm" (ngSubmit)="onSubmit()" class="login100-form validate-form">
         <span class="login100-form-title  p-b-59">
           Cenovnik

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { MainServiceService } from '../main-service.service';
 
 @Component({
   selector: 'app-red-voznje',
@@ -15,7 +16,7 @@ export class RedVoznjeComponent implements OnInit {
     linija: ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private mainService:MainServiceService) { }
 
   get f() { return this.redVoznjeForm.controls; }
 

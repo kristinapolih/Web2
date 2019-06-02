@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit {
     let poruka = this.authService.login(this.loginForm.value).subscribe(
       (res) => {
         console.log(res);
-        if(localStorage.role == "User")
+        if(localStorage.role == "AppUser")
         {
-          this.router.navigate(['/red-voznje']);
+          this.router.navigate(['/']);
         }
         else if(localStorage.role == "Admin")
         {
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         else if(localStorage.role == "Controller")
         {
           //TODO change
-          this.router.navigate(['/red-voznje']);
+          this.router.navigate(['/verifikacija-karte']);
         }
       }
     );

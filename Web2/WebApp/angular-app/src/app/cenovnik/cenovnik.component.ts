@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { MainServiceService } from '../main-service.service';
 
 @Component({
   selector: 'app-cenovnik',
@@ -14,7 +15,7 @@ export class CenovnikComponent implements OnInit {
     tipputnika: ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private mainService:MainServiceService) { }
 
   get f() { return this.cenovnikForm.controls; }
 

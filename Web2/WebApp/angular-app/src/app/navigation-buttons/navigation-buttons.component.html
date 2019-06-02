@@ -21,22 +21,18 @@
             <a class="nav-link" routerLinkActive="active" routerLink="/mreza-linija">Mreža linija</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" routerLink="/trenutna-lokacija-vozila">Trenutna lokacija
-              vozila</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" routerLinkActive="active" routerLink="/cenovnik">Cenovnik</a>
           </li>
         </ul>
         <ul class="navbar-nav nav-pills navbar-right mt-1">
           <li class="nav-item">
-            <a routerLinkActive="active" *ngIf="isLogged" class="nav-link" routerLink="/promeni-vidi-profil"> Profil </a>
+            <a routerLinkActive="active" *ngIf="isUserProfile()" class="nav-link" routerLink="/promeni-vidi-profil"> Profil </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" *ngIf="!isLogged" routerLink="/prijavite-se">Prijavite se</a>
+            <a class="nav-link" routerLinkActive="active" *ngIf="!isLogin()" routerLink="/prijavite-se">Prijavite se</a>
           </li>
           <li class="nav-item">
-            <a (click)="logout()" routerLinkActive="active" *ngIf="isLogged" class="nav-link" routerLink="/prijavite-se"> Odjavite se </a>
+            <a (click)="logout()" routerLinkActive="active" *ngIf="isLogin()" class="nav-link" routerLink="/prijavite-se"> Odjavite se </a>
           </li>
         </ul>
       </div>

@@ -8,7 +8,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { RedVoznjeComponent } from './red-voznje/red-voznje.component';
 import { MrezaLinijaComponent } from './mreza-linija/mreza-linija.component';
-import { TrenutnaLokacijaVozilaComponent } from './trenutna-lokacija-vozila/trenutna-lokacija-vozila.component';
 import { CenovnikComponent } from './cenovnik/cenovnik.component';
 import { LoginComponent } from './login/login.component';
 import { RegistracijaComponent } from 'src/app/registracija/registracija.component';
@@ -19,11 +18,10 @@ const routes: Routes = [
   { path: '', component: RedVoznjeComponent },
   { path: 'red-voznje', component: RedVoznjeComponent },
   { path: 'mreza-linija', component: MrezaLinijaComponent },
-  { path: 'trenutna-lokacija-vozila', component: TrenutnaLokacijaVozilaComponent },
   { path: 'cenovnik', component: CenovnikComponent },
   { path: 'prijavite-se', component: LoginComponent },
   { path: 'registracija', component: RegistracijaComponent },
-  { path: 'promeni-vidi-profil', component: PromeniVidiProfilComponent }
+  { path: 'promeni-vidi-profil', component: PromeniVidiProfilComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

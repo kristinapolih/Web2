@@ -37,6 +37,7 @@ export class AuthService {
 
         localStorage.setItem('jwt', jwt)
         localStorage.setItem('role', role);
+        localStorage.setItem('login', 'true');
 
         this.isLoggedIn = true;
       }),
@@ -48,6 +49,8 @@ export class AuthService {
   logout(): void {
     this.isLoggedIn = false;
     localStorage.removeItem('jwt');
+    localStorage.removeItem('role');
+        localStorage.setItem('login', 'false');
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

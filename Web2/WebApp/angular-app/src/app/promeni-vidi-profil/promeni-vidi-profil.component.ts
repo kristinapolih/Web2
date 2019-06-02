@@ -27,8 +27,6 @@ export class PromeniVidiProfilComponent implements OnInit {
 
   get f() { return this.profilForm.controls; }
 
-  get fMenjaProfil() { return this.menjaProfil; }
-
   ngOnInit() {
   }
    
@@ -38,7 +36,7 @@ export class PromeniVidiProfilComponent implements OnInit {
   }
 
   MenjaProfil() {
-    this.menjaProfil = true;
+    this.menjaProfil = false;
   }
 
 }

@@ -11,7 +11,6 @@ import { RedVoznjeComponent } from './red-voznje/red-voznje.component';
 
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { MrezaLinijaComponent } from './mreza-linija/mreza-linija.component';
-import { TrenutnaLokacijaVozilaComponent } from './trenutna-lokacija-vozila/trenutna-lokacija-vozila.component';
 import { CenovnikComponent } from './cenovnik/cenovnik.component';
 import { LoginComponent } from './login/login.component';
 import { RegistracijaComponent } from './registracija/registracija.component';
@@ -24,7 +23,6 @@ import { PromeniVidiProfilComponent } from './promeni-vidi-profil/promeni-vidi-p
     NavigationButtonsComponent,
     RedVoznjeComponent,
     MrezaLinijaComponent,
-    TrenutnaLokacijaVozilaComponent,
     CenovnikComponent,
     LoginComponent,
     RegistracijaComponent,
