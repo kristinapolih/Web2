@@ -16,27 +16,13 @@
         <span class="login100-form-title  p-b-59">
           Gradski i prigradski red vožnje
         </span>
-        <p>
-          <!--datum danasnji-->
-        </p>
-
-
-        <div class="wrap-input100 validate-input">
-          <span class="label-input100">Red vožnje važi od</span>
-          <!-- datum od kada vazi-->
-          <input class="input100" type="text" readonly>
-          <span class="focus-input100"></span>
-          <span class="symbol-reg100">
-            <i class="fa fa-calendar" aria-hidden="true"></i>
-          </span>
-        </div>
+        <p> {{ danasnjiDatum }} </p>
 
 
         <div class="wrap-input100 validate-input">
           <span class="label-input100">Red vožnje</span>
-          <select class="selectbox input100" formControlName="redvoznje">
-            <option value="Gradski" selected>Gradski</option>
-            <option value="Prigradski"> Prigradski</option>
+        <select class="selectbox input100" formControlName="redvoznje" [(ngModel)]="selectedTipRedVoznje">
+            <option *ngFor="let c of tipRedVoznje" [ngValue]="c">{{c}}</option>
           </select>
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
@@ -47,10 +33,8 @@
 
         <div class="wrap-input100 validate-input">
           <span class="label-input100">Dan</span>
-          <select class="selectbox input100" formControlName="dan">
-            <option value="RadniDan" selected>Radni dan</option>
-            <option value="S">Subota</option>
-            <option value="N">Nedelja</option>
+          <select class="selectbox input100" formControlName="dan" [(ngModel)]="selectedtipDana">
+            <option *ngFor="let c of tipDana" [ngValue]="c">{{c}}</option>
           </select>
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
@@ -61,31 +45,8 @@
 
         <div class="wrap-input100 validate-input">
           <span class="label-input100">Linija</span>
-          <select class="selectbox input100" formControlName="linija">
-            <option value="1*">1 KLISA-CENTAR-LIMAN I</option>
-            <option value="2.">2 CENTAR - NOVO NASELJE</option>
-            <option value="3.">3 PETROVARADIN-CENTAR-DETELINARA</option>
-            <option value="3A.">3A ZEL.STANICA - POBEDA</option>
-            <option value="4*">4 LIMAN IV - CENTAR - Z.STANICA</option>
-            <option value="5">5 TEMERINSKI PUT-CENTAR-AVIJATIČAR.NASELJE</option>
-            <option value="6">6 PODBARA-CENTAR-ADICE</option>
-            <option value="6A">6A ADICE - VETERNIK (O.S.MARIJA TRANDAFIL)</option>
-            <option value="7A.">7A N.NASELJE-Z.STAN-F.PIJA-LIMAN4-N.NASELJE</option>
-            <option value="7B.">7B N.NASELJE-LIMAN4-F.PIJA-Z.STAN-N.NASELJE</option>
-            <option value="8">8 NOVO NASELJE-CENTAR-LIMAN I</option>
-            <option value="9.">9 NOVO NASELJE - LIMAN - PETROVARADIN</option>
-            <option value="10">10 CENTAR-INDUST.ZONA JUG</option>
-            <option value="11A.">11A Z.STANICA-BOLNICA-LIMAN-Z.STANICA</option>
-            <option value="11B.">11B Z.STANICA-LIMAN-BOLNICA-Z.STANICA</option>
-            <option value="12.">12 CENTAR-TELEP</option>
-            <option value="13">13 DETELINARA - GRBAVICA - UNIVERZITET</option>
-            <option value="14">14 CENTAR - SAJLOVO</option>
-            <option value="15">15 CENTAR-INDUSTR.ZONA SEVER</option>
-            <option value="16.">16 ZELE.STANICA-PRISTANISNA ZONA</option>
-            <option value="17*">17 BIG TC - CENTAR</option>
-            <option value="18A">18A N.NASELJE-DETELINARA-CENTAR-LIMAN-N.NASELJE</option>
-            <option value="18B">18B N.NASELJE-LIMAN-CENTAR-DETELINARA-N.NASELJE</option>
-            <option value="20">20 ZEL.STANICA - LESNINA</option>
+          <select class="selectbox input100" formControlName="linija" [(ngModel)]="selectedtipLinije">
+            <option *ngFor="let c of tipLinije" [ngValue]="c">{{c}}</option>
           </select>
           <span class="focus-input100"></span>
           <span class="symbol-reg100">

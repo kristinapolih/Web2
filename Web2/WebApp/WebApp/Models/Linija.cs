@@ -9,7 +9,7 @@ namespace WebApp.Models
     public class Linija
     {
         public int iD;
-        public int redniBroj;
+        public string redniBroj;
         public TipVoznje tipVoznje;
         public List<int> iDStanica;
         public string polasci;
@@ -20,7 +20,7 @@ namespace WebApp.Models
             get { return iD; }
             set { iD = value; }
         }
-        public int Naziv
+        public string Naziv
         {
             get { return redniBroj; }
             set { redniBroj = value; }

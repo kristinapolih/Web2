@@ -446,3 +446,4 @@ E:\WEB2\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.csproj.CoreCompileInputs.cache
 E:\WEB2\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.csproj.CopyComplete
 E:\WEB2\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.dll
 E:\WEB2\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.pdb
+E:\WEB2\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.Migrations.SecondMigration.resources

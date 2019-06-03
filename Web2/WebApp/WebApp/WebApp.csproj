@@ -252,6 +252,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KartaController.cs" />
+    <Compile Include="Controllers\RedVoznjeController.cs" />
     <Compile Include="Controllers\StaniceController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -264,6 +265,10 @@
     <Compile Include="Migrations\201905281051082_FirstMigration.cs" />
     <Compile Include="Migrations\201905281051082_FirstMigration.Designer.cs">
       <DependentUpon>201905281051082_FirstMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906031819507_SecondMigration.cs" />
+    <Compile Include="Migrations\201906031819507_SecondMigration.Designer.cs">
+      <DependentUpon>201906031819507_SecondMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -411,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905281051082_FirstMigration.resx">
       <DependentUpon>201905281051082_FirstMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906031819507_SecondMigration.resx">
+      <DependentUpon>201906031819507_SecondMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
