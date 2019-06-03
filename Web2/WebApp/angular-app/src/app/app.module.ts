@@ -15,6 +15,7 @@ import { CenovnikComponent } from './cenovnik/cenovnik.component';
 import { LoginComponent } from './login/login.component';
 import { RegistracijaComponent } from './registracija/registracija.component';
 import { PromeniVidiProfilComponent } from './promeni-vidi-profil/promeni-vidi-profil.component';
+import { ProveriKarteComponent } from './proveri-karte/proveri-karte.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { PromeniVidiProfilComponent } from './promeni-vidi-profil/promeni-vidi-p
     CenovnikComponent,
     LoginComponent,
     RegistracijaComponent,
-    PromeniVidiProfilComponent
+    PromeniVidiProfilComponent,
+    ProveriKarteComponent
   ],
   imports: [
     BrowserModule,

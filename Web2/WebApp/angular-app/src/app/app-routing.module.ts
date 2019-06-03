@@ -13,15 +13,20 @@ import { LoginComponent } from './login/login.component';
 import { RegistracijaComponent } from 'src/app/registracija/registracija.component';
 import { AppComponent } from './app.component';
 import { PromeniVidiProfilComponent } from './promeni-vidi-profil/promeni-vidi-profil.component';
+import { ProveriKarteComponent } from 'src/app/proveri-karte/proveri-karte.component';
+import { ControllerGuard } from 'src/app/auth/controller.guard';
+import { AppUserGuard } from 'src/app/auth/appUser.guard';
+import { AuthNotGuard } from 'src/app/auth/authNot.guard';
 
 const routes: Routes = [
   { path: '', component: RedVoznjeComponent },
   { path: 'red-voznje', component: RedVoznjeComponent },
   { path: 'mreza-linija', component: MrezaLinijaComponent },
   { path: 'cenovnik', component: CenovnikComponent },
-  { path: 'prijavite-se', component: LoginComponent },
-  { path: 'registracija', component: RegistracijaComponent },
-  { path: 'promeni-vidi-profil', component: PromeniVidiProfilComponent, canActivate: [AuthGuard] }
+  { path: 'prijavite-se', component: LoginComponent, canActivate: [AuthNotGuard] },
+  { path: 'registracija', component: RegistracijaComponent, canActivate: [AuthNotGuard] },
+  { path: 'promeni-vidi-profil', component: PromeniVidiProfilComponent, canActivate: [AuthGuard, AppUserGuard] },
+  { path: 'proveri-karte', component: ProveriKarteComponent, canActivate: [AuthGuard, ControllerGuard] }
 ];
 
 @NgModule({

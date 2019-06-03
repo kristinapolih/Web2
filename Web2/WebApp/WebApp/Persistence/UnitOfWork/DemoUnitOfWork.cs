@@ -37,6 +37,8 @@ namespace WebApp.Persistence.UnitOfWork
         public ICenovnikStavkaRepository CenovnikStavkaRepository { get; set; }
         [Dependency]
         public IAdresaRepository AdresaRepository { get; set; }
+        [Dependency]
+        public IStavkaRepository StavkaRepository { get; set; }
 
         public int Complete()
         {

@@ -10,16 +10,34 @@ import { MainServiceService } from '../main-service.service';
 })
 export class CenovnikComponent implements OnInit {
 
+  TipKarte : any;
+
   cenovnikForm = this.fb.group({
     tipkarte: ['', Validators.required],
     tipputnika: ['', Validators.required]
   });
+  selectedTipKarte = null;
 
   constructor(private fb: FormBuilder, private mainService:MainServiceService) { }
 
   get f() { return this.cenovnikForm.controls; }
 
+  getTipKarte()
+  {
+    this.mainService.getTipKarte().subscribe(
+      (res) => {
+        this.TipKarte = res;
+       console.log(res);
+      },
+      (err) =>{
+        console.error(err);
+      }
+    );
+  
+  }
+
   ngOnInit() {
+    this.getTipKarte();
   }
    
 

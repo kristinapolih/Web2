@@ -81,6 +81,7 @@ namespace WebApp.App_Start
             container.RegisterType<ILinijaRepository, LinijaRepository>();
             container.RegisterType<IRedVoznjeRepository, RedVoznjeRepository>();
             container.RegisterType<IStanicaRepository, StanicaRepository>();
+            container.RegisterType<IStavkaRepository, StavkaRepository>();
         }
 
         public void Dispose()

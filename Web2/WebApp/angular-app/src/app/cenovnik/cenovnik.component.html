@@ -22,12 +22,15 @@
 
         <div class="wrap-input100 validate-input">
           <span class="label-input100">Tip karte</span>
-          <select class="selectbox input100" formControlName="tipkarte">
+          <!--<select class="selectbox input100" formControlName="tipkarte">
             <option value="Vremenska" selected>Vremenska</option>
             <option value="Dnevna"> Dnevna</option>
             <option value="Mesecna">Mesecna</option>
             <option value="Godisnja"> Godisnja</option>
-          </select>
+          </select>-->
+          <select class="selectbox input100" formControlName="tipkarte" [(ngModel)]="selectedTipKarte">
+              <option *ngFor="let c of TipKarte" [ngValue]="c">{{c.tipKarte}}</option>
+            </select>
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
             <i class="fa fa-id-card" aria-hidden="true"></i>

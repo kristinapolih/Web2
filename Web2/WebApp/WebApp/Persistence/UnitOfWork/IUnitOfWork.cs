@@ -19,6 +19,7 @@ namespace WebApp.Persistence.UnitOfWork
         ICenovnikRepository CenovnikRepository { get; set; }
         ICenovnikStavkaRepository CenovnikStavkaRepository { get; set; }
         IAdresaRepository AdresaRepository { get; set; }
+        IStavkaRepository StavkaRepository { get; set; }
         int Complete();
     }
 }
