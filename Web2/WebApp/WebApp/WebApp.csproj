@@ -270,6 +270,10 @@
     <Compile Include="Migrations\201906031819507_SecondMigration.Designer.cs">
       <DependentUpon>201906031819507_SecondMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906041518493_ThirdMigration.cs" />
+    <Compile Include="Migrations\201906041518493_ThirdMigration.Designer.cs">
+      <DependentUpon>201906041518493_ThirdMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -283,7 +287,6 @@
     <Compile Include="Models\Koordinate.cs" />
     <Compile Include="Models\Korisnik.cs" />
     <Compile Include="Models\Linija.cs" />
-    <Compile Include="Models\RedVoznje.cs" />
     <Compile Include="Models\Stanica.cs" />
     <Compile Include="Models\Stavka.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
@@ -298,7 +301,6 @@
     <Compile Include="Persistence\Repository\IKoordinateRepository.cs" />
     <Compile Include="Persistence\Repository\IKorisnikRepository.cs" />
     <Compile Include="Persistence\Repository\ILinijaRepository.cs" />
-    <Compile Include="Persistence\Repository\IRedVoznjeRepository.cs" />
     <Compile Include="Persistence\Repository\IRepository.cs" />
     <Compile Include="Persistence\Repository\IStanicaRepository.cs" />
     <Compile Include="Persistence\Repository\IStavkaRepository.cs" />
@@ -307,7 +309,6 @@
     <Compile Include="Persistence\Repository\KoordinateRepository.cs" />
     <Compile Include="Persistence\Repository\KorisnikRepository.cs" />
     <Compile Include="Persistence\Repository\LinijaRepository.cs" />
-    <Compile Include="Persistence\Repository\RedVoznjeRepository.cs" />
     <Compile Include="Persistence\Repository\Repository.cs" />
     <Compile Include="Persistence\Repository\StanicaRepository.cs" />
     <Compile Include="Persistence\Repository\StavkaRepository.cs" />
@@ -419,6 +420,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906031819507_SecondMigration.resx">
       <DependentUpon>201906031819507_SecondMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906041518493_ThirdMigration.resx">
+      <DependentUpon>201906041518493_ThirdMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

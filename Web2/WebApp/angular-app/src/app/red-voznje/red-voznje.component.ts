@@ -29,8 +29,8 @@ export class RedVoznjeComponent implements OnInit {
 
   get f() { return this.redVoznjeForm.controls; }
 
-  getLinijeGradske() {
-    this.mainService.getLinijeGradske().subscribe(
+  getLinijeGradskeRadniDan() {
+    this.mainService.getLinijeGradskeRadniDan().subscribe(
       (res) => {
         this.tipLinije = res;
         console.log(res);
@@ -41,15 +41,71 @@ export class RedVoznjeComponent implements OnInit {
     );
   }
 
-  PromeniLiniju()
-  {
-    if (this.tipRedVoznje == 'Gradski')
-    {
-      this.getLinijeGradske();
+  getLinijeGradskeSubota() {
+    this.mainService.getLinijeGradskeSubota().subscribe(
+      (res) => {
+        this.tipLinije = res;
+        console.log(res);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+
+  getLinijeGradskeNedelja() {
+    this.mainService.getLinijeGradskeNedelja().subscribe(
+      (res) => {
+        this.tipLinije = res;
+        console.log(res);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+
+  PromeniLiniju() {
+    if (this.selectedTipRedVoznje == 'Gradski') {
+      if (this.selectedtipDana == 'RadniDan') {
+        this.getLinijeGradskeRadniDan();
+      }
+      else if (this.selectedtipDana == 'Subota') {
+        this.getLinijeGradskeSubota();
+      }
+      else {
+        this.getLinijeGradskeNedelja();
+      }
     }
-    else
-    {
+    else {
       this.getLinijePrigradske();
+    }
+  }
+
+  PromeniDan() {
+    if (this.selectedtipDana == 'RadniDan') {
+      if (this.selectedTipRedVoznje == 'Gradski') {
+        this.getLinijeGradskeRadniDan();
+      }
+      else {
+        this.getLinijePrigradske();
+      }
+    }
+    else if (this.selectedtipDana == 'Subota') {
+      if (this.selectedTipRedVoznje == 'Gradski') {
+        this.getLinijeGradskeSubota();
+      }
+      else {
+        this.getLinijePrigradske();
+      }
+    }
+    else {
+      if (this.selectedTipRedVoznje == 'Gradski') {
+        this.getLinijeGradskeNedelja();
+      }
+      else {
+        this.getLinijePrigradske();
+      }
     }
   }
 
@@ -107,8 +163,7 @@ export class RedVoznjeComponent implements OnInit {
     this.getDanasnjiDatum();
     this.getTipRedVoznje();
     this.getTipDana();
-    this.getLinijeGradske();
-    //this.getLinijePrigradske();
+    this.getLinijeGradskeRadniDan();
   }
 
   onSubmit() {
@@ -125,7 +180,7 @@ export class RedVoznjeComponent implements OnInit {
     console.warn(this.redVoznjeForm.value);
   }
 
-  showLine(){
+  showLine() {
     this.router.navigateByUrl("red-voznje/linija");
   }
 

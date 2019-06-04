@@ -20,8 +20,6 @@ namespace WebApp.Persistence.UnitOfWork
         [Dependency]
         public IStanicaRepository StanicaRepository { get; set; }
         [Dependency]
-        public IRedVoznjeRepository RedVoznjeRepository { get; set; }
-        [Dependency]
         public ILinijaRepository LinijaRepository { get; set; }
         [Dependency]
         public IKorisnikRepository KorisnikRepository { get; set; }

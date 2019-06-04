@@ -33,7 +33,7 @@
 
         <div class="wrap-input100 validate-input">
           <span class="label-input100">Dan</span>
-          <select class="selectbox input100" formControlName="dan" [(ngModel)]="selectedtipDana">
+          <select class="selectbox input100" (click)="PromeniDan()" formControlName="dan" [(ngModel)]="selectedtipDana">
             <option *ngFor="let c of tipDana" [ngValue]="c">{{c}}</option>
           </select>
           <span class="focus-input100"></span>
@@ -67,7 +67,7 @@
 
     </div>
 
-    <div class="col-5">
+    <div class="col-4">
         <router-outlet></router-outlet>
       </div>
 

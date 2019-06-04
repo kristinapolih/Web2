@@ -48,10 +48,24 @@ namespace WebApp.Controllers
             return Ok(lista);
         }
 
-        [HttpGet, Route("getLinijeGradske")]
-        public IHttpActionResult GetLinijeGradske()
+        [HttpGet, Route("getLinijeGradskeRadniDan")]
+        public IHttpActionResult GetLinijeGradskeRadniDan()
         {
-            List<string> lista = unitOfWork.LinijaRepository.GetAll().Where(x => x.TipVoznje == TipVoznje.Gradski).Select(x => x.Naziv).ToList();
+            List<string> lista = unitOfWork.LinijaRepository.GetAll().Where(x => x.TipVoznje == TipVoznje.Gradski && x.Datum == DanUNedelji.RadniDan).Select(x => x.Naziv).ToList();
+            return Ok(lista);
+        }
+
+        [HttpGet, Route("getLinijeGradskeSubota")]
+        public IHttpActionResult GetLinijeGradskeSubota()
+        {
+            List<string> lista = unitOfWork.LinijaRepository.GetAll().Where(x => x.TipVoznje == TipVoznje.Gradski && x.Datum == DanUNedelji.Subota).Select(x => x.Naziv).ToList();
+            return Ok(lista);
+        }
+
+        [HttpGet, Route("getLinijeGradskeNedelja")]
+        public IHttpActionResult GetLinijeGradskeNedelja()
+        {
+            List<string> lista = unitOfWork.LinijaRepository.GetAll().Where(x => x.TipVoznje == TipVoznje.Gradski && x.Datum == DanUNedelji.Nedelja).Select(x => x.Naziv).ToList();
             return Ok(lista);
         }
 
@@ -71,7 +85,15 @@ namespace WebApp.Controllers
             string dan = (string)jUser["dan"];
             string linija = (string)jUser["linija"];
 
-            List<string> polasci = unitOfWork.LinijaRepository.Find(x => x.Naziv == linija).Select(x => x.Polasci).ToList();
+            DanUNedelji d = DanUNedelji.RadniDan;
+            if (String.Compare(dan, d.ToString()) == 0)
+                d = DanUNedelji.RadniDan;
+            else if (String.Compare(dan, DanUNedelji.Subota.ToString()) == 0)
+                d = DanUNedelji.Subota;
+            else
+                d = DanUNedelji.Nedelja;
+
+            List<string> polasci = unitOfWork.LinijaRepository.Find(x => x.Naziv == linija && x.Datum == d).Select(x => x.Polasci).ToList();
             string[] vremena = polasci[0].Split('.');
 
             List<string> lista = new List<string>();

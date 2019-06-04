@@ -10,7 +10,6 @@ namespace WebApp.Persistence.UnitOfWork
     public interface IUnitOfWork : IDisposable
     {
         IStanicaRepository StanicaRepository { get; set; }
-        IRedVoznjeRepository RedVoznjeRepository { get; set; }
         ILinijaRepository LinijaRepository { get; set; }
         IKorisnikRepository KorisnikRepository { get; set; }
         IKoordinateRepository KoordinateRepository { get; set; }

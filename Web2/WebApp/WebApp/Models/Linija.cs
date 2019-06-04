@@ -11,6 +11,7 @@ namespace WebApp.Models
         public int iD;
         public string redniBroj;
         public TipVoznje tipVoznje;
+        public DanUNedelji datum;
         public List<int> iDStanica;
         public string polasci;
 
@@ -29,6 +30,11 @@ namespace WebApp.Models
         {
             get { return tipVoznje; }
             set { tipVoznje = value; }
+        }
+        public DanUNedelji Datum
+        {
+            get { return datum; }
+            set { datum = value; }
         }
         public List<int> IDStanica
         {

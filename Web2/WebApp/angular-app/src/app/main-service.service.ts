@@ -54,8 +54,16 @@ export class MainServiceService {
     return this.http.get<any>('http://localhost:52295/api/RedVoznje/getTipDana');
   }
 
-  getLinijeGradske(): Observable<any> {
-    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijeGradske');
+  getLinijeGradskeRadniDan(): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijeGradskeRadniDan');
+  }
+
+  getLinijeGradskeSubota(): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijeGradskeSubota');
+  }
+
+  getLinijeGradskeNedelja(): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijeGradskeNedelja');
   }
 
   getLinijePrigradske(): Observable<any> {

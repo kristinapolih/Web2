@@ -23,7 +23,6 @@ namespace WebApp.Persistence
 
         public DbSet<Stanica> Stanicas { get; set; }
         public DbSet<Stavka> Stavkas { get; set; }
-        public DbSet<RedVoznje> RedVoznjes { get; set; }
         public DbSet<Linija> Linijas { get; set; }
         public DbSet<Korisnik> Korisniks { get; set; }
         public DbSet<Koordinate> Koordinates { get; set; }
