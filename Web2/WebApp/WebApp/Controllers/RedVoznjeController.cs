@@ -48,10 +48,17 @@ namespace WebApp.Controllers
             return Ok(lista);
         }
 
-        [HttpGet, Route("getLinije")]
-        public IHttpActionResult GetLinije()
+        [HttpGet, Route("getLinijeGradske")]
+        public IHttpActionResult GetLinijeGradske()
         {
-            List<string> lista = unitOfWork.LinijaRepository.GetAll().Select(x => x.Naziv).ToList();
+            List<string> lista = unitOfWork.LinijaRepository.GetAll().Where(x => x.TipVoznje == TipVoznje.Gradski).Select(x => x.Naziv).ToList();
+            return Ok(lista);
+        }
+
+        [HttpGet, Route("getLinijePrigradske")]
+        public IHttpActionResult GetLinijePrigradske()
+        {
+            List<string> lista = unitOfWork.LinijaRepository.GetAll().Where(x => x.TipVoznje == TipVoznje.Prigradski).Select(x => x.Naziv).ToList();
             return Ok(lista);
         }
 
@@ -64,8 +71,14 @@ namespace WebApp.Controllers
             string dan = (string)jUser["dan"];
             string linija = (string)jUser["linija"];
 
-            //TODO
-            List<string> lista = unitOfWork.LinijaRepository.GetAll().Select(x => x.Naziv).ToList();
+            List<string> polasci = unitOfWork.LinijaRepository.Find(x => x.Naziv == linija).Select(x => x.Polasci).ToList();
+            string[] vremena = polasci[0].Split('.');
+
+            List<string> lista = new List<string>();
+            foreach(var s in vremena)
+            {
+                lista.Add(s);
+            }
             return Ok(lista);
         }
     }

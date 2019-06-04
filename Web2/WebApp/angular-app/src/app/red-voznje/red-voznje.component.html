@@ -1,27 +1,27 @@
 <div class="limiter">
   <div class="container-login100">
-    <div class="wrap-reg100">
+    <div class="wrap-login100">
 
-        <div class="container-profilRight100-form-btn">
-            <div class="wrap-login100-form-btn">
-              <div class="login100-form-bgbtn"></div>
-              <button (click)="MenjaProfil()" *ngIf="mainService.isAdmin()" class="profilRight100-form-btn">
-                Izmeni profil
-              </button>
-            </div>
-          </div>
-
+      <div class="col-2">
+      <div class="container-profilRight100-form-btn">
+        <div class="wrap-login100-form-btn">
+          <div class="login100-form-bgbtn"></div>
+          <button (click)="MenjaProfil()" *ngIf="mainService.isAdmin()" class="profilRight100-form-btn">
+            Izmeni red vožnje
+          </button>
+        </div>
+      </div>
 
       <form [formGroup]="redVoznjeForm" (ngSubmit)="onSubmit()" class="login100-form validate-form">
         <span class="login100-form-title  p-b-59">
           Gradski i prigradski red vožnje
         </span>
-        <p> {{ danasnjiDatum }} </p>
+        <p class="txt2"> {{ danasnjiDatum }} </p>
 
 
         <div class="wrap-input100 validate-input">
           <span class="label-input100">Red vožnje</span>
-        <select class="selectbox input100" formControlName="redvoznje" [(ngModel)]="selectedTipRedVoznje">
+          <select class="selectbox input100" (click)="PromeniLiniju()" formControlName="redvoznje" [(ngModel)]="selectedTipRedVoznje">
             <option *ngFor="let c of tipRedVoznje" [ngValue]="c">{{c}}</option>
           </select>
           <span class="focus-input100"></span>
@@ -58,12 +58,19 @@
         <div class="container-login100-form-btn">
           <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
-            <button type="submit" [disabled]="!redVoznjeForm.valid" class="login100-form-btn">
+            <button type="submit" [disabled]="!redVoznjeForm.valid" (click)="showLine()" class="login100-form-btn">
               Prikaži
             </button>
           </div>
         </div>
       </form>
+
+    </div>
+
+    <div class="col-5">
+        <router-outlet></router-outlet>
+      </div>
+
     </div>
   </div>
 </div>

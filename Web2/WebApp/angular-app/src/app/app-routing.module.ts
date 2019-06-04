@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';  
+import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from './auth/auth.guard';
@@ -17,10 +17,17 @@ import { ProveriKarteComponent } from 'src/app/proveri-karte/proveri-karte.compo
 import { ControllerGuard } from 'src/app/auth/controller.guard';
 import { AppUserGuard } from 'src/app/auth/appUser.guard';
 import { AuthNotGuard } from 'src/app/auth/authNot.guard';
+import { RedVoznjePrikaziLinijuComponent } from 'src/app/red-voznje-prikazi-liniju/red-voznje-prikazi-liniju.component';
 
 const routes: Routes = [
-  { path: '', component: RedVoznjeComponent },
-  { path: 'red-voznje', component: RedVoznjeComponent },
+  {
+    path: 'red-voznje', 
+    component: RedVoznjeComponent,
+    children: [{
+      path: 'linija',
+      component: RedVoznjePrikaziLinijuComponent
+    }]
+  },
   { path: 'mreza-linija', component: MrezaLinijaComponent },
   { path: 'cenovnik', component: CenovnikComponent },
   { path: 'prijavite-se', component: LoginComponent, canActivate: [AuthNotGuard] },
@@ -31,7 +38,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    BrowserModule, 
+    BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes)

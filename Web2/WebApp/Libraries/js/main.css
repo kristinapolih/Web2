@@ -147,6 +147,13 @@ iframe {
   color: #e7dd82;
 }
 
+.txt3 {
+  font-family: Poppins-Regular;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #e7dd82;
+}
+
 
 /*//////////////////////////////////////////////////////////////////
 [ login ]*/
@@ -169,6 +176,27 @@ iframe {
   align-items: center;
   align-content: center;
   align-self: center;
+  padding: 0px;
+  background: #31af7f;
+  background: -webkit-linear-gradient(-135deg, #31af7f, #5485c5);
+  background: -o-linear-gradient(-135deg, #31af7f, #5485c5);
+  background: -moz-linear-gradient(-135deg, #31af7f, #5485c5);
+  background: linear-gradient(-135deg, #31af7f, #5485c5);
+}
+
+.container-redvoznje100 {
+  width: 100%;  
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-items: left;
+  align-content: left;
+  align-self: left;
   padding: 0px;
   background: #31af7f;
   background: -webkit-linear-gradient(-135deg, #31af7f, #5485c5);

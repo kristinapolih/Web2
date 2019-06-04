@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { MainServiceService } from '../main-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-red-voznje',
@@ -24,12 +25,36 @@ export class RedVoznjeComponent implements OnInit {
     linija: ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder, private mainService: MainServiceService) { }
+  constructor(private fb: FormBuilder, private mainService: MainServiceService, private router: Router) { }
 
   get f() { return this.redVoznjeForm.controls; }
 
-  getLinije() {
-    this.mainService.getLinije().subscribe(
+  getLinijeGradske() {
+    this.mainService.getLinijeGradske().subscribe(
+      (res) => {
+        this.tipLinije = res;
+        console.log(res);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+
+  PromeniLiniju()
+  {
+    if (this.tipRedVoznje == 'Gradski')
+    {
+      this.getLinijeGradske();
+    }
+    else
+    {
+      this.getLinijePrigradske();
+    }
+  }
+
+  getLinijePrigradske() {
+    this.mainService.getLinijePrigradske().subscribe(
       (res) => {
         this.tipLinije = res;
         console.log(res);
@@ -82,7 +107,8 @@ export class RedVoznjeComponent implements OnInit {
     this.getDanasnjiDatum();
     this.getTipRedVoznje();
     this.getTipDana();
-    this.getLinije();
+    this.getLinijeGradske();
+    //this.getLinijePrigradske();
   }
 
   onSubmit() {
@@ -97,6 +123,10 @@ export class RedVoznjeComponent implements OnInit {
     );
 
     console.warn(this.redVoznjeForm.value);
+  }
+
+  showLine(){
+    this.router.navigateByUrl("red-voznje/linija");
   }
 
 }

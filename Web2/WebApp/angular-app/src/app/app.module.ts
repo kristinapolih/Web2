@@ -16,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistracijaComponent } from './registracija/registracija.component';
 import { PromeniVidiProfilComponent } from './promeni-vidi-profil/promeni-vidi-profil.component';
 import { ProveriKarteComponent } from './proveri-karte/proveri-karte.component';
+import { RedVoznjePrikaziLinijuComponent } from './red-voznje-prikazi-liniju/red-voznje-prikazi-liniju.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ProveriKarteComponent } from './proveri-karte/proveri-karte.component';
     LoginComponent,
     RegistracijaComponent,
     PromeniVidiProfilComponent,
-    ProveriKarteComponent
+    ProveriKarteComponent,
+    RedVoznjePrikaziLinijuComponent
   ],
   imports: [
     BrowserModule,

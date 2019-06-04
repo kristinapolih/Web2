@@ -9,6 +9,9 @@ import { of } from 'rxjs';
 })
 export class MainServiceService {
 
+  polasci: any;
+  linija: any;
+
   constructor(private http: HttpClient) { }
 
   redVoznjeParametri(arg: any): Observable<any> {
@@ -22,11 +25,17 @@ export class MainServiceService {
       dan: arg.dan,
       linija: arg.linija
     };
+    this.linija = arg.linija;
     return this.http.post<any>('http://localhost:52295/api/RedVoznje/redVoznjeParametri', par, headers).pipe(
       map(res => {
-      }),
-      catchError(this.handleError<any>('register'))
+        this.polasci = res;
+      })
     );
+  }
+
+  getPolasci()
+  {
+    return this.polasci;
   }
 
   getTipKarte(): Observable<any> {
@@ -45,8 +54,12 @@ export class MainServiceService {
     return this.http.get<any>('http://localhost:52295/api/RedVoznje/getTipDana');
   }
 
-  getLinije(): Observable<any> {
-    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinije');
+  getLinijeGradske(): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijeGradske');
+  }
+
+  getLinijePrigradske(): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijePrigradske');
   }
 
   isAdmin() {
@@ -95,11 +108,5 @@ export class MainServiceService {
       }
     }
     return false;
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      return of(result as T);
-    };
   }
 }
