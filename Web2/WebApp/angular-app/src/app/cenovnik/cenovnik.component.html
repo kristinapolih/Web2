@@ -15,21 +15,15 @@
         <span class="login100-form-title  p-b-59">
           Cenovnik
         </span>
-        <p>
-          <!--datum danasnji-->
-        </p>
 
 
         <div class="wrap-input100 validate-input">
           <span class="label-input100">Tip karte</span>
-          <!--<select class="selectbox input100" formControlName="tipkarte">
+          <select class="selectbox input100" (click)="PromeniTipKarte()" formControlName="tipkarte" [(ngModel)]="selectedTipKarte">
             <option value="Vremenska" selected>Vremenska</option>
             <option value="Dnevna"> Dnevna</option>
             <option value="Mesecna">Mesecna</option>
-            <option value="Godisnja"> Godisnja</option>
-          </select>-->
-          <select class="selectbox input100" formControlName="tipkarte" [(ngModel)]="selectedTipKarte">
-              <option *ngFor="let c of TipKarte" [ngValue]="c">{{c.tipKarte}}</option>
+            <option value="Godisnja">Godisnja</option>
             </select>
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
@@ -40,7 +34,7 @@
 
         <div class="wrap-input100 validate-input">
           <span class="label-input100">Tip putnika</span>
-          <select class="selectbox input100" formControlName="tipputnika">
+          <select class="selectbox input100" (click)="PromeniTipaPutnika()" formControlName="tipputnika" [(ngModel)]="selectedTipPutnika">
             <option value="RegularniPutnik" selected>Regularni putnik</option>
             <option value="Djak"> Djak</option>
             <option value="Penzioner">Penzioner</option>
@@ -52,11 +46,21 @@
         </div>
 
 
+        <div class="wrap-input100 validate-input">
+          <span class="label-input100">Cena karte</span>
+          <input class="input100" type="text"  placeholder="{{cena}}" readonly>
+          <span class="focus-input100"></span>
+          <span class="symbol-reg100">
+              <i class="fa fa-money" aria-hidden="true"></i>
+            </span>
+        </div>
+
+
         <div class="container-login100-form-btn">
           <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
             <button type="submit" [disabled]="!cenovnikForm.valid" class="login100-form-btn">
-              Prikaži
+              Kupi kartu
             </button>
           </div>
         </div>

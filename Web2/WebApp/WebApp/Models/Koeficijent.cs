@@ -9,8 +9,8 @@ namespace WebApp.Models
     public class Koeficijent
     {
         public int iD;
-        public string ime;
-        public float vrednost;
+        public float djak;
+        public float pensioner;
 
         [Key]
         public int ID
@@ -18,15 +18,15 @@ namespace WebApp.Models
             get { return iD; }
             set { iD = value; }
         }
-        public string Ime
+        public float Djak
         {
-            get { return ime; }
-            set { ime = value; }
+            get { return djak; }
+            set { djak = value; }
         }
-        public float Vrednost
+        public float Pensioner
         {
-            get { return vrednost; }
-            set { vrednost = value; }
+            get { return pensioner; }
+            set { pensioner = value; }
         }
     }
 }

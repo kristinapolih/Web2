@@ -21,7 +21,7 @@ namespace WebApp.Controllers
             unitOfWork = uw;
         }
 
-        [HttpGet, Route("getTipKarte")]
+        /*[HttpGet, Route("getTipKarte")]
         //[Authorize(Roles = "Admin")]
         public IHttpActionResult GetTipKarte()
         {
@@ -31,8 +31,38 @@ namespace WebApp.Controllers
             }*/
             /*List<string> a = unitOfWork.AddressRepository.GetAll().ToList();
             return Ok(a);*/
-            List<Stavka> a = unitOfWork.StavkaRepository.GetAll().ToList();
+            /*List<Stavka> a = unitOfWork.StavkaRepository.GetAll().ToList();
             return Ok(a);
+        }*/
+
+
+        [Route("getCene")]
+        public IHttpActionResult GetCene()
+        {
+            Cenovnik cenovnik = unitOfWork.CenovnikRepository.GetAll().Where(x => DateTime.Compare(x.OD, DateTime.Now) < 0 && DateTime.Compare(x.DO, DateTime.Now) > 0).FirstOrDefault();
+
+            List<Stavka> stavka = unitOfWork.StavkaRepository.GetAll().ToList();
+            List<CenovnikStavka> cenovnikStavka = unitOfWork.CenovnikStavkaRepository.GetAll().Where(x => x.IDCenovnika == cenovnik.ID).ToList();
+
+            string json = "[";
+            int c = 0;
+            foreach (CenovnikStavka p in cenovnikStavka)
+            {
+                json += "{\"type\": \"" + stavka.Where(i => i.ID == p.IDSt5avka).FirstOrDefault().TipKarte.ToString() + "\",";
+                json += "\"price\": \"" + cenovnikStavka.Where(i => i.ID == p.ID).FirstOrDefault().Cena + "\"},";
+                c++;
+            }
+            json = json.Remove(json.Length - 1, 1);
+            json += "]";
+            
+            return Ok(json);
         }
+
+        /*[Route("getCoefficient")]
+        public IHttpActionResult GetCoefficient()
+        {
+            Coefficients coefficients = unitOfWork.CoefficientRepository.GetAll().FirstOrDefault();
+            return Ok(coefficients);
+        }*/
     }
 }

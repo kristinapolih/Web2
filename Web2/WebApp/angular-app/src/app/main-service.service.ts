@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Karta } from 'src/app/cenovnik/karta';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,25 @@ export class MainServiceService {
   linija: any;
 
   constructor(private http: HttpClient) { }
+
+  getCene(): Observable<any>
+  {
+    return this.http.get<any>('http://localhost:52295/api/Karta/getCene');
+  }
+
+  getCoefficient(): Observable<any>
+  {
+    return this.http.get<any>('http://localhost:52295/api/Karta/getCoefficient');
+  }
+
+  buyTicket(tipKorisnika: string, tipKarte: string, cena: number) : Observable<any>
+  {
+    let karta: Karta = new Karta();
+    karta.tipKorisnika = tipKorisnika;
+    karta.tipKarte = tipKarte;
+    karta.cena = cena;
+    return this.http.post<any>('http://localhost:52295/api/Karta/buyTicket',karta);
+  }
 
   redVoznjeParametri(arg: any): Observable<any> {
     let headers = {
@@ -36,10 +56,6 @@ export class MainServiceService {
   getPolasci()
   {
     return this.polasci;
-  }
-
-  getTipKarte(): Observable<any> {
-    return this.http.get<any>('http://localhost:52295/api/Karta/getTipKarte');
   }
 
   getDanasnjiDatum(): Observable<any> {
