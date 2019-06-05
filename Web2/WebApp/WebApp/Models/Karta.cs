@@ -13,6 +13,8 @@ namespace WebApp.Models
         public DateTime doDatum;
         public int iDCenovnikStavka;
         public int iDKorisnik;
+        public float cena;
+        private TipKarte tipKarte;
 
         [Key]
         public int ID
@@ -39,6 +41,16 @@ namespace WebApp.Models
         {
             get { return iDKorisnik; }
             set { iDKorisnik = value; }
+        }
+        public float Cena
+        {
+            get { return cena; }
+            set { cena = value; }
+        }
+        public TipKarte TipKarte
+        {
+            get { return tipKarte; }
+            set { tipKarte = value; }
         }
     }
 }

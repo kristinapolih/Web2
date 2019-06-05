@@ -48,7 +48,7 @@
 
         <div class="wrap-input100 validate-input">
           <span class="label-input100">Cena karte</span>
-          <input class="input100" type="text"  placeholder="{{cena}}" readonly>
+          <input class="input100" type="text" placeholder="{{cena}}" readonly>
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
               <i class="fa fa-money" aria-hidden="true"></i>
@@ -64,6 +64,10 @@
             </button>
           </div>
         </div>
+
+        <div *ngIf="canBuy" class="alert alert-danger">
+          Da bi ste kupili kartu morate da se ulogujete.
+      </div>
       </form>
     </div>
   </div>

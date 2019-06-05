@@ -9,6 +9,7 @@ namespace WebApp.Models
     public class Korisnik
     {
         public int iD;
+        public string iDUser;
         public string email;
         public string lozinka;
         public string ime;
@@ -25,6 +26,11 @@ namespace WebApp.Models
         {
             get { return iD; }
             set { iD = value; }
+        }
+        public string IDUser
+        {
+            get { return iDUser; }
+            set { iDUser = value; }
         }
         public string Email
         {

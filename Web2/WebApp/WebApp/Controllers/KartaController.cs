@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -21,20 +23,6 @@ namespace WebApp.Controllers
             unitOfWork = uw;
         }
 
-        /*[HttpGet, Route("getTipKarte")]
-        //[Authorize(Roles = "Admin")]
-        public IHttpActionResult GetTipKarte()
-        {
-            /*if (User.Identity.IsAuthenticated)
-            {
-                //User.IsInRole()
-            }*/
-            /*List<string> a = unitOfWork.AddressRepository.GetAll().ToList();
-            return Ok(a);*/
-            /*List<Stavka> a = unitOfWork.StavkaRepository.GetAll().ToList();
-            return Ok(a);
-        }*/
-
 
         [Route("getCene")]
         public IHttpActionResult GetCene()
@@ -44,25 +32,67 @@ namespace WebApp.Controllers
             List<Stavka> stavka = unitOfWork.StavkaRepository.GetAll().ToList();
             List<CenovnikStavka> cenovnikStavka = unitOfWork.CenovnikStavkaRepository.GetAll().Where(x => x.IDCenovnika == cenovnik.ID).ToList();
 
-            string json = "[";
-            int c = 0;
+            List<string> list = new List<string>();
             foreach (CenovnikStavka p in cenovnikStavka)
             {
-                json += "{\"type\": \"" + stavka.Where(i => i.ID == p.IDSt5avka).FirstOrDefault().TipKarte.ToString() + "\",";
-                json += "\"price\": \"" + cenovnikStavka.Where(i => i.ID == p.ID).FirstOrDefault().Cena + "\"},";
-                c++;
+                list.Add(cenovnikStavka.Where(i => i.ID == p.ID).FirstOrDefault().Cena);
             }
-            json = json.Remove(json.Length - 1, 1);
-            json += "]";
             
-            return Ok(json);
+            return Ok(list);
         }
 
-        /*[Route("getCoefficient")]
-        public IHttpActionResult GetCoefficient()
+        [Route("getKoeficijente")]
+        public IHttpActionResult GetKoeficijente()
         {
-            Coefficients coefficients = unitOfWork.CoefficientRepository.GetAll().FirstOrDefault();
-            return Ok(coefficients);
-        }*/
+            Koeficijent k = unitOfWork.KoeficijentRepository.GetAll().FirstOrDefault();
+            return Ok(k);
+        }
+
+
+        [HttpPost, Route("kupiKartu")]
+        [Authorize(Roles = "AppUser")]
+        public IHttpActionResult KupiKartu(KupljenaKarta karta)
+        {
+            var userStore = new UserStore<ApplicationUser>(dbContext);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
+            if (User.Identity.IsAuthenticated)
+            {
+                Karta k = new Karta();
+                k.odDatum = DateTime.Now;
+                k.DoDatum = DateTime.Now;
+                k.Cena = karta.Cena;
+
+                if (karta.TipKarte == TipKarte.Vremenska)
+                {
+                    k.DoDatum = k.DoDatum.AddHours(1);
+                    k.TipKarte = TipKarte.Vremenska;
+                }
+                else if (karta.TipKarte == TipKarte.Dnevna)
+                {
+                    k.DoDatum = k.DoDatum.AddDays(1);
+                    k.TipKarte = TipKarte.Dnevna;
+                }
+                else if (karta.TipKarte == TipKarte.Mesecna)
+                {
+                    k.DoDatum = k.DoDatum.AddMonths(1);
+                    k.TipKarte = TipKarte.Mesecna;
+                }
+                else if (karta.TipKarte == TipKarte.Godisnja)
+                {
+                    k.DoDatum = k.DoDatum.AddYears(1);
+                    k.TipKarte = TipKarte.Godisnja;
+                }
+
+                string s = User.Identity.GetUserId();
+                int passenger = unitOfWork.KorisnikRepository.GetAll().Where(x => x.IDUser == s).FirstOrDefault().ID;
+                k.IDKorisnik = passenger;
+
+                unitOfWork.KartaRepository.Add(k);
+                unitOfWork.Complete();
+                return Ok();
+            }
+            return Ok();
+        }
     }
 }

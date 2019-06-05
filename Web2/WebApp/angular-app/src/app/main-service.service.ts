@@ -20,18 +20,38 @@ export class MainServiceService {
     return this.http.get<any>('http://localhost:52295/api/Karta/getCene');
   }
 
-  getCoefficient(): Observable<any>
+  getKoeficijente(): Observable<any>
   {
-    return this.http.get<any>('http://localhost:52295/api/Karta/getCoefficient');
+    return this.http.get<any>('http://localhost:52295/api/Karta/getKoeficijente');
   }
 
-  buyTicket(tipKorisnika: string, tipKarte: string, cena: number) : Observable<any>
+  kupiKartu(tipKorisnika: string, tipKarte: string, cena: number) : Observable<any>
   {
     let karta: Karta = new Karta();
     karta.tipKorisnika = tipKorisnika;
     karta.tipKarte = tipKarte;
     karta.cena = cena;
-    return this.http.post<any>('http://localhost:52295/api/Karta/buyTicket',karta);
+    return this.http.post<any>('http://localhost:52295/api/Karta/kupiKartu',karta);
+  }
+
+  registracijaKorisnika(arg: any): Observable<any> {
+    let headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    let par = {
+      username: arg.email,
+      password: arg.password,
+      name: arg.name,
+      lastName: arg.surname,
+      birthday: arg.datumRodjenja,
+      adresa: arg.address,
+      tipPutnika: arg.tipputnika
+    };
+
+    return this.http.post<any>('http://localhost:52295/api/Registracija/registracijaKorisnika', par, headers);
   }
 
   redVoznjeParametri(arg: any): Observable<any> {

@@ -253,6 +253,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KartaController.cs" />
     <Compile Include="Controllers\RedVoznjeController.cs" />
+    <Compile Include="Controllers\RegistracijaController.cs" />
     <Compile Include="Controllers\StaniceController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -278,6 +279,18 @@
     <Compile Include="Migrations\201906050954544_FourthMigration.Designer.cs">
       <DependentUpon>201906050954544_FourthMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906051438124_FifthMigration.cs" />
+    <Compile Include="Migrations\201906051438124_FifthMigration.Designer.cs">
+      <DependentUpon>201906051438124_FifthMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906051444284_SixthMigration.cs" />
+    <Compile Include="Migrations\201906051444284_SixthMigration.Designer.cs">
+      <DependentUpon>201906051444284_SixthMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906051447557_SeventhMigration.cs" />
+    <Compile Include="Migrations\201906051447557_SeventhMigration.Designer.cs">
+      <DependentUpon>201906051447557_SeventhMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -290,7 +303,9 @@
     <Compile Include="Models\Koeficijent.cs" />
     <Compile Include="Models\Koordinate.cs" />
     <Compile Include="Models\Korisnik.cs" />
+    <Compile Include="Models\KupljenaKarta.cs" />
     <Compile Include="Models\Linija.cs" />
+    <Compile Include="Models\RegistracijaModel.cs" />
     <Compile Include="Models\Stanica.cs" />
     <Compile Include="Models\Stavka.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
@@ -430,6 +445,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906050954544_FourthMigration.resx">
       <DependentUpon>201906050954544_FourthMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906051438124_FifthMigration.resx">
+      <DependentUpon>201906051438124_FifthMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906051444284_SixthMigration.resx">
+      <DependentUpon>201906051444284_SixthMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906051447557_SeventhMigration.resx">
+      <DependentUpon>201906051447557_SeventhMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -10,9 +10,9 @@ import { MainServiceService } from '../main-service.service';
 })
 export class CenovnikComponent implements OnInit {
 
-  TipKarte : any;
+  TipKarte: any;
   cena: any;
-  cenovnik: any;
+  cenovnik: Array<string>;
 
   cenovnikForm = this.fb.group({
     tipkarte: ['', Validators.required],
@@ -20,63 +20,60 @@ export class CenovnikComponent implements OnInit {
   });
   selectedTipKarte = null;
   selectedTipPutnika = null;
-  
-  coefficients: any;
-  selectedPrice: any;
-  totalPrice: any;
-  typeOfUser: any;
-  canBuy: boolean = false;
-  isSelectedTicket: boolean = false;
 
-  constructor(private fb: FormBuilder, private mainService:MainServiceService) { }
+  canBuy: boolean = false;
+
+  coefficients: any;
+
+  constructor(private fb: FormBuilder, private mainService: MainServiceService) { }
 
   get f() { return this.cenovnikForm.controls; }
 
   ngOnInit() {
     this.getCene();
+    this.getKoeficijente();
+
+    this.selectedTipKarte = "Vremenska";
+    this.selectedTipPutnika = "RegularniPutnik";
   }
 
+  get Cena() { return this.cena; }
 
-  PromeniTipKarte()
-  {
-      if(this.selectedTipKarte == "Vremenska")
-      {
-        this.cena = this.cenovnik[0];//ne uzima dobro TODO
-      }
-      else if(this.selectedTipKarte == "Dnevna")
-      {
-        
-      }
-      else if(this.selectedTipKarte == "Mesecna")
-      {
-        
-      }
-      else{
-        
-      }
-  }
-
-
-  PromeniTipaPutnika()
-  {
-    if(this.selectedTipPutnika == "RegularniPutnik")
-    {
-
+  PromeniTipKarte() {
+    if (this.selectedTipKarte == "Vremenska") {
+      this.cena = this.cenovnik[0];
     }
-    else if(this.selectedTipPutnika == "Djak")
-    {
-      
+    else if (this.selectedTipKarte == "Dnevna") {
+      this.cena = this.cenovnik[1];
     }
-    else
-    {
-      
+    else if (this.selectedTipKarte == "Mesecna") {
+      this.cena = this.cenovnik[2];
+    }
+    else if (this.selectedTipKarte == "Godisnja") {
+      this.cena = this.cenovnik[3];
     }
   }
-   
 
 
-  getCene()
-  {
+  PromeniTipaPutnika() {
+    if (this.selectedTipPutnika == "RegularniPutnik") {
+      this.PromeniTipKarte();
+    }
+    else if (this.selectedTipPutnika == "Djak") {
+      this.PromeniTipKarte();
+      if (this.cena > 0) {
+        this.cena = this.cena * this.coefficients.Djak;
+      }
+    }
+    else if (this.selectedTipPutnika == "Penzioner") {
+      this.PromeniTipKarte();
+      if (this.cena > 0) {
+        this.cena = this.cena * this.coefficients.Pensioner;
+      }
+    }
+  }
+
+  getCene() {
     this.mainService.getCene().subscribe(
       (res) => {
         this.cenovnik = res;
@@ -84,51 +81,26 @@ export class CenovnikComponent implements OnInit {
     );
   }
 
-  getCoefficeints()
-  {
-    this.mainService.getCoefficient().subscribe(
+  getKoeficijente() {
+    this.mainService.getKoeficijente().subscribe(
       (res) => {
         this.coefficients = res;
       }
     );
   }
 
-  calculatePrice()
-  {
-    if(this.totalPrice > 0){
-        if(this.typeOfUser == "Penzioner")
-        {
-          this.cena = this.cena*this.coefficients.CoefficientPensioner;
-        }
-        else if(this.typeOfUser == "Djak")
-        {
-          this.cena = this.cena*this.coefficients.CoefficientStudent;
-        }
-    }
-  }
-
   onSubmit() {
-    /*if(localStorage.login)
-    {
-      if(this.cena > 0){
-        this.canBuy = false;
-        this.isSelectedTicket = false;
-
-        this.mainService.buyTicket(this.typeOfUser, this.selectedRow.type, this.cena).subscribe(
-          (res) => {
-            console.log(res);
-          }
-        );
-      }
-      else
-      {
-        this.isSelectedTicket = true;
-      }
+    if (localStorage.login) {
+      this.canBuy = false;
+      this.mainService.kupiKartu(this.selectedTipPutnika, this.selectedTipKarte, this.cena).subscribe(
+        (res) => {
+          console.log(res);
+        }
+      );
     }
-    else
-    {
+    else {
       this.canBuy = true;
-    }*/
+    }
   }
 
 }
