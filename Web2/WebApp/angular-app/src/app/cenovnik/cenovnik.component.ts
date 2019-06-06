@@ -35,12 +35,17 @@ export class CenovnikComponent implements OnInit {
   get f() { return this.cenovnikForm.controls; }
 
   ngOnInit() {
+
+    if (localStorage.role == "AppUser") {
+      this.getKarte();
+      this.getTipKorisnika();
+    }
+
     this.getCene();
     this.getKoeficijente();
 
     this.selectedTipKarte = "Vremenska";
     this.selectedTipPutnika = "RegularniPutnik";
-    this.PromeniTipaPutnika();
   }
 
   get Cena() { return this.cena; }
@@ -122,12 +127,14 @@ export class CenovnikComponent implements OnInit {
   }
 
   onSubmit() {
+    this.getTipKorisnika();
     if (localStorage.login) {
-      if (this.typeOfLoginUser.IsValid == "ACCEPTED") {
+      if (this.typeOfLoginUser.IsValid == "Prihvacen") {
         this.canBuy = false;
         this.mainService.kupiKartu(this.selectedTipPutnika, this.selectedTipKarte, this.cena).subscribe(
           (res) => {
             this.textMessage = res;
+            this.getKarte();
           }
         );
 

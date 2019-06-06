@@ -15,7 +15,7 @@ namespace WebApp.Models
         private DateTime birthday;
         private string sendBackBirthday;
         private string adresa;
-        private TipPutnika tipPutnika;
+        private string tipPutnika;
 
         public RegistracijaModel()
         {
@@ -62,7 +62,7 @@ namespace WebApp.Models
             get { return adresa; }
             set { adresa = value; }
         }
-        public TipPutnika UserType
+        public string TipPutnika
         {
             get { return tipPutnika; }
             set { tipPutnika = value; }

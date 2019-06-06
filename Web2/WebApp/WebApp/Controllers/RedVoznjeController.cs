@@ -69,10 +69,24 @@ namespace WebApp.Controllers
             return Ok(lista);
         }
 
-        [HttpGet, Route("getLinijePrigradske")]
-        public IHttpActionResult GetLinijePrigradske()
+        [HttpGet, Route("getLinijePrigradskeRadniDan")]
+        public IHttpActionResult GetLinijePrigradskeRadniDan()
         {
-            List<string> lista = unitOfWork.LinijaRepository.GetAll().Where(x => x.TipVoznje == TipVoznje.Prigradski).Select(x => x.Naziv).ToList();
+            List<string> lista = unitOfWork.LinijaRepository.GetAll().Where(x => x.TipVoznje == TipVoznje.Prigradski && x.Datum == DanUNedelji.RadniDan).Select(x => x.Naziv).ToList();
+            return Ok(lista);
+        }
+
+        [HttpGet, Route("getLinijePrigradskeSubota")]
+        public IHttpActionResult GetLinijePrigradskeSubota()
+        {
+            List<string> lista = unitOfWork.LinijaRepository.GetAll().Where(x => x.TipVoznje == TipVoznje.Prigradski && x.Datum == DanUNedelji.Subota).Select(x => x.Naziv).ToList();
+            return Ok(lista);
+        }
+
+        [HttpGet, Route("getLinijePrigradskeNedelja")]
+        public IHttpActionResult GetLinijePrigradskeNedelja()
+        {
+            List<string> lista = unitOfWork.LinijaRepository.GetAll().Where(x => x.TipVoznje == TipVoznje.Prigradski && x.Datum == DanUNedelji.RadniDan).Select(x => x.Naziv).ToList();
             return Ok(lista);
         }
 

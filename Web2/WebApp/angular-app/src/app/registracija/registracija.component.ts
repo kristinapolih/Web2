@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { MainServiceService } from '../main-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registracija',
@@ -9,8 +10,8 @@ import { MainServiceService } from '../main-service.service';
   styleUrls: ['./registracija.component.css']
 })
 export class RegistracijaComponent implements OnInit {
-  
-  submitted:boolean = false;
+
+  submitted: boolean = false;
   serverSuccessMessage = "";
 
   registracijaForm = this.fb.group({
@@ -26,22 +27,35 @@ export class RegistracijaComponent implements OnInit {
       validator: MustMatch('password', 'confirmPassword')
     });
 
-  constructor(private fb: FormBuilder, private mainService:MainServiceService) { }
+  constructor(private fb: FormBuilder, private mainService: MainServiceService, private router: Router) { }
 
   get f() { return this.registracijaForm.controls; }
 
   ngOnInit() {
   }
 
-
   onSubmit() {
+    if (this.registracijaForm.valid) {
+      this.mainService.registracijaKorisnika(this.registracijaForm.value).subscribe(
+        (res) => {
+          this.serverSuccessMessage = res;
+          if (res === "Uspesno registrovani...") {
 
-    this.mainService.registracijaKorisnika(this.registracijaForm.value).subscribe(
-      (res) => {
-        this.serverSuccessMessage = res;
-      }
-    );
-    this.submitted = true;
+            setTimeout(() => {
+              this.router.navigate(['/prijavite-se']);
+            },
+              5000);
+          }
+        }
+      );
+      this.submitted = true;
+    }
+    else {
+      Object.keys(this.registracijaForm.controls).forEach(field => {
+        const control = this.registracijaForm.get(field);
+        control.markAsTouched({ onlySelf: true });
+      });
+    }
   }
 }
 

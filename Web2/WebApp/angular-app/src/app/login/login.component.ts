@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         console.log(res);
         if(localStorage.role == "AppUser")
         {
-          this.router.navigate(['/']);
+          this.router.navigate(['/red-voznje']);
         }
         else if(localStorage.role == "Admin")
         {

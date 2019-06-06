@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { MainServiceService } from 'src/app/main-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-promeni-vidi-profil',
@@ -10,12 +11,13 @@ import { MainServiceService } from 'src/app/main-service.service';
 })
 export class PromeniVidiProfilComponent implements OnInit {
   public menjaProfil: boolean = true;
-  profilForm : FormGroup;
+  profilForm: FormGroup;
   submitted: boolean = false;
   serverSuccessMessage = "";
   UserValid: any;
+  formValid = false;
 
-  constructor(private fb: FormBuilder, private mainService: MainServiceService) { }
+  constructor(private fb: FormBuilder, private mainService: MainServiceService, private router: Router) { }
 
   get f() { return this.profilForm.controls; }
 
@@ -24,9 +26,9 @@ export class PromeniVidiProfilComponent implements OnInit {
     this.profilForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       surname: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
+      email: [''],
+      password: [''],
+      confirmPassword: [''],
       CurrentPassword: ['', Validators.required],
       address: ['', Validators.required],
       datumRodjenja: ['', Validators.required],
@@ -42,12 +44,12 @@ export class PromeniVidiProfilComponent implements OnInit {
     this.mainService.getProfil().subscribe(
       (res) => {
         console.log(res);
-       this.profilForm.controls['email'].setValue(res["Username"]);
-       this.profilForm.controls['name'].setValue(res["Name"]);
-       this.profilForm.controls['surname'].setValue(res["Lastname"]);
-       this.profilForm.controls['datumRodjenja'].setValue(res["SendBackBirthday"]);
-       this.profilForm.controls['address'].setValue(res["Adresa"]);
-       this.profilForm.controls['tipputnika'].setValue(res["UserType"]);
+        this.profilForm.controls['email'].setValue(res["Username"]);
+        this.profilForm.controls['name'].setValue(res["Name"]);
+        this.profilForm.controls['surname'].setValue(res["Lastname"]);
+        this.profilForm.controls['datumRodjenja'].setValue(res["SendBackBirthday"]);
+        this.profilForm.controls['address'].setValue(res["Adresa"]);
+        this.profilForm.controls['tipputnika'].setValue(res["UserType"]);
 
       }
     );
@@ -63,7 +65,29 @@ export class PromeniVidiProfilComponent implements OnInit {
   }
 
   onSubmit() {
-    console.warn(this.profilForm.value);
+    if (this.profilForm.valid) {
+      let poruka = this.mainService.izmeniProfil(this.profilForm.value).subscribe(
+        (res) => {
+          this.serverSuccessMessage = res;
+          if (res === "Profil je uspesno azuriran....") {
+
+            setTimeout(() => {
+              this.menjaProfil = true;
+              this.router.navigate(['/promeni-vidi-profil']);
+              this.serverSuccessMessage = "";
+            },
+              5000);
+          }
+        }
+      );
+      this.submitted = true;
+    }
+    else {
+      Object.keys(this.profilForm.controls).forEach(field => {
+        const control = this.profilForm.get(field);
+        control.markAsTouched({ onlySelf: true });
+      });
+    }
   }
 
   MenjaProfil() {
@@ -74,16 +98,16 @@ export class PromeniVidiProfilComponent implements OnInit {
 
 export function MustMatch(controlName: string, matchingControlName: string) {
   return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
+    const control = formGroup.controls[controlName];
+    const matchingControl = formGroup.controls[matchingControlName];
 
-      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
-          return;
-      }
-      if (control.value !== matchingControl.value) {
-          matchingControl.setErrors({ mustMatch: true });
-      } else {
-          matchingControl.setErrors(null);
-      }
+    if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+      return;
+    }
+    if (control.value !== matchingControl.value) {
+      matchingControl.setErrors({ mustMatch: true });
+    } else {
+      matchingControl.setErrors(null);
+    }
   }
 }

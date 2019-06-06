@@ -2,8 +2,6 @@
   <div class="container-login100">
     <div class="wrap-reg100">
 
-        <p class="txt2">{{serverSuccessMessage}}</p>
-
         <div class="container-profilRight100-form-btn">
             <div class="wrap-login100-form-btn">
               <div class="login100-form-bgbtn"></div>
@@ -17,6 +15,8 @@
         <span class="login100-form-title p-b-59">
           Profil
         </span>
+
+        <p class="txt3">{{serverSuccessMessage}}</p>
 
         <div class="wrap-input100 validate-input" data-validate="Ime je obavezno">
           <span class="label-input100">Ime</span>
@@ -56,27 +56,19 @@
 
         <div class="wrap-input100 validate-input" data-validate="Validna email adresa: someone@gmail.com">
           <span class="label-input100">Email</span>
-          <input class="input100" type="text" formControlName="email" required placeholder="Email adresa..." required
-            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [readonly]="menjaProfil">
+          <input class="input100" type="text" formControlName="email" placeholder="Email adresa..."
+            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" readonly>
           <span class="focus-input100"> </span>
           <span class="symbol-reg100">
             <i class="fa fa-envelope" aria-hidden="true"></i>
           </span>
-        </div>
-        <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched) && !menjaProfil" class="alert alert-danger">
-          <div *ngIf="f.email.errors.required">
-            Email je obavezan.
-          </div>
-          <div *ngIf="f.email.errors && f.email.errors.pattern" class="alert alert-danger">
-            Email nije u ispravnom formatu.
-          </div>
         </div>
 
 
         <div *ngIf="!menjaProfil">
         <div class="wrap-input100 validate-input" data-validate="Lozinka je neophodna">
           <span class="label-input100">Trenutna lozinka</span>
-          <input class="input100" type="password" formControlName="CurrentPassword" required placeholder="*************" [readonly]="menjaProfil">
+          <input class="input100" type="password" formControlName="CurrentPassword" placeholder="*************" [readonly]="menjaProfil" required>
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -93,7 +85,7 @@
       <div *ngIf="!menjaProfil">
         <div class="wrap-input100 validate-input" data-validate="Lozinka je neophodna">
           <span class="label-input100">Nova lozinka</span>
-          <input class="input100" type="password" formControlName="password" required placeholder="*************" [readonly]="menjaProfil">
+          <input class="input100" type="password" formControlName="password" placeholder="*************" [readonly]="menjaProfil">
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -110,7 +102,7 @@
       <div *ngIf="!menjaProfil">
         <div class="wrap-input100 validate-input" data-validate="Ponovljena lozinka je neophodna">
           <span class="label-input100">Ponovljena nova lozinka</span>
-          <input class="input100" type="password" formControlName="confirmPassword" required placeholder="*************" [readonly]="menjaProfil">
+          <input class="input100" type="password" formControlName="confirmPassword" placeholder="*************" [readonly]="menjaProfil">
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -161,9 +153,9 @@
         <div class="wrap-input100 validate-input">
           <span class="label-input100">Tip putnika</span>
           <select class="selectbox input100" formControlName="tipputnika">
-            <option value="2" selected>Regularni putnik</option>
-            <option value="0"> Djak</option>
-            <option value="1">Penzioner</option>
+            <option value="Regularni">Regularni putnik</option>
+            <option value="Djak"> Djak</option>
+            <option value="Penzioner">Penzioner</option>
           </select>
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
@@ -171,12 +163,12 @@
           </span>
         </div>
 
-        <!--TODO slika da se pojavi ako se odabere djak ili penzioner-->
+        <!--TODO slika da se pojavi ako se odabere djak ili penzioner -->
         
         <div class="container-login100-form-btn">
           <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
-            <button type="submit" *ngIf="!menjaProfil" [disabled]="!profilForm.valid" class="login100-form-btn">
+            <button type="submit" *ngIf="!menjaProfil" class="login100-form-btn">
               Sačuvaj izmene
             </button>
           </div>

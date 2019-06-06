@@ -184,6 +184,27 @@ iframe {
   background: linear-gradient(-135deg, #31af7f, #5485c5);
 }
 
+.container-cenovnik {
+  width: 100%;  
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: top;
+  align-content: top;
+  align-self: top;
+  padding: 0px;
+  background: #31af7f;
+  background: -webkit-linear-gradient(-135deg, #31af7f, #5485c5);
+  background: -o-linear-gradient(-135deg, #31af7f, #5485c5);
+  background: -moz-linear-gradient(-135deg, #31af7f, #5485c5);
+  background: linear-gradient(-135deg, #31af7f, #5485c5);
+}
+
 .container-redvoznje100 {
   width: 100%;  
   min-height: 100vh;
@@ -294,7 +315,7 @@ iframe {
 
   width: 100%;
   display: block;
-  padding-bottom: 54px;
+  padding-bottom: 25px;
 }
 
 
@@ -417,6 +438,18 @@ iframe {
 }
 /*------------------------------------------------------------------
 [ Button ]*/
+
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 0px 0;
+  font-size: 15px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
 .container-login100-form-btn {
   width: 100%;
   display: -webkit-box;

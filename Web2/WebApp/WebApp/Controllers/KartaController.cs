@@ -92,7 +92,7 @@ namespace WebApp.Controllers
                 unitOfWork.Complete();
                 return Ok("Uspesno ste kupili kartu...");
             }
-            return Ok();
+            return Ok("Niste autentifikovani....");
         }
 
         [Route("getKarte")]
@@ -114,7 +114,7 @@ namespace WebApp.Controllers
                 return Ok(ticketHelps);
             }
             
-            return Ok();
+            return Ok("Niste autentifikovani....");
         }
 
         [HttpPost, Route("obrisiKartu")]
@@ -130,7 +130,7 @@ namespace WebApp.Controllers
 
                 return Ok();
             }
-            return Ok();
+            return Ok("Niste autentifikovani....");
         }
     }
 }

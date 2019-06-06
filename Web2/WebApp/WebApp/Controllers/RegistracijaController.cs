@@ -46,6 +46,14 @@ namespace WebApp.Controllers
             passenger.Prezime = userToRegister.Lastname;
             passenger.Ime = userToRegister.Name;
             passenger.Adresa = userToRegister.Adresa;
+
+            if (String.Compare(userToRegister.TipPutnika, "Regularni") == 0)
+                passenger.TipKorisnika = TipPutnika.Regularni;
+            else if (String.Compare(userToRegister.TipPutnika, "Djak") == 0)
+                passenger.TipKorisnika = TipPutnika.Djak;
+            else
+                passenger.TipKorisnika = TipPutnika.Penzioner;
+
             unitOfWork.KorisnikRepository.Add(passenger);
             unitOfWork.Complete();
             returnMessage = "Uspesno registrovani...";
@@ -67,11 +75,12 @@ namespace WebApp.Controllers
                 registerUser.Lastname = p.Prezime;
                 registerUser.Name = p.Ime;
                 registerUser.Username = User.Identity.Name;
-                registerUser.UserType = p.TipKorisnika;
+
+                registerUser.TipPutnika = p.TipKorisnika.ToString();
 
                 return Ok(registerUser);
             }
-            return Ok();
+            return Ok("Niste autentifikovani....");
         }
 
 
@@ -98,7 +107,7 @@ namespace WebApp.Controllers
                     return Ok(returnMessage);
                 }
 
-                if (userToUpdate.Password != null)
+                if (userToUpdate.Password != null && userToUpdate.Password == "" && !String.IsNullOrEmpty( userToUpdate.Password) && !String.IsNullOrWhiteSpace(userToUpdate.Password))
                 {
                     apu.PasswordHash = ApplicationUser.HashPassword(userToUpdate.Password);
                     userManager.Update(apu);
@@ -108,14 +117,21 @@ namespace WebApp.Controllers
                 k.DatumRodjenja = userToUpdate.Birthday;
                 k.Prezime = userToUpdate.Lastname;
                 k.Ime = userToUpdate.Name;
-                k.TipKorisnika = userToUpdate.UserType;
+
+                if (String.Compare(userToUpdate.TipPutnika, "Regularni") == 0)
+                    k.TipKorisnika = TipPutnika.Regularni;
+                else if (String.Compare(userToUpdate.TipPutnika, "Djak") == 0)
+                    k.TipKorisnika = TipPutnika.Djak;
+                else
+                    k.TipKorisnika = TipPutnika.Penzioner;
+
                 unitOfWork.KorisnikRepository.Update(k);
                 unitOfWork.Complete();
                 returnMessage = "Profil je uspesno azuriran....";
 
                 return Ok(returnMessage);
             }
-            return Ok();
+            return Ok("Niste autentifikovani....");
         }
 
         [Route("getTipKorisnika")]
@@ -130,7 +146,7 @@ namespace WebApp.Controllers
                 message += "\"IsValid\" : \"" + passenger.Stanje + "\"}";
                 return Ok(message);
             }
-            return Ok();
+            return Ok("Niste autentifikovani....");
         }
     }
 }

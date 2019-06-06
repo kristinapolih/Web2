@@ -140,8 +140,16 @@ export class MainServiceService {
     return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijeGradskeNedelja');
   }
 
-  getLinijePrigradske(): Observable<any> {
-    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijePrigradske');
+  getLinijePrigradskeRadniDan(): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijePrigradskeRadniDan');
+  }
+
+  getLinijePrigradskeSubota(): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijePrigradskeSubota');
+  }
+
+  getLinijePrigradskeNedelja(): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijePrigradskeNedelja');
   }
 
   isAdmin() {

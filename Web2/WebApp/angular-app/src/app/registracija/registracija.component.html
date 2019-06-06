@@ -6,6 +6,7 @@
           Registracija
         </span>
 
+        <p class="txt3">{{serverSuccessMessage}}</p>
 
         <div class="wrap-input100 validate-input" data-validate="Ime je obavezno">
           <span class="label-input100">Ime</span>
@@ -127,7 +128,7 @@
         <div class="wrap-input100 validate-input">
           <span class="label-input100">Tip putnika</span>
           <select class="selectbox input100" formControlName="tipputnika">
-            <option value="RegularniPutnik" selected>Regularni putnik</option>
+            <option value="Regularni">Regularni putnik</option>
             <option value="Djak"> Djak</option>
             <option value="Penzioner">Penzioner</option>
           </select>
@@ -142,7 +143,7 @@
         <div class="container-login100-form-btn">
           <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
-            <button type="submit" [disabled]="!registracijaForm.valid" class="login100-form-btn">
+            <button type="submit" class="login100-form-btn">
               Registruj se
             </button>
           </div>

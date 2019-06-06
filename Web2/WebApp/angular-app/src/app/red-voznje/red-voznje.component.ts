@@ -78,7 +78,15 @@ export class RedVoznjeComponent implements OnInit {
       }
     }
     else {
-      this.getLinijePrigradske();
+      if (this.selectedtipDana == 'RadniDan') {
+        this.getLinijePrigradskeRadniDan();
+      }
+      else if (this.selectedtipDana == 'Subota') {
+        this.getLinijePrigradskeSubota();
+      }
+      else {
+        this.getLinijePrigradskeNedelja();
+      }
     }
   }
 
@@ -88,7 +96,7 @@ export class RedVoznjeComponent implements OnInit {
         this.getLinijeGradskeRadniDan();
       }
       else {
-        this.getLinijePrigradske();
+        this.getLinijePrigradskeRadniDan();
       }
     }
     else if (this.selectedtipDana == 'Subota') {
@@ -96,7 +104,7 @@ export class RedVoznjeComponent implements OnInit {
         this.getLinijeGradskeSubota();
       }
       else {
-        this.getLinijePrigradske();
+        this.getLinijePrigradskeSubota();
       }
     }
     else {
@@ -104,13 +112,37 @@ export class RedVoznjeComponent implements OnInit {
         this.getLinijeGradskeNedelja();
       }
       else {
-        this.getLinijePrigradske();
+        this.getLinijePrigradskeNedelja();
       }
     }
   }
 
-  getLinijePrigradske() {
-    this.mainService.getLinijePrigradske().subscribe(
+  getLinijePrigradskeRadniDan() {
+    this.mainService.getLinijePrigradskeRadniDan().subscribe(
+      (res) => {
+        this.tipLinije = res;
+        console.log(res);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+
+  getLinijePrigradskeSubota() {
+    this.mainService.getLinijePrigradskeSubota().subscribe(
+      (res) => {
+        this.tipLinije = res;
+        console.log(res);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
+
+  getLinijePrigradskeNedelja() {
+    this.mainService.getLinijePrigradskeNedelja().subscribe(
       (res) => {
         this.tipLinije = res;
         console.log(res);
