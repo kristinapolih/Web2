@@ -22,6 +22,11 @@ export class CenovnikComponent implements OnInit {
   selectedTipPutnika = null;
 
   canBuy: boolean = false;
+  typeOfUser: any = "Regular";
+  typeOfLoginUser: any;
+  purchasedTickets: any;
+
+  textMessage: string = "";
 
   coefficients: any;
 
@@ -35,9 +40,36 @@ export class CenovnikComponent implements OnInit {
 
     this.selectedTipKarte = "Vremenska";
     this.selectedTipPutnika = "RegularniPutnik";
+    this.PromeniTipaPutnika();
   }
 
   get Cena() { return this.cena; }
+
+  obrisiKartu(u) {
+    this.mainService.obrisiKartu(u).subscribe(
+      (res) => {
+        this.getKarte();
+      });
+  }
+
+  getTipKorisnika() {
+    this.mainService.getTipKorisnika().subscribe(
+      (res) => {
+        let i: string = res;
+        let j: any = JSON.parse(i);
+        this.typeOfLoginUser = j;
+      }
+    );
+  }
+
+  getKarte() {
+    this.mainService.getKarte().subscribe(
+      (res) => {
+        this.purchasedTickets = res;
+        console.log(res);
+      }
+    );
+  }
 
   PromeniTipKarte() {
     if (this.selectedTipKarte == "Vremenska") {
@@ -91,12 +123,19 @@ export class CenovnikComponent implements OnInit {
 
   onSubmit() {
     if (localStorage.login) {
-      this.canBuy = false;
-      this.mainService.kupiKartu(this.selectedTipPutnika, this.selectedTipKarte, this.cena).subscribe(
-        (res) => {
-          console.log(res);
-        }
-      );
+      if (this.typeOfLoginUser.IsValid == "ACCEPTED") {
+        this.canBuy = false;
+        this.mainService.kupiKartu(this.selectedTipPutnika, this.selectedTipKarte, this.cena).subscribe(
+          (res) => {
+            this.textMessage = res;
+          }
+        );
+
+        this.getKarte();
+      }
+      else {
+        this.textMessage = "Niste verifikovani....";
+      }
     }
     else {
       this.canBuy = true;

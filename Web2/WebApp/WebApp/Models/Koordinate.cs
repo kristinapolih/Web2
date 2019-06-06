@@ -8,9 +8,9 @@ namespace WebApp.Models
 {
     public class Koordinate
     {
-        public int iD;
-        public double x;
-        public double y;
+        private int iD;
+        private double x;
+        private double y;
 
         [Key]
         public int ID

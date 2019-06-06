@@ -8,10 +8,10 @@ namespace WebApp.Models
 {
     public class Adresa
     {
-        public int iD;
-        public string ulica;
-        public string broj;
-        public string grad;
+        private int iD;
+        private string ulica;
+        private string broj;
+        private string grad;
 
         [Key]
         public int ID

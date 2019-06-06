@@ -17,13 +17,9 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(user: User): Observable<any> {
-    console.log(user);
     let par = "username="+ user.email +"&"+"password="+ user.pass + "&grant_type=password";
-    console.log(par);
     return this.http.post<any>(this.loginUrl, par, { 'headers': { 'Content-type': 'x-www-form-urlencoded' } }).pipe(
       map(res => {
-        console.log(res.access_token);
-
         let jwt = res.access_token;
 
         let jwtData = jwt.split('.')[1]
@@ -31,9 +27,6 @@ export class AuthService {
         let decodedJwtData = JSON.parse(decodedJwtJsonData)
 
         let role = decodedJwtData.role
-
-        console.log('jwtData: ' + jwtData)
-        console.log('Role ' + role)
 
         localStorage.setItem('jwt', jwt)
         localStorage.setItem('role', role);

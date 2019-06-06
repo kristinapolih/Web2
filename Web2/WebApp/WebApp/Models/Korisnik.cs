@@ -8,17 +8,17 @@ namespace WebApp.Models
 {
     public class Korisnik
     {
-        public int iD;
-        public string iDUser;
-        public string email;
-        public string lozinka;
-        public string ime;
-        public string prezime;
-        public string adresa;
-        public DateTime datumRodjenja;
-        public TipPutnika tipKorisnika;
-        public string slika;
-        public ProcesVerifikacije stanje;
+        private int iD;
+        private string iDUser;
+        private string email;
+        private string lozinka;
+        private string ime;
+        private string prezime;
+        private string adresa;
+        private DateTime datumRodjenja;
+        private TipPutnika tipKorisnika;
+        private string slika;
+        private ProcesVerifikacije stanje;
 
         #region Props
         [Key]

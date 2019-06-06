@@ -8,11 +8,10 @@ namespace WebApp.Models
 {
     public class Stanica
     {
-        public int iD;
-        public string naziv;
-        public string adresa;
-        public int iDKoordinata;
-        public List<int> iDLinija;
+        private int iD;
+        private string naziv;
+        private string adresa;
+        private int iDKoordinata;
 
         [Key]
         public int ID
@@ -34,11 +33,6 @@ namespace WebApp.Models
         {
             get { return iDKoordinata; }
             set { iDKoordinata = value; }
-        }
-        public List<int> IDLinija
-        {
-            get { return iDLinija; }
-            set { iDLinija = value; }
         }
     }
 }

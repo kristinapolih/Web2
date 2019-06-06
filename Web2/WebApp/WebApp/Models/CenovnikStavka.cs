@@ -8,11 +8,11 @@ namespace WebApp.Models
 {
     public class CenovnikStavka
     {
-        public int iD;
-        public int iDCenovnika;
-        public int iDStavka;
-        public int iDKoeficijent;
-        public string cena;
+        private int iD;
+        private int iDCenovnika;
+        private int iDStavka;
+        private int iDKoeficijent;
+        private string cena;
 
         [Key]
         public int ID

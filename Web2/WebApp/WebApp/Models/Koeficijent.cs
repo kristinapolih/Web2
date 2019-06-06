@@ -8,9 +8,9 @@ namespace WebApp.Models
 {
     public class Koeficijent
     {
-        public int iD;
-        public float djak;
-        public float pensioner;
+        private int iD;
+        private float djak;
+        private float pensioner;
 
         [Key]
         public int ID

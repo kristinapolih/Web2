@@ -8,12 +8,11 @@ namespace WebApp.Models
 {
     public class Linija
     {
-        public int iD;
-        public string redniBroj;
-        public TipVoznje tipVoznje;
-        public DanUNedelji datum;
-        public List<int> iDStanica;
-        public string polasci;
+        private int iD;
+        private string redniBroj;
+        private TipVoznje tipVoznje;
+        private DanUNedelji datum;
+        private string polasci;
 
         [Key]
         public int ID
@@ -35,11 +34,6 @@ namespace WebApp.Models
         {
             get { return datum; }
             set { datum = value; }
-        }
-        public List<int> IDStanica
-        {
-            get { return iDStanica; }
-            set { iDStanica = value; }
         }
         public string Polasci
         {

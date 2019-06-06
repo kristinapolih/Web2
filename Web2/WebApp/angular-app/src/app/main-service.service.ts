@@ -15,6 +15,14 @@ export class MainServiceService {
 
   constructor(private http: HttpClient) { }
 
+  obrisiKartu(u: any): Observable<any>{
+    return this.http.post<any>('http://localhost:52295/api/Karta/obrisiKartu',u);
+  } 
+
+  getKarte(): Observable<any>{
+    return this.http.get<any>('http://localhost:52295/api/Karta/getKarte');
+  }
+
   getCene(): Observable<any>
   {
     return this.http.get<any>('http://localhost:52295/api/Karta/getCene');
@@ -32,6 +40,15 @@ export class MainServiceService {
     karta.tipKarte = tipKarte;
     karta.cena = cena;
     return this.http.post<any>('http://localhost:52295/api/Karta/kupiKartu',karta);
+  }
+
+  getProfil(): Observable<any>
+  {
+    return this.http.get<any>('http://localhost:52295/api/Registracija/getProfil');
+  }
+
+  getTipKorisnika(): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/Registracija/getTipKorisnika');
   }
 
   registracijaKorisnika(arg: any): Observable<any> {
@@ -52,6 +69,27 @@ export class MainServiceService {
     };
 
     return this.http.post<any>('http://localhost:52295/api/Registracija/registracijaKorisnika', par, headers);
+  }
+
+  izmeniProfil(arg: any): Observable<any> {
+    let headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    let par = {
+      username: arg.email,
+      password: arg.password,
+      name: arg.name,
+      lastName: arg.surname,
+      birthday: arg.datumRodjenja,
+      adresa: arg.address,
+      tipPutnika: arg.tipPutnika,
+      originalPassword: arg.CurrentPassword
+    };
+
+    return this.http.post<any>('http://localhost:52295/api/Registracija/izmeniProfil', par, headers);
   }
 
   redVoznjeParametri(arg: any): Observable<any> {

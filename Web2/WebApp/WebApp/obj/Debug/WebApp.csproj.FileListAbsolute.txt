@@ -455,3 +455,7 @@ E:\WEB2\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.Migrations.FourthMigration.reso
 E:\WEB2\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.Migrations.FifthMigration.resources
 E:\WEB2\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.Migrations.SixthMigration.resources
 E:\WEB2\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.Migrations.SeventhMigration.resources
+C:\Users\e3106-2015\Documents\Blok08\Projekat\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.Migrations.FifthMigration.resources
+C:\Users\e3106-2015\Documents\Blok08\Projekat\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.Migrations.SixthMigration.resources
+C:\Users\e3106-2015\Documents\Blok08\Projekat\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.Migrations.SeventhMigration.resources
+C:\Users\e3106-2015\Documents\Blok08\Projekat\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.Migrations.EightMigration.resources

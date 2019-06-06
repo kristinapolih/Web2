@@ -8,13 +8,14 @@ namespace WebApp.Models
 {
     public class Karta
     {
-        public int iD;
-        public DateTime odDatum;
-        public DateTime doDatum;
-        public int iDCenovnikStavka;
-        public int iDKorisnik;
-        public float cena;
+        private int iD;
+        private DateTime odDatum;
+        private DateTime doDatum;
+        private int iDCenovnikStavka;
+        private int iDKorisnik;
+        private float cena;
         private TipKarte tipKarte;
+        private bool obrisana;
 
         [Key]
         public int ID
@@ -51,6 +52,12 @@ namespace WebApp.Models
         {
             get { return tipKarte; }
             set { tipKarte = value; }
+        }
+
+        public bool Obrisana
+        {
+            get { return obrisana; }
+            set { obrisana = value; }
         }
     }
 }

@@ -59,7 +59,7 @@ namespace WebApp.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 Karta k = new Karta();
-                k.odDatum = DateTime.Now;
+                k.ODDatum = DateTime.Now;
                 k.DoDatum = DateTime.Now;
                 k.Cena = karta.Cena;
 
@@ -90,6 +90,44 @@ namespace WebApp.Controllers
 
                 unitOfWork.KartaRepository.Add(k);
                 unitOfWork.Complete();
+                return Ok("Uspesno ste kupili kartu...");
+            }
+            return Ok();
+        }
+
+        [Route("getKarte")]
+        [Authorize(Roles = "AppUser")]
+        public IHttpActionResult GetKarte()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                List<KartaHelp> ticketHelps = new List<KartaHelp>();
+                int passenger_id = unitOfWork.KorisnikRepository.GetAll().Where(x => x.IDUser == User.Identity.GetUserId()).FirstOrDefault().ID;
+                List<Karta> tickets = unitOfWork.KartaRepository.GetAll().Where(x => x.IDKorisnik == passenger_id && !x.Obrisana).ToList();
+
+                foreach (Karta k in tickets)
+                {
+                    string time = k.ODDatum.Date.ToString().Split(' ')[0] + " - " + k.DoDatum.Date.ToString().Split(' ')[0];
+                    ticketHelps.Add(new KartaHelp { Id = k.ID, Price = k.Cena.ToString(), Type = k.TipKarte.ToString(), Date = time });
+                }
+
+                return Ok(ticketHelps);
+            }
+            
+            return Ok();
+        }
+
+        [HttpPost, Route("obrisiKartu")]
+        [Authorize(Roles = "AppUser")]
+        public IHttpActionResult ObrisiKartu(KartaHelp ticketHelp)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                Karta k = unitOfWork.KartaRepository.Get(ticketHelp.Id);
+                k.Obrisana = true;
+                unitOfWork.KartaRepository.Update(k);
+                unitOfWork.Complete();
+
                 return Ok();
             }
             return Ok();

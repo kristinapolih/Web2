@@ -1,74 +1,110 @@
 <div class="limiter">
-  <div class="container-redVoznje100">
-    <div class="wrap-redVoznje100">
+  <div class="container-login100">
+    <div class="wrap-login100">
 
+      <div class="col-2">
         <div class="container-profilRight100-form-btn">
-            <div class="wrap-login100-form-btn">
-              <div class="login100-form-bgbtn"></div>
-              <button (click)="MenjaProfil()" *ngIf="mainService.isAdmin()" class="profilRight100-form-btn">
-                Izmeni cenovnik
-              </button>
-            </div>
-          </div>
-
-      <form [formGroup]="cenovnikForm" (ngSubmit)="onSubmit()" class="login100-form validate-form">
-        <span class="login100-form-title  p-b-59">
-          Cenovnik
-        </span>
-
-
-        <div class="wrap-input100 validate-input">
-          <span class="label-input100">Tip karte</span>
-          <select class="selectbox input100" (click)="PromeniTipKarte()" formControlName="tipkarte" [(ngModel)]="selectedTipKarte">
-            <option value="Vremenska" selected>Vremenska</option>
-            <option value="Dnevna"> Dnevna</option>
-            <option value="Mesecna">Mesecna</option>
-            <option value="Godisnja">Godisnja</option>
-            </select>
-          <span class="focus-input100"></span>
-          <span class="symbol-reg100">
-            <i class="fa fa-id-card" aria-hidden="true"></i>
-          </span>
-        </div>
-
-
-        <div class="wrap-input100 validate-input">
-          <span class="label-input100">Tip putnika</span>
-          <select class="selectbox input100" (click)="PromeniTipaPutnika()" formControlName="tipputnika" [(ngModel)]="selectedTipPutnika">
-            <option value="RegularniPutnik" selected>Regularni putnik</option>
-            <option value="Djak"> Djak</option>
-            <option value="Penzioner">Penzioner</option>
-          </select>
-          <span class="focus-input100"></span>
-          <span class="symbol-reg100">
-              <i class="fa fa-user" aria-hidden="true"></i>
-            </span>
-        </div>
-
-
-        <div class="wrap-input100 validate-input">
-          <span class="label-input100">Cena karte</span>
-          <input class="input100" type="text" placeholder="{{cena}}" readonly>
-          <span class="focus-input100"></span>
-          <span class="symbol-reg100">
-              <i class="fa fa-money" aria-hidden="true"></i>
-            </span>
-        </div>
-
-
-        <div class="container-login100-form-btn">
           <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
-            <button type="submit" [disabled]="!cenovnikForm.valid" class="login100-form-btn">
-              Kupi kartu
+            <button (click)="MenjaProfil()" *ngIf="mainService.isAdmin()" class="profilRight100-form-btn">
+              Izmeni cenovnik
             </button>
           </div>
         </div>
 
-        <div *ngIf="canBuy" class="alert alert-danger">
-          Da bi ste kupili kartu morate da se ulogujete.
+        <form [formGroup]="cenovnikForm" (ngSubmit)="onSubmit()" class="login100-form validate-form">
+          <span class="login100-form-title  p-b-59">
+            Cenovnik
+          </span>
+
+
+          <div class="wrap-input100 validate-input">
+            <span class="label-input100">Tip karte</span>
+            <select class="selectbox input100" (click)="PromeniTipKarte()" formControlName="tipkarte" [(ngModel)]="selectedTipKarte">
+              <option value="Vremenska" selected>Vremenska</option>
+              <option value="Dnevna"> Dnevna</option>
+              <option value="Mesecna">Mesecna</option>
+              <option value="Godisnja">Godisnja</option>
+            </select>
+            <span class="focus-input100"></span>
+            <span class="symbol-reg100">
+              <i class="fa fa-id-card" aria-hidden="true"></i>
+            </span>
+          </div>
+
+
+          <div class="wrap-input100 validate-input">
+            <span class="label-input100">Tip putnika</span>
+            <select class="selectbox input100" (click)="PromeniTipaPutnika()" formControlName="tipputnika" [(ngModel)]="selectedTipPutnika">
+              <option value="RegularniPutnik" selected>Regularni putnik</option>
+              <option value="Djak"> Djak</option>
+              <option value="Penzioner">Penzioner</option>
+            </select>
+            <span class="focus-input100"></span>
+            <span class="symbol-reg100">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </span>
+          </div>
+
+
+          <div class="wrap-input100 validate-input">
+            <span class="label-input100">Cena karte</span>
+            <input class="input100" type="text" placeholder="{{cena}}" readonly>
+            <span class="focus-input100"></span>
+            <span class="symbol-reg100">
+              <i class="fa fa-money" aria-hidden="true"></i>
+            </span>
+          </div>
+
+
+          <div class="container-login100-form-btn">
+            <div class="wrap-login100-form-btn">
+              <div class="login100-form-bgbtn"></div>
+              <button type="submit" [disabled]="!cenovnikForm.valid" class="login100-form-btn">
+                Kupi kartu
+              </button>
+            </div>
+          </div>
+
+          <div *ngIf="canBuy" class="alert alert-danger">
+            Da bi ste kupili kartu morate da se ulogujete.
+          </div>
+        </form>
       </div>
-      </form>
+
+
+      <div class="col-4">
+        <div class="my-thead-font">
+          {{textMessage}}
+        </div>
+
+        <br/>
+        <div class="div-s-by-s2">
+          <p class="my-pricelist-font">Purchased Tickets
+            <p></p>
+            <table class="demo">
+              <thead class="my-thead-font">
+                <tr>
+                  <th>Type of ticket</th>
+                  <th>Price</th>
+                  <th>Date of validity</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let u of purchasedTickets">
+                  <td>{{u.Type}}</td>
+                  <td>{{u.Price}}</td>
+                  <td>{{u.Date}}</td>
+                  <td>
+                    <a id="a" class="button" (click)="deleteTicket(u)">Delete</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

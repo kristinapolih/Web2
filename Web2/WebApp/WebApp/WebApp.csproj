@@ -291,6 +291,10 @@
     <Compile Include="Migrations\201906051447557_SeventhMigration.Designer.cs">
       <DependentUpon>201906051447557_SeventhMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906061002124_EightMigration.cs" />
+    <Compile Include="Migrations\201906061002124_EightMigration.Designer.cs">
+      <DependentUpon>201906061002124_EightMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -300,6 +304,7 @@
     <Compile Include="Models\CenovnikStavka.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Karta.cs" />
+    <Compile Include="Models\KartaHelp.cs" />
     <Compile Include="Models\Koeficijent.cs" />
     <Compile Include="Models\Koordinate.cs" />
     <Compile Include="Models\Korisnik.cs" />
@@ -454,6 +459,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906051447557_SeventhMigration.resx">
       <DependentUpon>201906051447557_SeventhMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906061002124_EightMigration.resx">
+      <DependentUpon>201906061002124_EightMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -8,8 +8,8 @@ namespace WebApp.Models
 {
     public class Stavka
     {
-        public int iD;
-        public TipKarte tipKarte;
+        private int iD;
+        private TipKarte tipKarte;
 
         [Key]
         public int ID

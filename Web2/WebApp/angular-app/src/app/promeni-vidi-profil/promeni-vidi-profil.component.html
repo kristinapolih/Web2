@@ -2,6 +2,8 @@
   <div class="container-login100">
     <div class="wrap-reg100">
 
+        <p class="txt2">{{serverSuccessMessage}}</p>
+
         <div class="container-profilRight100-form-btn">
             <div class="wrap-login100-form-btn">
               <div class="login100-form-bgbtn"></div>
@@ -71,37 +73,58 @@
         </div>
 
 
+        <div *ngIf="!menjaProfil">
         <div class="wrap-input100 validate-input" data-validate="Lozinka je neophodna">
-          <span class="label-input100">Lozinka</span>
-          <input class="input100" type="password" formControlName="pass" required placeholder="*************" [readonly]="menjaProfil">
+          <span class="label-input100">Trenutna lozinka</span>
+          <input class="input100" type="password" formControlName="CurrentPassword" required placeholder="*************" [readonly]="menjaProfil">
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
             <i class="fa fa-lock" aria-hidden="true"></i>
           </span>
         </div>
-        <div *ngIf="f.pass.invalid && (f.pass.dirty || f.pass.touched) && !menjaProfil" class="alert alert-danger">
-          <div *ngIf="f.pass.errors.required">
-            Lozinka je obavezna.
+        <div *ngIf="f.CurrentPassword.invalid && (f.CurrentPassword.dirty || f.CurrentPassword.touched) && !menjaProfil" class="alert alert-danger">
+          <div *ngIf="f.CurrentPassword.errors.required">
+            Trenutna lozinka je obavezna.
           </div>
         </div>
+      </div>
 
 
+      <div *ngIf="!menjaProfil">
+        <div class="wrap-input100 validate-input" data-validate="Lozinka je neophodna">
+          <span class="label-input100">Nova lozinka</span>
+          <input class="input100" type="password" formControlName="password" required placeholder="*************" [readonly]="menjaProfil">
+          <span class="focus-input100"></span>
+          <span class="symbol-reg100">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched) && !menjaProfil" class="alert alert-danger">
+          <div *ngIf="f.password.errors.required">
+            Nova lozinka je obavezna.
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngIf="!menjaProfil">
         <div class="wrap-input100 validate-input" data-validate="Ponovljena lozinka je neophodna">
-          <span class="label-input100">Ponovljena lozinka</span>
-          <input class="input100" type="password" formControlName="repeatpass" required placeholder="*************" [readonly]="menjaProfil">
+          <span class="label-input100">Ponovljena nova lozinka</span>
+          <input class="input100" type="password" formControlName="confirmPassword" required placeholder="*************" [readonly]="menjaProfil">
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
             <i class="fa fa-lock" aria-hidden="true"></i>
           </span>
         </div>
-        <div *ngIf="f.repeatpass.invalid && (f.repeatpass.dirty || f.repeatpass.touched) && !menjaProfil" class="alert alert-danger">
-          <div *ngIf="f.repeatpass.errors.required">
-            Lozinka je obavezna.
+        <div *ngIf="f.confirmPassword.invalid && (f.confirmPassword.dirty || f.confirmPassword.touched) && !menjaProfil" class="alert alert-danger">
+          <div *ngIf="f.confirmPassword.errors.required">
+            Ponovljena lozinka je obavezna.
           </div>
-          <div *ngIf="f.repeatpass.errors.mustMatch">
-            Lozinke se moraju poklapati
+          <div *ngIf="f.confirmPassword.errors.mustMatch">
+            Lozinke se moraju poklapati.
           </div>
         </div>
+      </div>
 
 
         <div class="wrap-input100 validate-input" data-validate="Adresa je neophodna">
@@ -138,9 +161,9 @@
         <div class="wrap-input100 validate-input">
           <span class="label-input100">Tip putnika</span>
           <select class="selectbox input100" formControlName="tipputnika">
-            <option value="RegularniPutnik" selected>Regularni putnik</option>
-            <option value="Djak"> Djak</option>
-            <option value="Penzioner">Penzioner</option>
+            <option value="2" selected>Regularni putnik</option>
+            <option value="0"> Djak</option>
+            <option value="1">Penzioner</option>
           </select>
           <span class="focus-input100"></span>
           <span class="symbol-reg100">

@@ -14,9 +14,9 @@ export class RegistracijaComponent implements OnInit {
   serverSuccessMessage = "";
 
   registracijaForm = this.fb.group({
-    name: ['', Validators.required, Validators.minLength(3)],
-    surname: ['', Validators.required, Validators.minLength(3)],
-    email: ['', Validators.required, Validators.email],
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    surname: ['', [Validators.required, Validators.minLength(3)]],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
     confirmPassword: ['', Validators.required],
     address: ['', Validators.required],

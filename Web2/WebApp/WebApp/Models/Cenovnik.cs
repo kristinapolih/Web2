@@ -8,9 +8,9 @@ namespace WebApp.Models
 {
     public class Cenovnik
     {
-        public int iD;
-        public DateTime oD;
-        public DateTime dO;
+        private int iD;
+        private DateTime oD;
+        private DateTime dO;
 
         [Key]
         public int ID
