@@ -8,6 +8,7 @@ using WebApp.Persistence;
 using WebApp.Persistence.UnitOfWork;
 using WebApp.Models;
 using Newtonsoft.Json.Linq;
+using WebApp.Helper;
 
 namespace WebApp.Controllers
 {
@@ -19,6 +20,26 @@ namespace WebApp.Controllers
 
         public RedVoznjeController(IUnitOfWork uw)
         {
+            /*HelperReader.Reader(uw, "1A");
+            HelperReader.Reader(uw, "1B");
+            HelperReader.Reader(uw, "4A");
+            HelperReader.Reader(uw, "4B");
+            //HelperReader.Reader(uw, "11A");
+            //HelperReader.Reader(uw, "11B");
+            HelperReader.Reader(uw, "12A");
+            HelperReader.Reader(uw, "12B");
+            HelperReader.Reader(uw, "13A");
+            HelperReader.Reader(uw, "13B");
+            HelperReader.Reader(uw, "16A");
+            HelperReader.Reader(uw, "16B");
+            HelperReader.Reader(uw, "22A");
+            HelperReader.Reader(uw, "22B");
+            HelperReader.Reader(uw, "32A");
+            HelperReader.Reader(uw, "32B");
+            HelperReader.Reader(uw, "41A");
+            HelperReader.Reader(uw, "41B");
+            HelperReader.Reader(uw, "51BA");
+            HelperReader.Reader(uw, "51BB");*/
             unitOfWork = uw;
         }
 
@@ -116,6 +137,41 @@ namespace WebApp.Controllers
                 lista.Add(s);
             }
             return Ok(lista);
+        }
+
+        [Route("getLinije")]
+        public IHttpActionResult GetLinije()
+        {
+            List<Linije> routes = new List<Linije>();
+
+            List<Linija> routesDb = unitOfWork.LinijaRepository.GetAll().ToList();
+
+            foreach (Linija l in routesDb)
+            {
+                if(!routes.Exists(x => x.BrojRute == l.Broj))
+                    routes.Add(new Linije { ID = l.ID, BrojRute = l.Broj, ImeRute = l.Naziv, TipRute = l.TipVoznje });
+            }
+
+            return Ok(routes);
+        }
+
+        [HttpGet, Route("getLiniju")]
+        public IHttpActionResult GetLiniju(int id)
+        {
+            Linija l = unitOfWork.LinijaRepository.Get(id);
+
+            List<LinijaStanica> linijaStanica = unitOfWork.LinijaStanicaRepository.GetAll().Where(x => x.IDLinija == l.ID).ToList();
+            List<StanicaHelp> stanice = new List<StanicaHelp>();
+
+            foreach (LinijaStanica ls in linijaStanica)
+            {
+                Stanica stanica = unitOfWork.StanicaRepository.Get(ls.IDStanica);
+                if (stanica != null)
+                    stanice.Add(new StanicaHelp { X = stanica.X, Y = stanica.Y, Name = stanica.Naziv, IsStation = stanica.IsStanica, Adresa = unitOfWork.AdresaRepository.Get(stanica.IDAdresa) });
+            }
+            Linije linije = new Linije() { ID = l.ID, BrojRute = l.Naziv, TipRute = l.TipVoznje };
+            linije.Stanice = stanice;
+            return Ok(linije);
         }
     }
 }

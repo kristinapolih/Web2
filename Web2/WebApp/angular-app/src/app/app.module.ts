@@ -18,6 +18,8 @@ import { PromeniVidiProfilComponent } from './promeni-vidi-profil/promeni-vidi-p
 import { ProveriKarteComponent } from './proveri-karte/proveri-karte.component';
 import { RedVoznjePrikaziLinijuComponent } from './red-voznje-prikazi-liniju/red-voznje-prikazi-liniju.component';
 import { JwtInterceptor } from 'src/app/auth/jwt-interceptor';
+import { MapaComponent } from './mapa/mapa.component';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -31,7 +33,8 @@ import { JwtInterceptor } from 'src/app/auth/jwt-interceptor';
     RegistracijaComponent,
     PromeniVidiProfilComponent,
     ProveriKarteComponent,
-    RedVoznjePrikaziLinijuComponent
+    RedVoznjePrikaziLinijuComponent,
+    MapaComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { JwtInterceptor } from 'src/app/auth/jwt-interceptor';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'})
   ],
   providers: [
     {

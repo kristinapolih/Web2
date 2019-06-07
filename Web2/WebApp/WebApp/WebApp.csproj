@@ -259,6 +259,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\HelperReader.cs" />
     <Compile Include="Migrations\201905222056072_InitialMigration.cs" />
     <Compile Include="Migrations\201905222056072_InitialMigration.Designer.cs">
       <DependentUpon>201905222056072_InitialMigration.cs</DependentUpon>
@@ -295,6 +296,26 @@
     <Compile Include="Migrations\201906061002124_EightMigration.Designer.cs">
       <DependentUpon>201906061002124_EightMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906070915010_NinethMigration.cs" />
+    <Compile Include="Migrations\201906070915010_NinethMigration.Designer.cs">
+      <DependentUpon>201906070915010_NinethMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906070941057_TenthMigration.cs" />
+    <Compile Include="Migrations\201906070941057_TenthMigration.Designer.cs">
+      <DependentUpon>201906070941057_TenthMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906070945307_EleventhMigration.cs" />
+    <Compile Include="Migrations\201906070945307_EleventhMigration.Designer.cs">
+      <DependentUpon>201906070945307_EleventhMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906070948045_TwelwethMigration.cs" />
+    <Compile Include="Migrations\201906070948045_TwelwethMigration.Designer.cs">
+      <DependentUpon>201906070948045_TwelwethMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906071016436_ThirteenthMigration.cs" />
+    <Compile Include="Migrations\201906071016436_ThirteenthMigration.Designer.cs">
+      <DependentUpon>201906071016436_ThirteenthMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -310,8 +331,11 @@
     <Compile Include="Models\Korisnik.cs" />
     <Compile Include="Models\KupljenaKarta.cs" />
     <Compile Include="Models\Linija.cs" />
+    <Compile Include="Models\LinijaStanica.cs" />
+    <Compile Include="Models\Linije.cs" />
     <Compile Include="Models\RegistracijaModel.cs" />
     <Compile Include="Models\Stanica.cs" />
+    <Compile Include="Models\StanicaHelp.cs" />
     <Compile Include="Models\Stavka.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
     <Compile Include="Persistence\Repository\AdresaRepository.cs" />
@@ -325,6 +349,7 @@
     <Compile Include="Persistence\Repository\IKoordinateRepository.cs" />
     <Compile Include="Persistence\Repository\IKorisnikRepository.cs" />
     <Compile Include="Persistence\Repository\ILinijaRepository.cs" />
+    <Compile Include="Persistence\Repository\ILinijaStanicaRepository.cs" />
     <Compile Include="Persistence\Repository\IRepository.cs" />
     <Compile Include="Persistence\Repository\IStanicaRepository.cs" />
     <Compile Include="Persistence\Repository\IStavkaRepository.cs" />
@@ -333,6 +358,7 @@
     <Compile Include="Persistence\Repository\KoordinateRepository.cs" />
     <Compile Include="Persistence\Repository\KorisnikRepository.cs" />
     <Compile Include="Persistence\Repository\LinijaRepository.cs" />
+    <Compile Include="Persistence\Repository\LinijaStanicaRepository.cs" />
     <Compile Include="Persistence\Repository\Repository.cs" />
     <Compile Include="Persistence\Repository\StanicaRepository.cs" />
     <Compile Include="Persistence\Repository\StavkaRepository.cs" />
@@ -462,6 +488,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906061002124_EightMigration.resx">
       <DependentUpon>201906061002124_EightMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906070915010_NinethMigration.resx">
+      <DependentUpon>201906070915010_NinethMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906070941057_TenthMigration.resx">
+      <DependentUpon>201906070941057_TenthMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906070945307_EleventhMigration.resx">
+      <DependentUpon>201906070945307_EleventhMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906070948045_TwelwethMigration.resx">
+      <DependentUpon>201906070948045_TwelwethMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906071016436_ThirteenthMigration.resx">
+      <DependentUpon>201906071016436_ThirteenthMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

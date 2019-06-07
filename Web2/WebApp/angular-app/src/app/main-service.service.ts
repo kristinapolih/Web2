@@ -15,6 +15,16 @@ export class MainServiceService {
 
   constructor(private http: HttpClient) { }
 
+  getLinije(): Observable<any>
+  {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinije');
+  }
+
+  getLiniju(id: number): Observable<any>
+  {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLiniju' + `/?id=${id}`);
+  }
+
   obrisiKartu(u: any): Observable<any>{
     return this.http.post<any>('http://localhost:52295/api/Karta/obrisiKartu',u);
   } 

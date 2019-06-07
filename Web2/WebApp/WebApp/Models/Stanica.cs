@@ -10,8 +10,10 @@ namespace WebApp.Models
     {
         private int iD;
         private string naziv;
-        private string adresa;
-        private int iDKoordinata;
+        private int iDAdresa;
+        private double x;
+        private double y;
+        private bool isStanica;
 
         [Key]
         public int ID
@@ -24,15 +26,25 @@ namespace WebApp.Models
             get { return naziv; }
             set { naziv = value; }
         }
-        public string Adresa
+        public int IDAdresa
         {
-            get { return adresa; }
-            set { adresa = value; }
+            get { return iDAdresa; }
+            set { iDAdresa = value; }
         }
-        public int IDKoordinata
+        public double X
         {
-            get { return iDKoordinata; }
-            set { iDKoordinata = value; }
+            get { return x; }
+            set { x = value; }
+        }
+        public double Y
+        {
+            get  { return y; }
+            set { y = value; }
+        }
+        public bool IsStanica
+        {
+            get { return isStanica; }
+            set { isStanica = value; }
         }
     }
 }

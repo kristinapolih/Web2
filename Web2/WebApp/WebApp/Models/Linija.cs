@@ -9,7 +9,8 @@ namespace WebApp.Models
     public class Linija
     {
         private int iD;
-        private string redniBroj;
+        private string broj;
+        private string naziv;
         private TipVoznje tipVoznje;
         private DanUNedelji datum;
         private string polasci;
@@ -20,10 +21,15 @@ namespace WebApp.Models
             get { return iD; }
             set { iD = value; }
         }
+        public string Broj
+        {
+            get { return broj; }
+            set { broj = value; }
+        }
         public string Naziv
         {
-            get { return redniBroj; }
-            set { redniBroj = value; }
+            get { return naziv; }
+            set { naziv = value; }
         }
         public TipVoznje TipVoznje
         {

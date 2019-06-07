@@ -31,5 +31,6 @@ namespace WebApp.Persistence
         public DbSet<CenovnikStavka> CenovnikStavkas { get; set; }
         public DbSet<Cenovnik> Cenovniks { get; set; }
         public DbSet<Adresa> Adresas { get; set; }
+        public DbSet<LinijaStanica> LinijaStanicas { get; set; }
     }
 }
