@@ -15,45 +15,64 @@ export class MainServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getLinije(): Observable<any>
-  {
-    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinije');
+  izmeniPolaskeAdmin(arg: any): Observable<any>{
+    let headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    let par = {
+      Polasci: arg.svipolasci
+    };
+    return this.http.post<any>('http://localhost:52295/api/RedVoznje/izmeniPolaskeAdmin', par, headers);
   }
 
-  getLiniju(id: number): Observable<any>
-  {
+  getLinijuAdmin(id: number): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijuAdmin'+ `/?id=${id}`);
+  }
+
+  getLinijeAdmin(): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijeAdmin');
+  }
+
+  getLinijeGradske(): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijeGradske');
+  }
+
+  getLinijePrigradske(): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijePrigradske');
+  }
+
+  getLiniju(id: number): Observable<any> {
     return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLiniju' + `/?id=${id}`);
   }
 
-  obrisiKartu(u: any): Observable<any>{
-    return this.http.post<any>('http://localhost:52295/api/Karta/obrisiKartu',u);
-  } 
+  obrisiKartu(u: any): Observable<any> {
+    return this.http.post<any>('http://localhost:52295/api/Karta/obrisiKartu', u);
+  }
 
-  getKarte(): Observable<any>{
+  getKarte(): Observable<any> {
     return this.http.get<any>('http://localhost:52295/api/Karta/getKarte');
   }
 
-  getCene(): Observable<any>
-  {
+  getCene(): Observable<any> {
     return this.http.get<any>('http://localhost:52295/api/Karta/getCene');
   }
 
-  getKoeficijente(): Observable<any>
-  {
+  getKoeficijente(): Observable<any> {
     return this.http.get<any>('http://localhost:52295/api/Karta/getKoeficijente');
   }
 
-  kupiKartu(tipKorisnika: string, tipKarte: string, cena: number) : Observable<any>
-  {
+  kupiKartu(tipKorisnika: string, tipKarte: string, cena: number): Observable<any> {
     let karta: Karta = new Karta();
     karta.tipKorisnika = tipKorisnika;
     karta.tipKarte = tipKarte;
     karta.cena = cena;
-    return this.http.post<any>('http://localhost:52295/api/Karta/kupiKartu',karta);
+    return this.http.post<any>('http://localhost:52295/api/Karta/kupiKartu', karta);
   }
 
-  getProfil(): Observable<any>
-  {
+  getProfil(): Observable<any> {
     return this.http.get<any>('http://localhost:52295/api/Registracija/getProfil');
   }
 
@@ -121,8 +140,7 @@ export class MainServiceService {
     );
   }
 
-  getPolasci()
-  {
+  getPolasci() {
     return this.polasci;
   }
 

@@ -1,73 +1,76 @@
 <div class="limiter">
-  <div class="container-login100">
-    <div class="wrap-login100">
+  <div class="container-cenovnik">
+    <div class="wrap-redVoznje100">
 
-      <div class="col-2">
-      <div class="container-profilRight100-form-btn">
-        <div class="wrap-login100-form-btn">
-          <div class="login100-form-bgbtn"></div>
-          <button (click)="MenjaProfil()" *ngIf="mainService.isAdmin()" class="profilRight100-form-btn">
+
+      <div class="container-login100-form-btn">
+        <div class="wrap-redVoznje100-form-btn">
+          <button routerLink="/red-voznje-admin" *ngIf="mainService.isAdmin()" class="profilRight100-form-btn">
             Izmeni red vožnje
           </button>
         </div>
       </div>
 
-      <form [formGroup]="redVoznjeForm" (ngSubmit)="onSubmit()" class="login100-form validate-form">
-        <span class="login100-form-title  p-b-59">
-          Gradski i prigradski red vožnje
-        </span>
-        <p class="txt2"> {{ danasnjiDatum }} </p>
 
-
-        <div class="wrap-input100 validate-input">
-          <span class="label-input100">Red vožnje</span>
-          <select class="selectbox input100" (click)="PromeniLiniju()" formControlName="redvoznje" [(ngModel)]="selectedTipRedVoznje">
-            <option *ngFor="let c of tipRedVoznje" [ngValue]="c">{{c}}</option>
-          </select>
-          <span class="focus-input100"></span>
-          <span class="symbol-reg100">
-            <i class="fa fa-bus" aria-hidden="true"></i>
+      <div class="col-2">
+        <form [formGroup]="redVoznjeForm" (ngSubmit)="onSubmit()" class="login100-form validate-form">
+          <span class="login100-form-title  p-b-59">
+            Gradski i prigradski red vožnje
           </span>
-        </div>
+          <p class="txt2"> {{ danasnjiDatum }} </p>
 
 
-        <div class="wrap-input100 validate-input">
-          <span class="label-input100">Dan</span>
-          <select class="selectbox input100" (click)="PromeniDan()" formControlName="dan" [(ngModel)]="selectedtipDana">
-            <option *ngFor="let c of tipDana" [ngValue]="c">{{c}}</option>
-          </select>
-          <span class="focus-input100"></span>
-          <span class="symbol-reg100">
-            <i class="fa fa-calendar" aria-hidden="true"></i>
-          </span>
-        </div>
-
-
-        <div class="wrap-input100 validate-input">
-          <span class="label-input100">Linija</span>
-          <select class="selectbox input100" formControlName="linija" [(ngModel)]="selectedtipLinije">
-            <option *ngFor="let c of tipLinije" [ngValue]="c">{{c}}</option>
-          </select>
-          <span class="focus-input100"></span>
-          <span class="symbol-reg100">
-            <i class="fa fa-bus" aria-hidden="true"></i>
-          </span>
-        </div>
-
-
-        <div class="container-login100-form-btn">
-          <div class="wrap-login100-form-btn">
-            <div class="login100-form-bgbtn"></div>
-            <button type="submit" [disabled]="!redVoznjeForm.valid" (click)="showLine()" class="login100-form-btn">
-              Prikaži
-            </button>
+          <div class="wrap-input100 validate-input">
+            <span class="label-input100">Red vožnje</span>
+            <select class="selectbox input100" (click)="PromeniLiniju()" formControlName="redvoznje"
+              [(ngModel)]="selectedTipRedVoznje">
+              <option *ngFor="let c of tipRedVoznje" [ngValue]="c">{{c}}</option>
+            </select>
+            <span class="focus-input100"></span>
+            <span class="symbol-reg100">
+              <i class="fa fa-bus" aria-hidden="true"></i>
+            </span>
           </div>
-        </div>
-      </form>
 
-    </div>
 
-    <div class="col-4">
+          <div class="wrap-input100 validate-input">
+            <span class="label-input100">Dan</span>
+            <select class="selectbox input100" (click)="PromeniDan()" formControlName="dan"
+              [(ngModel)]="selectedtipDana">
+              <option *ngFor="let c of tipDana" [ngValue]="c">{{c}}</option>
+            </select>
+            <span class="focus-input100"></span>
+            <span class="symbol-reg100">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </span>
+          </div>
+
+
+          <div class="wrap-input100 validate-input">
+            <span class="label-input100">Linija</span>
+            <select class="selectbox input100" formControlName="linija" [(ngModel)]="selectedtipLinije">
+              <option *ngFor="let c of tipLinije" [ngValue]="c">{{c}}</option>
+            </select>
+            <span class="focus-input100"></span>
+            <span class="symbol-reg100">
+              <i class="fa fa-bus" aria-hidden="true"></i>
+            </span>
+          </div>
+
+
+          <div class="container-login100-form-btn">
+            <div class="wrap-login100-form-btn">
+              <div class="login100-form-bgbtn"></div>
+              <button type="submit" [disabled]="!redVoznjeForm.valid" (click)="showLine()" class="login100-form-btn">
+                Prikaži
+              </button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+
+      <div class="col-4">
         <router-outlet></router-outlet>
       </div>
 

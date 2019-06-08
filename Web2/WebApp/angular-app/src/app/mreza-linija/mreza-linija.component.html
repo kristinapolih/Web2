@@ -1,19 +1,29 @@
 <div class="limiter">
         <div class="container-cenovnik">
                 <div class="wrap-login100">
-
-                        <div id="buttons">
+                        <div>
+                                <span class="txt font-color-gradske">Gradske linije</span>
                                 <ul>
-                                        <li *ngFor="let route of routes" (click)="selektovanaRuta(route)">
-                                                        <button type="button" (click)="selektovanaRuta(route)" class="btn btn-warning btn-circle btn-lg" >
-                                                <a class="glyphicon" title="{{route.TipRute}}">{{route.BrojRute}}</a>
-                                        </button>
+                                        <li *ngFor="let route of routesGradske" (click)="selektovanaRuta(route)">
+                                                <button type="button" class="btn btn-warning btn-circle btn-lg btn-color-gradske txt" title="{{route.TipRute}}">
+                                                        <a>{{route.BrojRute}}</a>
+                                                </button>
+                                        </li>
+                                </ul>
+                        </div>
+                        <div>
+                                <span class="txt font-color-prigradske">Prigradske linije</span>
+                                <ul>
+                                        <li *ngFor="let route of routesPrigradske" (click)="selektovanaRuta(route)">
+                                                <button type="button" class="btn btn-warning btn-circle btn-lg btn-color-prigradske txt" title="{{route.TipRute}}">
+                                                        <a>{{route.BrojRute}}</a>
+                                                </button>
                                         </li>
                                 </ul>
                         </div>
 
                         <div>
-                                <app-mapa></app-mapa>
+                                <app-mapa [route]="sRoute"></app-mapa>
                         </div>
                 </div>
         </div>

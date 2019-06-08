@@ -139,16 +139,32 @@ namespace WebApp.Controllers
             return Ok(lista);
         }
 
-        [Route("getLinije")]
-        public IHttpActionResult GetLinije()
+        [HttpGet, Route("getLinijeGradske")]
+        public IHttpActionResult GetLinijeGradske()
         {
             List<Linije> routes = new List<Linije>();
 
-            List<Linija> routesDb = unitOfWork.LinijaRepository.GetAll().ToList();
+            List<Linija> routesDb = unitOfWork.LinijaRepository.GetAll().Where(x => x.TipVoznje == TipVoznje.Gradski).ToList();
 
             foreach (Linija l in routesDb)
             {
                 if(!routes.Exists(x => x.BrojRute == l.Broj))
+                    routes.Add(new Linije { ID = l.ID, BrojRute = l.Broj, ImeRute = l.Naziv, TipRute = l.TipVoznje });
+            }
+
+            return Ok(routes);
+        }
+
+        [HttpGet, Route("getLinijePrigradske")]
+        public IHttpActionResult GetLinijePrigradske()
+        {
+            List<Linije> routes = new List<Linije>();
+
+            List<Linija> routesDb = unitOfWork.LinijaRepository.GetAll().Where(x => x.TipVoznje == TipVoznje.Prigradski).ToList();
+
+            foreach (Linija l in routesDb)
+            {
+                if (!routes.Exists(x => x.BrojRute == l.Broj))
                     routes.Add(new Linije { ID = l.ID, BrojRute = l.Broj, ImeRute = l.Naziv, TipRute = l.TipVoznje });
             }
 
@@ -167,11 +183,62 @@ namespace WebApp.Controllers
             {
                 Stanica stanica = unitOfWork.StanicaRepository.Get(ls.IDStanica);
                 if (stanica != null)
-                    stanice.Add(new StanicaHelp { X = stanica.X, Y = stanica.Y, Name = stanica.Naziv, IsStation = stanica.IsStanica, Adresa = unitOfWork.AdresaRepository.Get(stanica.IDAdresa) });
+                    stanice.Add(new StanicaHelp { X = stanica.X, Y = stanica.Y, Naziv = stanica.Naziv, IsStanica = stanica.IsStanica, Adresa = unitOfWork.AdresaRepository.Get(stanica.IDAdresa) });
             }
             Linije linije = new Linije() { ID = l.ID, BrojRute = l.Naziv, TipRute = l.TipVoznje };
             linije.Stanice = stanice;
             return Ok(linije);
+        }
+
+        [HttpGet, Route("getLinijeAdmin")]
+        [Authorize(Roles = "Admin")]
+        public IHttpActionResult GetLinijeAdmin()
+        {
+            List<Linije> routes = new List<Linije>();
+
+            List<Linija> routesDb = unitOfWork.LinijaRepository.GetAll().ToList();
+
+            foreach (Linija l in routesDb)
+            {
+                routes.Add(new Linije { ID = l.ID, ImeRute = l.Naziv, TipVoznje = l.TipVoznje.ToString(), Dan = l.Datum.ToString() });
+            }
+
+            return Ok(routes);
+        }
+
+        [HttpGet, Route("getLinijuAdmin")]
+        [Authorize(Roles = "Admin")]
+        public IHttpActionResult GetLinijuAdmin(int id)
+        {
+            Linija l = unitOfWork.LinijaRepository.Get(id);
+            string polasci = l.Polasci;
+            string[] vremena = polasci.Split('.');
+
+            /*List<string> lista = new List<string>();
+            foreach (var s in vremena)
+            {
+                lista.Add(s);
+            }*/
+            string ret = "";
+            foreach (var s in vremena)
+            {
+                ret += s + '\n';
+            }
+            return Ok(ret);
+        }
+
+        [HttpPost, Route("izmeniPolaskeAdmin")]
+        public IHttpActionResult IzmeniPolaskeAdmin(PolasciHelp Polasci)
+        {
+            /*List<string> polasci = unitOfWork.LinijaRepository.Find(x => x.Naziv == linija && x.Datum == d).Select(x => x.Polasci).ToList();
+            string[] vremena = polasci[0].Split('.');
+
+            List<string> lista = new List<string>();
+            foreach (var s in vremena)
+            {
+                lista.Add(s);
+            }*/
+            return Ok();
         }
     }
 }

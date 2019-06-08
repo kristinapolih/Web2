@@ -18,22 +18,52 @@ import { ControllerGuard } from 'src/app/auth/controller.guard';
 import { AppUserGuard } from 'src/app/auth/appUser.guard';
 import { AuthNotGuard } from 'src/app/auth/authNot.guard';
 import { RedVoznjePrikaziLinijuComponent } from 'src/app/red-voznje-prikazi-liniju/red-voznje-prikazi-liniju.component';
+import { AdminGuard } from './auth/admin.guard';
+import { RedVoznjeAdminComponent } from './red-voznje-admin/red-voznje-admin.component';
 
 const routes: Routes = [
   {
-    path: 'red-voznje', 
+    path: 'red-voznje',
     component: RedVoznjeComponent,
     children: [{
       path: 'linija',
       component: RedVoznjePrikaziLinijuComponent
     }]
   },
-  { path: 'mreza-linija', component: MrezaLinijaComponent },
-  { path: 'cenovnik', component: CenovnikComponent },
-  { path: 'prijavite-se', component: LoginComponent, canActivate: [AuthNotGuard] },
-  { path: 'registracija', component: RegistracijaComponent, canActivate: [AuthNotGuard] },
-  { path: 'promeni-vidi-profil', component: PromeniVidiProfilComponent, canActivate: [AuthGuard, AppUserGuard] },
-  { path: 'proveri-karte', component: ProveriKarteComponent, canActivate: [AuthGuard, ControllerGuard] }
+  {
+    path: 'mreza-linija',
+    component: MrezaLinijaComponent
+  },
+  {
+    path: 'cenovnik',
+    component: CenovnikComponent
+  },
+  {
+    path: 'prijavite-se',
+    component: LoginComponent,
+    canActivate: [AuthNotGuard]
+  },
+  {
+    path: 'registracija',
+    component: RegistracijaComponent,
+    canActivate: [AuthNotGuard]
+  },
+  {
+    path: 'promeni-vidi-profil',
+    component: PromeniVidiProfilComponent,
+    canActivate: [AuthGuard, AppUserGuard]
+  },
+  {
+    path: 'proveri-karte',
+    component: ProveriKarteComponent,
+    canActivate: [AuthGuard, ControllerGuard]
+  },
+
+  {
+    path: 'red-voznje-admin',
+    component: RedVoznjeAdminComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  }
 ];
 
 @NgModule({

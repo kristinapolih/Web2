@@ -22,10 +22,10 @@
 				</div>
 				<div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="alert alert-danger">
 					<div *ngIf="f.email.errors.required">
-						Email je obavezan.
+							<p>Email je obavezan.</p>
 					</div>
 					<div *ngIf="f.email.errors && f.email.errors.pattern" class="alert alert-danger">
-						Email nije u ispravnom formatu.
+							<p>Email nije u ispravnom formatu.</p>
 					</div>
 				</div>
 
@@ -39,7 +39,7 @@
 				</div>
 				<div *ngIf="f.pass.invalid && (f.pass.dirty || f.pass.touched)" class="alert alert-danger">
 					<div *ngIf="f.pass.errors.required">
-						Lozinka je obavezna.
+							<p>Lozinka je obavezna.</p>
 					</div>
 				</div>
 

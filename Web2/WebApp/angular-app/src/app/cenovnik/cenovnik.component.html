@@ -19,7 +19,7 @@
 
 
           <div class="wrap-input100 validate-input">
-            <span class="label-input100">Tip karte</span>
+            <p class="label-input100">Tip karte</p>
             <select class="selectbox input100" (click)="PromeniTipKarte()" formControlName="tipkarte"
               [(ngModel)]="selectedTipKarte">
               <option value="Vremenska" selected>Vremenska</option>
@@ -35,7 +35,7 @@
 
 
           <div class="wrap-input100 validate-input">
-            <span class="label-input100">Tip putnika</span>
+            <p class="label-input100">Tip putnika</p>
             <select class="selectbox input100" (click)="PromeniTipaPutnika()" formControlName="tipputnika"
               [(ngModel)]="selectedTipPutnika">
               <option value="RegularniPutnik" selected>Regularni putnik</option>
@@ -50,7 +50,7 @@
 
 
           <div class="wrap-input100 validate-input">
-            <span class="label-input100">Cena karte</span>
+            <p class="label-input100">Cena karte</p>
             <input class="input100" type="text" placeholder="{{cena}}" readonly>
             <span class="focus-input100"></span>
             <span class="symbol-reg100">
@@ -99,7 +99,7 @@
                 <td>{{u.Date}}</td>
                 <td>
                   <button type="button" class="btn btn-danger btn-circle" >
-                    <a id="a" class="glyphicon glyphicon-remove" (click)="obrisiKartu(u)">X</a>
+                    <a id="a" class="glyphicon glyphicon-trash" (click)="obrisiKartu(u)"></a>
                   </button>
                 </td>
               </tr>

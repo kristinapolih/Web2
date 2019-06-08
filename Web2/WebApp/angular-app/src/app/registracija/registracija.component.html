@@ -9,7 +9,7 @@
         <p class="txt3">{{serverSuccessMessage}}</p>
 
         <div class="wrap-input100 validate-input" data-validate="Ime je obavezno">
-          <span class="label-input100">Ime</span>
+          <p class="label-input100">Ime</p>
           <input class="input100" type="text" formControlName="name" required placeholder="Ime...">
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
@@ -18,16 +18,16 @@
         </div>
         <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)" class="alert alert-danger">
 					<div *ngIf="f.name.errors.required">
-					  Ime je obavezno.
+              <p>Ime je obavezno.</p>
           </div>
           <div *ngIf="f.name.errors.minlength">
-            Ime mora da se sastoji od minimum 3 slova.
+              <p>Ime mora da se sastoji od minimum 3 slova.</p>
           </div>
 				</div>
 
 
         <div class="wrap-input100 validate-input" data-validate="Prezime je obavezno">
-          <span class="label-input100">Prezime</span>
+          <p class="label-input100">Prezime</p>
           <input class="input100" type="text" formControlName="surname" required placeholder="Prezime...">
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
@@ -36,16 +36,16 @@
         </div>
         <div *ngIf="f.surname.invalid && (f.surname.dirty || f.surname.touched)" class="alert alert-danger">
 					<div *ngIf="f.surname.errors.required">
-					  Prezime je obavezno.
+              <p> Prezime je obavezno.</p>
           </div>
           <div *ngIf="f.surname.errors.minlength">
-            Prezime mora da se sastoji od minimum 3 slova.
+              <p>Prezime mora da se sastoji od minimum 3 slova.</p>
           </div>
 				</div>
 
 
         <div class="wrap-input100 validate-input" data-validate = "Validna email adresa: someone@gmail.com">
-          <span class="label-input100">Email</span>
+          <p class="label-input100">Email</p>
           <input class="input100" type="text" formControlName="email" required placeholder="Email adresa..." required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
           <span class="focus-input100"> </span>
           <span class="symbol-reg100">
@@ -54,16 +54,16 @@
         </div>
         <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="alert alert-danger">
 					<div *ngIf="f.email.errors.required">
-					  Email je obavezan.
+              <p>Email je obavezan.</p>
 					</div>
 					<div *ngIf="f.email.errors && f.email.errors.pattern" class="alert alert-danger">
-						Email nije u ispravnom formatu.
+              <p>Email nije u ispravnom formatu.</p>
 					</div>
 				</div>
 
 
         <div class="wrap-input100 validate-input" data-validate = "Lozinka je neophodna">
-          <span class="label-input100">Lozinka</span>
+          <p class="label-input100">Lozinka</p>
           <input class="input100" type="password" formControlName="password" required placeholder="*************">
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
@@ -72,13 +72,13 @@
         </div>
         <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)" class="alert alert-danger">
 					<div *ngIf="f.password.errors.required">
-					  Lozinka je obavezna.
+              <p>Lozinka je obavezna.</p>
 					</div>
 				</div>
 
 
         <div class="wrap-input100 validate-input" data-validate = "Ponovljena lozinka je neophodna">
-          <span class="label-input100">Ponovljena lozinka</span>
+          <p class="label-input100">Ponovljena lozinka</p>
           <input class="input100" type="password" formControlName="confirmPassword" required placeholder="*************">
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
@@ -87,16 +87,16 @@
         </div>
         <div *ngIf="f.confirmPassword.invalid && (f.confirmPassword.dirty || f.confirmPassword.touched)" class="alert alert-danger">
 					<div *ngIf="f.confirmPassword.errors.required">
-					  Lozinka je obavezna.
+              <p>Lozinka je obavezna.</p>
           </div>
           <div *ngIf="f.confirmPassword.errors.mustMatch">
-            Lozinke se moraju poklapati
+              <p>Lozinke se moraju poklapati.</p>
           </div>
 				</div>
 
 
         <div class="wrap-input100 validate-input" data-validate = "Adresa je neophodna">
-          <span class="label-input100">Adresa</span>
+          <p class="label-input100">Adresa</p>
           <input class="input100" type="text" formControlName="address" required placeholder="Adresa...">
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
@@ -105,13 +105,13 @@
         </div>
         <div *ngIf="f.address.invalid && (f.address.dirty || f.address.touched)" class="alert alert-danger">
             <div *ngIf="f.address.errors.required">
-              Adresa je obavezna.
+                <p>Adresa je obavezna.</p>
             </div>
         </div>
 
 
         <div class="wrap-input100 validate-input" data-validate = "Datum rodjenja je nophodan">
-          <span class="label-input100">Datum rođenja</span>
+          <p class="label-input100">Datum rođenja</p>
           <input class="input100" type="date" formControlName="datumRodjenja" required placeholder="Datum rodjenja...">
           <span class="focus-input100"></span>
           <span class="symbol-reg100">
@@ -120,13 +120,13 @@
         </div>
         <div *ngIf="f.datumRodjenja.invalid && (f.datumRodjenja.dirty || f.datumRodjenja.touched)" class="alert alert-danger">
             <div *ngIf="f.datumRodjenja.errors.required">
-              Datum rođenja je obavezan.
+              <p>Datum rođenja je obavezan.</p>
             </div>
         </div>
 
 
         <div class="wrap-input100 validate-input">
-          <span class="label-input100">Tip putnika</span>
+          <p class="label-input100">Tip putnika</p>
           <select class="selectbox input100" formControlName="tipputnika">
             <option value="Regularni">Regularni putnik</option>
             <option value="Djak"> Djak</option>

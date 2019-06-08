@@ -333,6 +333,7 @@
     <Compile Include="Models\Linija.cs" />
     <Compile Include="Models\LinijaStanica.cs" />
     <Compile Include="Models\Linije.cs" />
+    <Compile Include="Models\PolasciHelp.cs" />
     <Compile Include="Models\RegistracijaModel.cs" />
     <Compile Include="Models\Stanica.cs" />
     <Compile Include="Models\StanicaHelp.cs" />

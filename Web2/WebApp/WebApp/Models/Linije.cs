@@ -11,6 +11,8 @@ namespace WebApp.Models
         public string ImeRute { get; set; }
         public string BrojRute { get; set; }
         public TipVoznje TipRute { get; set; }
+        public string TipVoznje { get; set; }
+        public string Dan { get; set; }
         public List<StanicaHelp> Stanice { get; set; }
 
         public Linije()

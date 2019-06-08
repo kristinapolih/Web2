@@ -9,7 +9,7 @@ namespace WebApp.Models
     {
         private double x;
         private double y;
-        private string ime;
+        private string naziv;
         private Adresa adresa;
         private bool isStation;
 
@@ -26,7 +26,7 @@ namespace WebApp.Models
             { x = value; }
         }
 
-        public bool IsStation
+        public bool IsStanica
         {
             get
             {  return isStation; }
@@ -42,12 +42,12 @@ namespace WebApp.Models
             {  y = value; }
         }
 
-        public string Name
+        public string Naziv
         {
             get
-            { return ime; }
+            { return naziv; }
             set
-            { ime = value; }
+            { naziv = value; }
         }
 
 

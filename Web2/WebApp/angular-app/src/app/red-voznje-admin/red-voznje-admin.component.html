@@ -1,0 +1,83 @@
+<div class="limiter">
+  <div class="container-redvoznje100">
+    <div class="wrap-redVoznje100">
+
+
+      <div class="col-7">
+        <p class="login100-form-title p-b-59">Red vožnje</p>
+        <table>
+          <thead>
+            <tr>
+              <th width="15%">Tip vožnje</th>
+              <th width="15%">Dan</th>
+              <th width="60%">Linija</th>
+              <th width="10%">Otvori</th>
+              <th width="10%">Izmeni</th>
+              <th width="10%">Obrisi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let l of linije">
+              <td>{{l.TipVoznje}}</td>
+              <td>{{l.Dan}}</td>
+              <td>{{l.ImeRute}}</td>
+              <td>
+                <button type="button" class="btn btn-info btn-circle">
+                  <a id="a" class="glyphicon glyphicon-info-sign" (click)="otvoriLiniju(l.ID, l.ImeRute)"></a>
+                </button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary btn-circle">
+                  <a id="a" class="glyphicon glyphicon-pencil" (click)="izmeniLiniju(l.ID, l.ImeRute)"></a>
+                </button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger btn-circle">
+                  <a id="a" class="glyphicon glyphicon-trash" (click)="obrisiKartu(u)"></a>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <div class="col-4 cont" *ngIf="View()">
+        <span class="login100-form-title">
+          Linija<br />{{ linija }}
+        </span>
+
+        <ul class="txt3">
+          <li *ngFor="let p of polasci">
+            <span>{{ p }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-4 cont" *ngIf="!View()">
+        <span class="login100-form-title">
+          Linija<br />{{ linija }}
+        </span>
+
+        <form [formGroup]="polasciForm" (ngSubmit)="onSubmit()" class="login100-form validate-form">
+          <!--<<ul class="txt3">
+            <li *ngFor="let p of polasci">
+              <textarea class="txt3" formControlName="svipolasci" style="width: 100%; background-color: transparent; border: black; resize: none;"
+                value="{{p}}"> </textarea>
+            </li>
+          </ul>-->
+          <textarea class="txt3" formControlName="svipolasci" style="width: 100%; background-color: transparent; border: black; resize: none;"
+          [(ngModel)]="polasci" ng-model-options="{ getterSetter: true }"> </textarea>
+          <div class="container-login100-form-btn">
+            <div class="wrap-login100-form-btn">
+              <button type="submit" class="login100-form-btn">
+                Sačuvaj izmene
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

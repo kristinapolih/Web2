@@ -20,7 +20,8 @@ import { RedVoznjePrikaziLinijuComponent } from './red-voznje-prikazi-liniju/red
 import { JwtInterceptor } from 'src/app/auth/jwt-interceptor';
 import { MapaComponent } from './mapa/mapa.component';
 import { AgmCoreModule } from '@agm/core';
-
+import { RedVoznjeAdminComponent } from './red-voznje-admin/red-voznje-admin.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AgmCoreModule } from '@agm/core';
     PromeniVidiProfilComponent,
     ProveriKarteComponent,
     RedVoznjePrikaziLinijuComponent,
-    MapaComponent
+    MapaComponent,
+    RedVoznjeAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,7 @@ import { AgmCoreModule } from '@agm/core';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     AccordionModule.forRoot(),
     AgmCoreModule.forRoot({apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'})
   ],

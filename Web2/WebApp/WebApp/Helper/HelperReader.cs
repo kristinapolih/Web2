@@ -19,7 +19,7 @@ namespace WebApp.Helper
             bool state = true;
             string line;
             int idRoute = unitOfWork.LinijaRepository.GetAll().Where(x => x.Broj == routeName).FirstOrDefault().ID;
-            System.IO.StreamReader file = new System.IO.StreamReader(@"C:\Users\e3106-2015\Documents\Blok08\Projekat\Web2\Web2\WebApp\Scripts\" + routeName + ".txt");
+            System.IO.StreamReader file = new System.IO.StreamReader(@"E:\WEB2\Web2\Web2\WebApp\Scripts\" + routeName + ".txt");
             while ((line = file.ReadLine()) != null)
             {
                 if (line == "-")
@@ -52,7 +52,7 @@ namespace WebApp.Helper
 
             if (s == null)
             {
-                // dodati station
+                // dodati Stanica
                 Stanica stanica = new Stanica() { X = X, Y = Y, Naziv = "", IsStanica = false, IDAdresa = -1 };
                 unitOfWork.StanicaRepository.Add(stanica);
                 unitOfWork.Complete();
@@ -63,7 +63,7 @@ namespace WebApp.Helper
                 idStation = s.ID;
             }
 
-            // dodati statinoRoute
+            // dodati LinijaStanica
             LinijaStanica linijaStanica = new LinijaStanica() { IDLinija = idRoute, IDStanica = idStation };
             unitOfWork.LinijaStanicaRepository.Add(linijaStanica);
             unitOfWork.Complete();
@@ -87,7 +87,7 @@ namespace WebApp.Helper
                 unitOfWork.Complete();
                 int idAddress = unitOfWork.AdresaRepository.GetAll().Where(x => x.Grad == split[3] && x.Ulica == split[4] && x.Broj == split[5]).FirstOrDefault().ID;
 
-                // dodati station                                                               
+                // dodati Stanica                                                               
                 Stanica stationA = new Stanica() { X = X, Y = Y, Naziv = Name, IsStanica = true, IDAdresa = idAddress };
                 unitOfWork.StanicaRepository.Add(stationA);
                 unitOfWork.Complete();
@@ -98,7 +98,7 @@ namespace WebApp.Helper
                 idStation = s.ID;
             }
 
-            // dodati statinoRoute
+            // dodati LinijaStanica
             LinijaStanica ls = new LinijaStanica() { IDLinija = idRoute, IDStanica = idStation };
             unitOfWork.LinijaStanicaRepository.Add(ls);
             unitOfWork.Complete();

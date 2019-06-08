@@ -7,6 +7,11 @@ li {
     text-align: center;
 }
 
+@font-face {
+    font-family: Poppins-Bold;
+    src: url('../fonts/poppins/Poppins-Bold.ttf'); 
+  }
+
 .btn-circle.btn-lg
 {
     width: 50px;
@@ -15,4 +20,31 @@ li {
     font-size: 18px;
     line-height: 1.33;
     border-radius: 25px;
+}
+
+.txt
+{
+    font-family: Poppins-Bold;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.btn-color-gradske
+{
+    background-color: #ffff99;
+}
+
+.btn-color-prigradske
+{
+    background-color: #e6e600;
+}
+
+.font-color-gradske
+{
+    color: #ffff99;
+}
+
+.font-color-prigradske
+{
+    color: #e6e600;
 }

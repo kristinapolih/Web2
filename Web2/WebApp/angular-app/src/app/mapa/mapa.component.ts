@@ -20,7 +20,7 @@ export class MapaComponent implements OnInit {
   markerInfo: MarkerInfo;
 
   ngOnInit() {
-    this.polyline= new Polyline([], '#9966ff', { url:"", scaledSize: {width: 50, height: 50}});
+    this.polyline= new Polyline([], '#369691', { url:"", scaledSize: {width: 50, height: 50}});
   }
 
   constructor(private ngZone: NgZone){
@@ -36,10 +36,11 @@ export class MapaComponent implements OnInit {
 
   drowRoutes()
   {
-    this.polyline= new Polyline([], '#9966ff', { url:"", scaledSize: {width: 50, height: 50}});
+    let count = 0;
+    this.polyline= new Polyline([], '#369691', { url:"", scaledSize: {width: 50, height: 50}});
     this.stationsIcon = [];
     this._route.Stanice.forEach(element => {
-      if(!element.IsStanica)
+      if(!element.IsStanica) 
       {
         this.polyline.addLocation(new GeoLocation(element.X, element.Y));
       }
