@@ -23,7 +23,7 @@
               <td>{{l.ImeRute}}</td>
               <td>
                 <button type="button" class="btn btn-info btn-circle">
-                  <a id="a" class="glyphicon glyphicon-info-sign" (click)="otvoriLiniju(l.ID, l.ImeRute)"></a>
+                  <a id="a" class="fa fa-info" (click)="otvoriLiniju(l.ID, l.ImeRute)"></a>
                 </button>
               </td>
               <td>
@@ -33,7 +33,7 @@
               </td>
               <td>
                 <button type="button" class="btn btn-danger btn-circle">
-                  <a id="a" class="glyphicon glyphicon-trash" (click)="obrisiKartu(u)"></a>
+                  <a id="a" class="glyphicon glyphicon-trash" (click)="obrisiLinijuAdmin(l.ID)"></a>
                 </button>
               </td>
             </tr>
@@ -42,42 +42,146 @@
       </div>
 
 
-      <div class="col-4 cont" *ngIf="View()">
-        <span class="login100-form-title">
-          Linija<br />{{ linija }}
-        </span>
 
-        <ul class="txt3">
-          <li *ngFor="let p of polasci">
-            <span>{{ p }}</span>
-          </li>
-        </ul>
-      </div>
+      <div class="col-5">
+        <div class="container-login100-form-btn" *ngIf="novaLinija">
+          <div class="wrap-login100-form-btn">
+            <button (click)="dodajNovuLiniju()" class="login100-form-btn">
+              Dodaj novu liniju
+            </button>
+          </div>
+        </div>
+        <br/>
+        <br/>
 
-      <div class="col-4 cont" *ngIf="!View()">
-        <span class="login100-form-title">
-          Linija<br />{{ linija }}
-        </span>
 
-        <form [formGroup]="polasciForm" (ngSubmit)="onSubmit()" class="login100-form validate-form">
-          <!--<<ul class="txt3">
-            <li *ngFor="let p of polasci">
-              <textarea class="txt3" formControlName="svipolasci" style="width: 100%; background-color: transparent; border: black; resize: none;"
-                value="{{p}}"> </textarea>
-            </li>
-          </ul>-->
-          <textarea class="txt3" formControlName="svipolasci" style="width: 100%; background-color: transparent; border: black; resize: none;"
-          [(ngModel)]="polasci" ng-model-options="{ getterSetter: true }"> </textarea>
+         <!--Prikaz polazaka-->
+         <div *ngIf="View()">
+            <span class="login100-form-title">
+              Linija<br />{{ line }}
+            </span>
+  
+            <ul class="txt3">
+              <li *ngFor="let p of polasci">
+                <span>{{ p }}</span>
+              </li>
+            </ul>
+          </div>
+  
+  
+          <!--Izmena polazaka, dana i naziva linije-->
+          <div *ngIf="izmeni">
+            <form [formGroup]="naslovForm" (ngSubmit)="onSubmitNaslov()" class="login100-form validate-form">
+              <span class="login100-form-title"> Linija </span>
+              <textarea class="txt4" formControlName="naslov" [(ngModel)]="line" wrap="hard"
+                ng-model-options="{ getterSetter: true }"
+                style="width: 250px; height: 80px; background-color: rgb(255, 255, 255, 0.65); border: black; resize: none;"> </textarea>
+              <div class="container-login100-form-btn">
+                <div class="wrap-login100-form-btn">
+                  <button type="submit" class="login100-form-btn">
+                    Promeni ime linije
+                  </button>
+                </div>
+              </div>
+              <br />
+            </form>
+  
+            <div class="txt3">
+              {{message}}
+            </div>
+  
+            <form [formGroup]="danForm" (ngSubmit)="onSubmitDan()" class="login100-form validate-form">
+              <div class="wrap-input100 validate-input">
+                <span class="label-input100">Dan</span>
+                <select class="selectbox input100" formControlName="dan" [(ngModel)]="selectedtipDana">
+                  <option *ngFor="let c of tipDana" [ngValue]="c" ng-model-options="{ getterSetter: true }">{{c}}</option>
+                </select>
+                <span class="focus-input100"></span>
+                <span class="symbol-reg100">
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="container-login100-form-btn">
+                <div class="wrap-login100-form-btn">
+                  <button type="submit" class="login100-form-btn">
+                    Promeni dan
+                  </button>
+                </div>
+              </div>
+              <br />
+            </form>
+  
+            <form [formGroup]="polasciForm" (ngSubmit)="onSubmit()" class="login100-form validate-form">
+              <textarea class="txt4" formControlName="svipolasci"
+                style="width: 250px; height: 600px; background-color: rgb(255, 255, 255, 0.65); border: black; resize: none;"
+                [(ngModel)]="polasci" ng-model-options="{ getterSetter: true }"> </textarea>
+              <div class="container-login100-form-btn">
+                <div class="wrap-login100-form-btn">
+                  <button type="submit" class="login100-form-btn">
+                    Promeni polaske
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+  
+  
+          <div *ngIf="obrisi">
+            <div class="txt3">
+              {{message}}
+            </div>
+          </div>
+
+
+        <!--Dodavanje nove linije-->
+        <form [formGroup]="novaLinijaForm" (ngSubmit)="dodajLiniju()" class="login100-form validate-form"
+          *ngIf="!novaLinija">
+          <span class="login100-form-title">Nova linija </span>
+
+          <textarea class="txt4" formControlName="naslovNew" wrap="hard" placeholder="Unesite ime linije...."
+            style="width: 250px; height: 80px; background-color: rgb(255, 255, 255, 0.65); border: black; resize: none;"
+            required>
+          </textarea>
+          <br />
+
+          <div class="wrap-input100 validate-input">
+            <span class="label-input100">Dan</span>
+            <select class="selectbox input100" formControlName="danNew" [(ngModel)]="selectedtipDana">
+              <option *ngFor="let c of tipDana" [ngValue]="c">{{c}}</option>
+            </select>
+            <span class="focus-input100"></span>
+            <span class="symbol-reg100">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <div class="wrap-input100 validate-input">
+            <span class="label-input100">Red vožnje</span>
+            <select class="selectbox input100" formControlName="redvoznje" [(ngModel)]="selectedTipRedVoznje">
+              <option *ngFor="let c of tipRedVoznje" [ngValue]="c">{{c}}</option>
+            </select>
+            <span class="focus-input100"></span>
+            <span class="symbol-reg100">
+              <i class="fa fa-bus" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <br />
+          <textarea class="txt4" formControlName="svipolasciNew" placeholder="Unesite vremena polazaka...."
+            style="width: 250px; height: 600px; background-color: rgb(255, 255, 255, 0.65); border: black; resize: none;"
+            required>
+          </textarea>
+
           <div class="container-login100-form-btn">
             <div class="wrap-login100-form-btn">
               <button type="submit" class="login100-form-btn">
-                Sačuvaj izmene
+                Dodaj liniju
               </button>
             </div>
           </div>
         </form>
-      </div>
 
+      </div>
     </div>
   </div>
 </div>

@@ -14,6 +14,7 @@ namespace WebApp.Models
         private TipVoznje tipVoznje;
         private DanUNedelji datum;
         private string polasci;
+        private bool obrisana = false;
 
         [Key]
         public int ID
@@ -45,6 +46,11 @@ namespace WebApp.Models
         {
             get { return polasci; }
             set { polasci = value; }
+        }
+        public bool Obrisana
+        {
+            get { return obrisana; }
+            set { obrisana = value; }
         }
     }
 }

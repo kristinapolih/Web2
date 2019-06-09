@@ -16,10 +16,10 @@
               <i class="fa fa-font" aria-hidden="true"></i>
             </span>
         </div>
-        <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)" class="alert alert-danger">
-					<div *ngIf="f.name.errors.required">
-              <p>Ime je obavezno.</p>
-          </div>
+          <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)" class="alert alert-danger">
+            <div *ngIf="f.name.errors.required">
+                <p>Ime je obavezno.</p>
+            </div>
           <div *ngIf="f.name.errors.minlength">
               <p>Ime mora da se sastoji od minimum 3 slova.</p>
           </div>

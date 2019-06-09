@@ -316,6 +316,10 @@
     <Compile Include="Migrations\201906071016436_ThirteenthMigration.Designer.cs">
       <DependentUpon>201906071016436_ThirteenthMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906091141222_FourtheenthMigration.cs" />
+    <Compile Include="Migrations\201906091141222_FourtheenthMigration.Designer.cs">
+      <DependentUpon>201906091141222_FourtheenthMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -504,6 +508,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906071016436_ThirteenthMigration.resx">
       <DependentUpon>201906071016436_ThirteenthMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906091141222_FourtheenthMigration.resx">
+      <DependentUpon>201906091141222_FourtheenthMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

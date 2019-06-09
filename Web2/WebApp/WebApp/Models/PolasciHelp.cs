@@ -8,6 +8,10 @@ namespace WebApp.Models
     public class PolasciHelp
     {
         public string Polasci { get; set; }
+        public int ID { get; set; }
+        public string ImeRute { get; set; }
+        public string Dan { get; set; }
+        public string TipVoznje { get; set; }
 
         public PolasciHelp() { }
     }

@@ -15,7 +15,39 @@ export class MainServiceService {
 
   constructor(private http: HttpClient) { }
 
-  izmeniPolaskeAdmin(arg: any): Observable<any>{
+  dodajNovuLinijuAdmin(arg: any): Observable<any>{
+    let headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    let par = {
+      Dan: arg.danNew,
+      Polasci: arg.svipolasciNew,
+      ImeRute: arg.naslovNew,
+      TipVoznje: arg.redvoznje
+    };
+    return this.http.post<any>('http://localhost:52295/api/RedVoznje/dodajNovuLinijuAdmin', par, headers);
+  }
+
+  obrisiLinijuAdmin (id: number): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/obrisiLinijuAdmin'+ `/?id=${id}`);
+  }
+
+  izmeniDanLinijeAdmin(selectedtipDana:string, idlinije:number): Observable<any>{
+    let headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    let par = {
+      Dan: selectedtipDana,
+      ID: idlinije
+    };
+    return this.http.post<any>('http://localhost:52295/api/RedVoznje/izmeniDanLinijeAdmin', par, headers);
+  }
+
+  izmeniImeLinijeAdmin(line:string, idlinije:number): Observable<any>{
     let headers = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -23,9 +55,28 @@ export class MainServiceService {
     }
 
     let par = {
-      Polasci: arg.svipolasci
+      ImeRute: line,
+      ID: idlinije
+    };
+    return this.http.post<any>('http://localhost:52295/api/RedVoznje/izmeniImeLinijeAdmin', par, headers);
+  }
+
+  izmeniPolaskeAdmin(arg: any, idlinije:number): Observable<any>{
+    let headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    let par = {
+      Polasci: arg.svipolasci,
+      ID: idlinije
     };
     return this.http.post<any>('http://localhost:52295/api/RedVoznje/izmeniPolaskeAdmin', par, headers);
+  }
+
+  getLinijuListAdmin (id: number): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijuListAdmin'+ `/?id=${id}`);
   }
 
   getLinijuAdmin(id: number): Observable<any> {
