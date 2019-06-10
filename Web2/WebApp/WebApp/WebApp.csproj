@@ -250,8 +250,10 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CenovnikController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KartaController.cs" />
+    <Compile Include="Controllers\MrezaLinijaController.cs" />
     <Compile Include="Controllers\RedVoznjeController.cs" />
     <Compile Include="Controllers\RegistracijaController.cs" />
     <Compile Include="Controllers\StaniceController.cs" />
@@ -320,12 +322,17 @@
     <Compile Include="Migrations\201906091141222_FourtheenthMigration.Designer.cs">
       <DependentUpon>201906091141222_FourtheenthMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906100952374_FifteenthMigration.cs" />
+    <Compile Include="Migrations\201906100952374_FifteenthMigration.Designer.cs">
+      <DependentUpon>201906100952374_FifteenthMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Adresa.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Cenovnik.cs" />
+    <Compile Include="Models\CenovnikHelp.cs" />
     <Compile Include="Models\CenovnikStavka.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Karta.cs" />
@@ -511,6 +518,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906091141222_FourtheenthMigration.resx">
       <DependentUpon>201906091141222_FourtheenthMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906100952374_FifteenthMigration.resx">
+      <DependentUpon>201906100952374_FifteenthMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

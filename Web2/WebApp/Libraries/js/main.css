@@ -154,6 +154,13 @@ iframe {
   color: #e7dd82;
 }
 
+.txt4 {
+  font-family: Poppins-Regular;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #000000;
+}
+
 
 /*//////////////////////////////////////////////////////////////////
 [ login ]*/
@@ -205,6 +212,13 @@ iframe {
   background: linear-gradient(-135deg, #31af7f, #5485c5);
 }
 
+.cont{
+  justify-content: center;
+  align-items: right;
+  align-content: right;
+  align-self: right;
+}
+
 .container-redvoznje100 {
   width: 100%;  
   min-height: 100vh;
@@ -215,9 +229,9 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
-  align-items: left;
-  align-content: left;
-  align-self: left;
+  align-items: top;
+  align-content: top;
+  align-self: top;
   padding: 0px;
   background: #31af7f;
   background: -webkit-linear-gradient(-135deg, #31af7f, #5485c5);
@@ -286,7 +300,7 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding-left: 20%; 
+  padding-left: 10%; 
 }
 
 /*------------------------------------------------------------------

@@ -15,7 +15,32 @@ export class MainServiceService {
 
   constructor(private http: HttpClient) { }
 
-  dodajNovuLinijuAdmin(arg: any): Observable<any>{
+  getCenovnik(id: number): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/Cenovnik/getCenovnik' + `/?id=${id}`);
+  }
+
+  getCenovnike(): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/Cenovnik/getCenovnike');
+  }
+
+  dodajCenovnik(arg: any): Observable<any> {
+    let headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    let par = {
+      OdDatuma: arg.odDatuma,
+      DoDatuma: arg.doDatuma,
+      VremenskaCena: arg.vremenska,
+      DnevnaCena: arg.dnevna,
+      MesecnaCena: arg.mesecna,
+      GodisnjaCena: arg.godisnja
+    };
+    return this.http.post<any>('http://localhost:52295/api/Cenovnik/dodajCenovnik', par, headers);
+  }
+
+  dodajNovuLinijuAdmin(arg: any): Observable<any> {
     let headers = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -30,11 +55,11 @@ export class MainServiceService {
     return this.http.post<any>('http://localhost:52295/api/RedVoznje/dodajNovuLinijuAdmin', par, headers);
   }
 
-  obrisiLinijuAdmin (id: number): Observable<any> {
-    return this.http.get<any>('http://localhost:52295/api/RedVoznje/obrisiLinijuAdmin'+ `/?id=${id}`);
+  obrisiLinijuAdmin(id: number): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/obrisiLinijuAdmin' + `/?id=${id}`);
   }
 
-  izmeniDanLinijeAdmin(selectedtipDana:string, idlinije:number): Observable<any>{
+  izmeniDanLinijeAdmin(selectedtipDana: string, idlinije: number): Observable<any> {
     let headers = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -47,7 +72,7 @@ export class MainServiceService {
     return this.http.post<any>('http://localhost:52295/api/RedVoznje/izmeniDanLinijeAdmin', par, headers);
   }
 
-  izmeniImeLinijeAdmin(line:string, idlinije:number): Observable<any>{
+  izmeniImeLinijeAdmin(line: string, idlinije: number): Observable<any> {
     let headers = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -61,7 +86,7 @@ export class MainServiceService {
     return this.http.post<any>('http://localhost:52295/api/RedVoznje/izmeniImeLinijeAdmin', par, headers);
   }
 
-  izmeniPolaskeAdmin(arg: any, idlinije:number): Observable<any>{
+  izmeniPolaskeAdmin(arg: any, idlinije: number): Observable<any> {
     let headers = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -75,12 +100,12 @@ export class MainServiceService {
     return this.http.post<any>('http://localhost:52295/api/RedVoznje/izmeniPolaskeAdmin', par, headers);
   }
 
-  getLinijuListAdmin (id: number): Observable<any> {
-    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijuListAdmin'+ `/?id=${id}`);
+  getLinijuListAdmin(id: number): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijuListAdmin' + `/?id=${id}`);
   }
 
   getLinijuAdmin(id: number): Observable<any> {
-    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijuAdmin'+ `/?id=${id}`);
+    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijuAdmin' + `/?id=${id}`);
   }
 
   getLinijeAdmin(): Observable<any> {
@@ -88,15 +113,15 @@ export class MainServiceService {
   }
 
   getLinijeGradske(): Observable<any> {
-    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijeGradske');
+    return this.http.get<any>('http://localhost:52295/api/MrezaLinija/getLinijeGradske');
   }
 
   getLinijePrigradske(): Observable<any> {
-    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLinijePrigradske');
+    return this.http.get<any>('http://localhost:52295/api/MrezaLinija/getLinijePrigradske');
   }
 
   getLiniju(id: number): Observable<any> {
-    return this.http.get<any>('http://localhost:52295/api/RedVoznje/getLiniju' + `/?id=${id}`);
+    return this.http.get<any>('http://localhost:52295/api/MrezaLinija/getLiniju' + `/?id=${id}`);
   }
 
   obrisiKartu(u: any): Observable<any> {

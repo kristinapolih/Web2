@@ -20,6 +20,7 @@ import { AuthNotGuard } from 'src/app/auth/authNot.guard';
 import { RedVoznjePrikaziLinijuComponent } from 'src/app/red-voznje-prikazi-liniju/red-voznje-prikazi-liniju.component';
 import { AdminGuard } from './auth/admin.guard';
 import { RedVoznjeAdminComponent } from './red-voznje-admin/red-voznje-admin.component';
+import { CenovnikAdminComponent } from './cenovnik-admin/cenovnik-admin.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,11 @@ const routes: Routes = [
   {
     path: 'red-voznje-admin',
     component: RedVoznjeAdminComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'cenovnik-admin',
+    component: CenovnikAdminComponent,
     canActivate: [AuthGuard, AdminGuard]
   }
 ];

@@ -22,6 +22,7 @@ import { MapaComponent } from './mapa/mapa.component';
 import { AgmCoreModule } from '@agm/core';
 import { RedVoznjeAdminComponent } from './red-voznje-admin/red-voznje-admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CenovnikAdminComponent } from './cenovnik-admin/cenovnik-admin.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProveriKarteComponent,
     RedVoznjePrikaziLinijuComponent,
     MapaComponent,
-    RedVoznjeAdminComponent
+    RedVoznjeAdminComponent,
+    CenovnikAdminComponent
   ],
   imports: [
     BrowserModule,

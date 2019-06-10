@@ -46,6 +46,7 @@ export class CenovnikComponent implements OnInit {
 
     this.selectedTipKarte = "Vremenska";
     this.selectedTipPutnika = "RegularniPutnik";
+    this.PromeniTipaPutnika();
   }
 
   get Cena() { return this.cena; }
@@ -129,19 +130,29 @@ export class CenovnikComponent implements OnInit {
   onSubmit() {
     this.getTipKorisnika();
     if (localStorage.login) {
-      if (this.typeOfLoginUser.IsValid == "Prihvacen") {
-        this.canBuy = false;
-        this.mainService.kupiKartu(this.selectedTipPutnika, this.selectedTipKarte, this.cena).subscribe(
-          (res) => {
-            this.textMessage = res;
+      if (localStorage.role == "AppUser") {
+        if (this.selectedTipPutnika.toLowerCase() == this.typeOfLoginUser.TypeOfUser.toLowerCase() || this.selectedTipPutnika == "RegularniPutnik") {
+          if (this.typeOfLoginUser.IsValid == "Prihvacen") {
+            this.canBuy = false;
+            this.mainService.kupiKartu(this.selectedTipPutnika, this.selectedTipKarte, this.cena).subscribe(
+              (res) => {
+                this.textMessage = res;
+                this.getKarte();
+              }
+            );
+
             this.getKarte();
           }
-        );
-
-        this.getKarte();
+          else {
+            this.textMessage = "Niste verifikovani....";
+          }
+        }
+        else {
+          this.textMessage = "Ne možete da izaberete ovaj popust....";
+        }
       }
       else {
-        this.textMessage = "Niste verifikovani....";
+        this.textMessage = "Samo ulogovani i verifikovani korisnici mogu da kupuju karte....";
       }
     }
     else {

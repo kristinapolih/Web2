@@ -24,7 +24,7 @@ namespace WebApp.Controllers
         }
 
 
-        [Route("getCene")]
+        [HttpGet, Route("getCene")]
         public IHttpActionResult GetCene()
         {
             Cenovnik cenovnik = unitOfWork.CenovnikRepository.GetAll().Where(x => DateTime.Compare(x.OD, DateTime.Now) < 0 && DateTime.Compare(x.DO, DateTime.Now) > 0).FirstOrDefault();
@@ -41,7 +41,7 @@ namespace WebApp.Controllers
             return Ok(list);
         }
 
-        [Route("getKoeficijente")]
+        [HttpGet, Route("getKoeficijente")]
         public IHttpActionResult GetKoeficijente()
         {
             Koeficijent k = unitOfWork.KoeficijentRepository.GetAll().FirstOrDefault();
@@ -66,21 +66,59 @@ namespace WebApp.Controllers
                 if (karta.TipKarte == TipKarte.Vremenska)
                 {
                     k.DoDatum = k.DoDatum.AddHours(1);
+                    if (k.DoDatum.Day != k.ODDatum.Day)
+                    {
+                        string ss = k.ODDatum.Date.ToString();
+                        string[] niz = ss.Split(' ');
+                        niz[1] = "11:59:59 PM";
+                        string time = niz[0] + " " + niz[1];
+                        k.DoDatum = Convert.ToDateTime(time);
+                    }
                     k.TipKarte = TipKarte.Vremenska;
                 }
                 else if (karta.TipKarte == TipKarte.Dnevna)
                 {
                     k.DoDatum = k.DoDatum.AddDays(1);
+                    if (k.DoDatum.Day != k.ODDatum.Day)
+                    {
+                        string ss = k.ODDatum.Date.ToString();
+                        string[] niz = ss.Split(' ');
+                        niz[1] = "11:59:59 PM";
+                        string time = niz[0] + " " + niz[1];
+                        k.DoDatum = Convert.ToDateTime(time);
+                    }
                     k.TipKarte = TipKarte.Dnevna;
                 }
                 else if (karta.TipKarte == TipKarte.Mesecna)
                 {
                     k.DoDatum = k.DoDatum.AddMonths(1);
+                    if (k.DoDatum.Month != k.ODDatum.Month)
+                    {
+                        string ss = k.ODDatum.ToString();
+                        string[] niz = ss.Split(' ');
+                        string lastDay = GetLastDay(k.ODDatum.Month).ToString();
+                        niz[1] = "11:59:59 PM";
+                        string[] nizniz = niz[0].Split('-');
+                        nizniz[0] = lastDay;
+                        string wholeDate = nizniz[0] + "-" + nizniz[1] + "-" + nizniz[2] + " " + niz[1];
+                        k.DoDatum = Convert.ToDateTime(wholeDate);
+                    }
                     k.TipKarte = TipKarte.Mesecna;
                 }
                 else if (karta.TipKarte == TipKarte.Godisnja)
                 {
                     k.DoDatum = k.DoDatum.AddYears(1);
+                    if (k.ODDatum.Year != k.DoDatum.Year)
+                    {
+                        string ss = k.ODDatum.ToString();
+                        string[] niz = ss.Split(' ');
+                        string[] nizniz = niz[0].Split('-');
+                        nizniz[0] = "31";
+                        nizniz[1] = "Dec";
+                        niz[1] = "11:59:59 PM";
+                        string wholeDate = nizniz[0] + "-" + nizniz[1] + "-" + nizniz[2] + " " + niz[1];
+                        k.DoDatum = Convert.ToDateTime(wholeDate);
+                    }
                     k.TipKarte = TipKarte.Godisnja;
                 }
 
@@ -95,7 +133,7 @@ namespace WebApp.Controllers
             return Ok("Niste autentifikovani....");
         }
 
-        [Route("getKarte")]
+        [HttpGet, Route("getKarte")]
         [Authorize(Roles = "AppUser")]
         public IHttpActionResult GetKarte()
         {
@@ -107,8 +145,20 @@ namespace WebApp.Controllers
 
                 foreach (Karta k in tickets)
                 {
-                    string time = k.ODDatum.Date.ToString().Split(' ')[0] + " - " + k.DoDatum.Date.ToString().Split(' ')[0];
-                    ticketHelps.Add(new KartaHelp { Id = k.ID, Price = k.Cena.ToString(), Type = k.TipKarte.ToString(), Date = time });
+                    if (k.TipKarte == TipKarte.Vremenska)
+                    {
+                        string s1 = k.ODDatum.ToString();
+                        string[] niz = s1.Split(' ');
+                        string s2 = k.DoDatum.ToString();
+                        string[] niz1 = s2.Split(' ');
+                        string time = niz[1] + " - " + niz1[1];
+                        ticketHelps.Add(new KartaHelp { Id = k.ID, Price = k.Cena.ToString(), Type = k.TipKarte.ToString(), Date = time });
+                    }
+                    else
+                    {
+                        string time = k.ODDatum.Date.ToString("dd/MMMM/yyyy").Split(' ')[0] + " - " + k.DoDatum.Date.ToString("dd/MMMM/yyyy").Split(' ')[0];
+                        ticketHelps.Add(new KartaHelp { Id = k.ID, Price = k.Cena.ToString(), Type = k.TipKarte.ToString(), Date = time });
+                    }
                 }
 
                 return Ok(ticketHelps);
@@ -131,6 +181,35 @@ namespace WebApp.Controllers
                 return Ok();
             }
             return Ok("Niste autentifikovani....");
+        }
+
+
+        private int GetLastDay(int month)
+        {
+            int res;
+
+            if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+            {
+                res = 31;
+            }
+            else if (month == 4 || month == 6 || month == 9 || month == 11)
+            {
+                res = 30;
+            }
+            else
+            {
+                int year = DateTime.Now.Year;
+                if (year % 4 == 0)
+                {
+                    res = 29;
+                }
+                else
+                {
+                    res = 28;
+                }
+            }
+
+            return res;
         }
     }
 }

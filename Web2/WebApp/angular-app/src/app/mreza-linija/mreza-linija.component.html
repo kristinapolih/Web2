@@ -5,7 +5,7 @@
                                 <span class="txt font-color-gradske">Gradske linije</span>
                                 <ul>
                                         <li *ngFor="let route of routesGradske" (click)="selektovanaRuta(route)">
-                                                <button type="button" class="btn btn-warning btn-circle btn-lg btn-color-gradske txt" title="{{route.TipRute}}">
+                                                <button type="button" class="btn btn-warning btn-circle btn-lg btn-color-gradske txt" title="{{route.ImeRute}}">
                                                         <a>{{route.BrojRute}}</a>
                                                 </button>
                                         </li>
@@ -15,7 +15,7 @@
                                 <span class="txt font-color-prigradske">Prigradske linije</span>
                                 <ul>
                                         <li *ngFor="let route of routesPrigradske" (click)="selektovanaRuta(route)">
-                                                <button type="button" class="btn btn-warning btn-circle btn-lg btn-color-prigradske txt" title="{{route.TipRute}}">
+                                                <button type="button" class="btn btn-warning btn-circle btn-lg btn-color-prigradske txt" title="{{route.ImeRute}}">
                                                         <a>{{route.BrojRute}}</a>
                                                 </button>
                                         </li>

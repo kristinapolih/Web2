@@ -1,19 +1,18 @@
 <div class="limiter">
   <div class="container-cenovnik">
-    <div class="wrap-login100">
+    <div class="wrap-cenovnik100">
 
-      <div class="col-2">
         <div class="container-profilRight100-form-btn">
-          <div class="wrap-login100-form-btn">
-            <div class="login100-form-bgbtn"></div>
-            <button (click)="MenjaProfil()" *ngIf="mainService.isAdmin()" class="profilRight100-form-btn">
-              Izmeni cenovnik
-            </button>
+            <div class="wrap-redVoznje100-form-btn">
+              <button routerLink="/cenovnik-admin" *ngIf="mainService.isAdmin()" class="login100-form-btn">
+                Izmeni cenovnik
+              </button>
+            </div>
           </div>
-        </div>
 
+      <div class="col-4">
         <form [formGroup]="cenovnikForm" (ngSubmit)="onSubmit()" class="login100-form validate-form">
-          <span class="login100-form-title  p-b-59">
+          <span class="login100-form-title p-b-59">
             Cenovnik
           </span>
 
@@ -72,24 +71,24 @@
             Da bi ste kupili kartu morate da se ulogujete.
           </div>
         </form>
+<br/>
+        <div class="txt3">
+            {{textMessage}}
+          </div>
+
       </div>
 
 
-      <div class="col-6">
-        <div class="txt3">
-          {{textMessage}}
-        </div>
-
-        <br />
+      <div class="col-6" *ngIf="mainService.isUserProfile()">
         <div>
-          <p class="login100-form-title p-b-59">Kupljene karte</p>
+          <span><p class="login100-form-title p-b-59">Kupljene karte</p></span>
           <table>
             <thead>
               <tr>
-                <th>Tip karte</th>
-                <th>Cena</th>
-                <th>Datum vazenja</th>
-                <th>Obrisi</th>
+                <th width="30%">Tip karte</th>
+                <th width="15%">Cena</th>
+                <th width="65%">Datum vazenja</th>
+                <th width="20%">Obrisi</th>
               </tr>
             </thead>
             <tbody>
@@ -97,7 +96,7 @@
                 <td>{{u.Type}}</td>
                 <td>{{u.Price}}</td>
                 <td>{{u.Date}}</td>
-                <td>
+                <td style="text-align:center;">
                   <button type="button" class="btn btn-danger btn-circle" >
                     <a id="a" class="glyphicon glyphicon-trash" (click)="obrisiKartu(u)"></a>
                   </button>

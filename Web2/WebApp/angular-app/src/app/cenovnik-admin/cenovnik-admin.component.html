@@ -1,0 +1,165 @@
+<div class="limiter">
+    <div class="container-redvoznje100">
+        <div class="wrap-redVoznje100">
+
+      <div class="col-7">
+        <p class="login100-form-title p-b-59">Cenovnici</p>
+        <table>
+          <thead>
+            <tr>
+              <th width="15%">Od datuma</th>
+              <th width="15%">Do datuma</th>
+              <th width="10%">Otvori</th>
+              <th width="10%">Izmeni</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of cenovnici">
+              <td style="text-align:center;">{{c.OdDatuma}}</td>
+              <td style="text-align:center;">{{c.DoDatuma}}</td>
+              <td style="text-align:center;">
+                <button type="button" class="btn btn-info btn-circle">
+                  <a id="a" class="fa fa-info" (click)="otvoriCenovnik(c.ID)"></a>
+                </button>
+              </td>
+              <td style="text-align:center;">
+                <button type="button" class="btn btn-primary btn-circle">
+                  <a id="a" class="glyphicon glyphicon-pencil" (click)="izmeniCenovnik(c.ID)"></a>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+
+
+      <div class="col-5">
+
+        <div class="container-login100-form-btn" *ngIf="novCenovnik">
+          <div class="wrap-login100-form-btn">
+            <button (click)="dodajNovCenovnik()" class="login100-form-btn">
+              Dodaj nov cenovnik
+            </button>
+          </div>
+        </div>
+        <br />
+        <br />
+
+
+
+        <form [formGroup]="novCenovnikForm" (ngSubmit)="onSubmit()" class="login100-form validate-form">
+          <span class="login100-form-title p-b-59" *ngIf="!novCenovnik">
+            Novi cenovnik
+          </span>
+
+          <!--OD-->
+          <div *ngIf="view || !novCenovnik || izmeni">
+          <div class="wrap-input100 validate-input" data-validate="Datum od kada važi cenovnik je obavezno polje.">
+            <p class="label-input100">Cenovnik važi od: </p>
+            <input class="input100" type="date" formControlName="odDatuma" [readonly]="view" required>
+            <span class="focus-input100"></span>
+            <span class="symbol-reg100">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div *ngIf="f.odDatuma.invalid && (f.odDatuma.dirty || f.odDatuma.touched)" class="alert alert-danger">
+            <div *ngIf="f.odDatuma.errors.required">
+              <p>Datum od kada važi cenovnik je obavezno polje.</p>
+            </div>
+          </div>
+
+          <!--DO-->
+          <div class="wrap-input100 validate-input" data-validate="Datum do kada važi cenovnik je obavezno polje.">
+            <p class="label-input100">Cenovnik važi do: </p>
+            <input class="input100" type="date" formControlName="doDatuma" [readonly]="view" required>
+            <span class="focus-input100"></span>
+            <span class="symbol-reg100">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div *ngIf="f.doDatuma.invalid && (f.doDatuma.dirty || f.doDatuma.touched)" class="alert alert-danger">
+            <div *ngIf="f.doDatuma.errors.required">
+              <p>Datum do kada važi cenovnik je obavezno polje.</p>
+            </div>
+          </div>
+
+          <!--Vremenska karta-->
+          <div class="wrap-input100 validate-input" data-validate="Cena vremenske karte je obavezno polje.">
+            <p class="label-input100">Vremenska karta</p>
+            <input class="input100" type="text" formControlName="vremenska" [readonly]="view" required
+              placeholder="Cena vremenske karte...">
+            <span class="focus-input100"></span>
+            <span class="symbol-reg100">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div *ngIf="f.vremenska.invalid && (f.vremenska.dirty || f.vremenska.touched)" class="alert alert-danger">
+            <div *ngIf="f.vremenska.errors.required">
+              <p>Cena vremenske karte je obavezno polje.</p>
+            </div>
+          </div>
+
+          <!--Dnevna karta-->
+          <div class="wrap-input100 validate-input" data-validate="Cena dnevne karte je obavezno polje.">
+            <p class="label-input100">Dnevna karta</p>
+            <input class="input100" type="text" formControlName="dnevna" required placeholder="Cena dnevne karte..." [readonly]="view">
+            <span class="focus-input100"></span>
+            <span class="symbol-reg100">
+              <i class="fa fa-hourglass-start" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div *ngIf="f.dnevna.invalid && (f.dnevna.dirty || f.dnevna.touched)" class="alert alert-danger">
+            <div *ngIf="f.dnevna.errors.required">
+              <p>Cena dnevne karte je obavezno polje.</p>
+            </div>
+          </div>
+
+          <!--Mesečna karta-->
+          <div class="wrap-input100 validate-input" data-validate="Cena mesečne karte je obavezno polje.">
+            <p class="label-input100">Mesečna karta</p>
+            <input class="input100" type="text" formControlName="mesecna" required placeholder="Cena mesečne karte..." [readonly]="view">
+            <span class="focus-input100"></span>
+            <span class="symbol-reg100">
+              <i class="fa fa-moon-o" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div *ngIf="f.mesecna.invalid && (f.mesecna.dirty || f.mesecna.touched)" class="alert alert-danger">
+            <div *ngIf="f.mesecna.errors.required">
+              <p>Cena mesečne karte je obavezno polje.</p>
+            </div>
+          </div>
+
+          <!--Godišnja karta-->
+          <div class="wrap-input100 validate-input" data-validate="Cena godišnje karte je obavezno polje.">
+            <p class="label-input100">Godišnja karta</p>
+            <input class="input100" type="text" formControlName="godisnja" placeholder="Cena godišnje karte..." [readonly]="view"
+              required>
+            <span class="focus-input100"></span>
+            <span class="symbol-reg100">
+              <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div *ngIf="f.godisnja.invalid && (f.godisnja.dirty || f.godisnja.touched)" class="alert alert-danger">
+            <div *ngIf="f.godisnja.errors.required">
+              <p>Cena godišnje karte je obavezno polje.</p>
+            </div>
+          </div>
+        </div>
+
+          <div class="container-login100-form-btn" *ngIf="!novCenovnik">
+            <div class="wrap-login100-form-btn">
+              <div class="login100-form-bgbtn"></div>
+              <button type="submit" class="login100-form-btn">
+                Dodaj cenovnik
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
