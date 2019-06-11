@@ -19,5 +19,9 @@
       </agm-info-window>
     </agm-marker>
 
+    <agm-marker *ngFor="let markerInfo of busLocation" [latitude]="markerInfo.location.latitude"
+      [longitude]="markerInfo.location.longitude" [title]="markerInfo.title" [iconUrl]="markerInfo.iconUrl">
+    </agm-marker>
+
   </agm-map>
 </p>

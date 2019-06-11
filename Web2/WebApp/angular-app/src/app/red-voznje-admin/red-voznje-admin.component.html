@@ -4,8 +4,9 @@
 
 
       <div class="col-7">
+        <br/><br/><br/>
         <p class="login100-form-title p-b-59">Red vožnje</p>
-        <table>
+        <table style="max-height: 800px; overflow: auto; display: inline-block;">
           <thead>
             <tr>
               <th width="15%">Tip vožnje</th>
@@ -22,18 +23,18 @@
               <td>{{l.Dan}}</td>
               <td>{{l.ImeRute}}</td>
               <td>
-                <button type="button" class="btn btn-info btn-circle">
-                  <a id="a" class="fa fa-info" (click)="otvoriLiniju(l.ID, l.ImeRute)"></a>
+                <button type="button" class="btn btn-info btn-circle" (click)="otvoriLiniju(l.ID, l.ImeRute)">
+                  <a id="a" class="fa fa-info"></a>
                 </button>
               </td>
               <td>
-                <button type="button" class="btn btn-primary btn-circle">
-                  <a id="a" class="glyphicon glyphicon-pencil" (click)="izmeniLiniju(l.ID, l.ImeRute)"></a>
+                <button type="button" class="btn btn-primary btn-circle" (click)="izmeniLiniju(l.ID, l.ImeRute)">
+                  <a id="a" class="glyphicon glyphicon-pencil"></a>
                 </button>
               </td>
               <td>
-                <button type="button" class="btn btn-danger btn-circle">
-                  <a id="a" class="glyphicon glyphicon-trash" (click)="obrisiLinijuAdmin(l.ID)"></a>
+                <button type="button" class="btn btn-danger btn-circle" (click)="obrisiLinijuAdmin(l.ID)">
+                  <a id="a" class="glyphicon glyphicon-trash"></a>
                 </button>
               </td>
             </tr>

@@ -14,6 +14,7 @@ namespace WebApp.Models
         public string DnevnaCena { get; set; }
         public string MesecnaCena { get; set; }
         public string GodisnjaCena { get; set; }
+        public bool Menja { get; set; }
 
         public CenovnikHelp() { }
     }

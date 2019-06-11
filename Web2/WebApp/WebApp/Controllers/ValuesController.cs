@@ -5,42 +5,28 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebApp.Persistence;
 using WebApp.Persistence.UnitOfWork;
 
 namespace WebApp.Controllers
 {
-    [Authorize]
+    [RoutePrefix("api/Hub")]
     public class ValuesController : ApiController
     {
-        public ValuesController()
+        ApplicationDbContext dbContext = new ApplicationDbContext();
+        public static IUnitOfWork unitOfWork;
+
+        public ValuesController(IUnitOfWork uw)
         {
+            unitOfWork = uw;
         }
 
-        // GET api/values
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
-        // GET api/values/5
-        public string Get(int id)
+        [HttpGet, Route("getHub")]
+        public IHttpActionResult GetHub()
         {
-            return "value";
+            return Ok();
         }
-
-        // POST api/values
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
-        }
+        
     }
 }

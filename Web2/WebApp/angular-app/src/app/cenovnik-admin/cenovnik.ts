@@ -1,4 +1,5 @@
 export class CenovnikHelp {
+    ID: number;
     OdDatuma: string;
     DoDatuma: string;
     VremenskaCena: string;

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Karta } from 'src/app/cenovnik/karta';
+import { CenovnikHelp } from './cenovnik-admin/cenovnik';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,30 @@ export class MainServiceService {
   linija: any;
 
   constructor(private http: HttpClient) { }
+
+  getKartu(id:number): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/Karta/getKartu'+ `/?id=${id}`);
+  }
+
+  getHub(): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/Hub/getHub');
+  }
+
+  izmeniCenovnik(arg: any, id: number): Observable<any> {
+    let headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    let c: CenovnikHelp = new CenovnikHelp();
+          c.ID = id;
+          c.DoDatuma = arg.doDatuma;
+    return this.http.post<any>('http://localhost:52295/api/Cenovnik/izmeniCenovnik', c, headers);
+  }
+
+  getCenovnikIzmena(id: number): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/Cenovnik/getCenovnikIzmena' + `/?id=${id}`);
+  }
 
   getCenovnik(id: number): Observable<any> {
     return this.http.get<any>('http://localhost:52295/api/Cenovnik/getCenovnik' + `/?id=${id}`);

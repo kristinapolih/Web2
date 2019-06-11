@@ -6,6 +6,7 @@ using WebApp.Persistence;
 using WebApp.Persistence.UnitOfWork;
 using WebApp.Models;
 using Newtonsoft.Json.Linq;
+using WebApp.Helper;
 
 namespace WebApp.Controllers
 {
@@ -21,8 +22,6 @@ namespace WebApp.Controllers
             HelperReader.Reader(uw, "1B");
             HelperReader.Reader(uw, "4A");
             HelperReader.Reader(uw, "4B");
-            //HelperReader.Reader(uw, "11A");
-            //HelperReader.Reader(uw, "11B");
             HelperReader.Reader(uw, "12A");
             HelperReader.Reader(uw, "12B");
             HelperReader.Reader(uw, "13A");
@@ -31,12 +30,10 @@ namespace WebApp.Controllers
             HelperReader.Reader(uw, "16B");
             HelperReader.Reader(uw, "22A");
             HelperReader.Reader(uw, "22B");
-            HelperReader.Reader(uw, "32A");
             HelperReader.Reader(uw, "32B");
             HelperReader.Reader(uw, "41A");
             HelperReader.Reader(uw, "41B");
-            HelperReader.Reader(uw, "51BA");
-            HelperReader.Reader(uw, "51BB");*/
+            HelperReader.Reader(uw, "51BA");*/
             unitOfWork = uw;
         }
 

@@ -39,13 +39,11 @@ export class LoginComponent implements OnInit {
         }
         else if(localStorage.role == "Admin")
         {
-          //TODO change
           this.router.navigate(['/red-voznje']);
         }
         else if(localStorage.role == "Controller")
         {
-          //TODO change
-          this.router.navigate(['/verifikacija-karte']);
+          this.router.navigate(['/proveri-karte']);
         }
       }
     );

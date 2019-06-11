@@ -183,6 +183,38 @@ namespace WebApp.Controllers
             return Ok("Niste autentifikovani....");
         }
 
+        [HttpGet, Route("getKartu")]
+        [Authorize(Roles = "Controller")]
+        public IHttpActionResult GetKartu(int id)
+        {
+            List<string> poruka = new List<string>();
+            if (User.Identity.IsAuthenticated)
+            {
+                Karta k = unitOfWork.KartaRepository.Find(x => x.ID == id).FirstOrDefault();
+                if (k == null)
+                {
+                    poruka.Add("Karta sa ovim id-jem ne postoji....");
+                    return Ok(poruka);
+                }
+
+                int result = DateTime.Compare(k.DoDatum, DateTime.Now);
+                if (result > 0)
+                {
+                    poruka.Add("Karta je VALIDNA.");
+                    poruka.Add("Od: " + k.ODDatum.ToString());
+                    poruka.Add("Do: " + k.DoDatum.ToString());
+                    return Ok(poruka);
+                }
+                else
+                {
+                    poruka.Add("Karta NIJE VALIDNA.");
+                    return Ok(poruka);
+                }
+            }
+
+            return Ok();
+        }
+
 
         private int GetLastDay(int month)
         {

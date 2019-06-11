@@ -34,7 +34,7 @@ namespace WebApp.Controllers
             unitOfWork.CenovnikRepository.Add(c);
             unitOfWork.Complete();
 
-            c = unitOfWork.CenovnikRepository.Find(x => x.OD.ToString("dd-MMMM-yyyy") == cenovnik.OdDatuma && x.DO.ToString("dd-MMMM-yyyy") == cenovnik.DoDatuma).ToList()[0];
+            c = unitOfWork.CenovnikRepository.Find(x => DateTime.Compare(x.OD, c.OD) == 0 && DateTime.Compare(x.DO, c.DO) == 0).ToList()[0];
 
             CenovnikStavka cs = new CenovnikStavka();
             cs.IDCenovnika = c.ID;
@@ -102,6 +102,48 @@ namespace WebApp.Controllers
             ch.GodisnjaCena = listaCenovnika.Where(x => x.IDSt5avka == 4 && x.IDCenovnika == c.ID).FirstOrDefault().Cena;
             
             return Ok(ch);
+        }
+
+        [HttpGet, Route("getCenovnikIzmena")]
+        [Authorize(Roles = "Admin")]
+        public IHttpActionResult GetCenovnikIzmena(int id)
+        {
+            Cenovnik c = unitOfWork.CenovnikRepository.Get(id);
+            List<CenovnikStavka> listaCenovnika = unitOfWork.CenovnikStavkaRepository.Find(x => x.IDCenovnika == id).ToList();
+
+            CenovnikHelp ch = new CenovnikHelp();
+            ch.OdDatuma = c.OD.ToString("yyyy-MM-dd");
+            ch.DoDatuma = c.DO.ToString("yyyy-MM-dd");
+            ch.VremenskaCena = listaCenovnika.Where(x => x.IDSt5avka == 1 && x.IDCenovnika == c.ID).FirstOrDefault().Cena;
+            ch.DnevnaCena = listaCenovnika.Where(x => x.IDSt5avka == 2 && x.IDCenovnika == c.ID).FirstOrDefault().Cena;
+            ch.MesecnaCena = listaCenovnika.Where(x => x.IDSt5avka == 3 && x.IDCenovnika == c.ID).FirstOrDefault().Cena;
+            ch.GodisnjaCena = listaCenovnika.Where(x => x.IDSt5avka == 4 && x.IDCenovnika == c.ID).FirstOrDefault().Cena;
+
+            if (DateTime.Compare(c.DO, DateTime.Now) >= 0)
+                ch.Menja = true;
+
+            return Ok(ch);
+        }
+
+        [HttpPost, Route("izmeniCenovnik")]
+        [Authorize(Roles = "Admin")]
+        public IHttpActionResult IzmeniCenovnik(CenovnikHelp cenovnik)
+        {
+            Cenovnik c = unitOfWork.CenovnikRepository.Get(cenovnik.ID);
+
+            if (DateTime.Compare(c.DO, DateTime.Parse(cenovnik.DoDatuma)) < 0)
+            {
+                c.DO = DateTime.Parse(cenovnik.DoDatuma);
+
+                unitOfWork.CenovnikRepository.Update(c);
+                unitOfWork.Complete();
+
+                return Ok("Uspešno ste izmenili cenovnik....");
+            }
+            else
+            {
+                return Ok("Ne možete staviti manji datum do kojeg cenovnik važi....");
+            }
         }
     }
 }

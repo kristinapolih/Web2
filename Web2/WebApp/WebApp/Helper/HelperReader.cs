@@ -99,7 +99,7 @@ namespace WebApp.Helper
             }
 
             // dodati LinijaStanica
-            LinijaStanica ls = new LinijaStanica() { IDLinija = idRoute, IDStanica = idStation };
+            LinijaStanica ls = new LinijaStanica() { IDLinija = idRoute, IDStanica = idStation, BrojStanice = Int32.Parse(split[6]) };
             unitOfWork.LinijaStanicaRepository.Add(ls);
             unitOfWork.Complete();
         }
