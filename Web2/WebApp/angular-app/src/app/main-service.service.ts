@@ -16,6 +16,20 @@ export class MainServiceService {
 
   constructor(private http: HttpClient) { }
 
+  dodajKontrolera(arg: any): Observable<any> {
+
+    let par = {
+      username: arg.email,
+      password: arg.password
+    };
+
+    return this.http.post<any>('http://localhost:52295/api/Registracija/dodajKontrolera', par);
+  }
+
+  getSlika(id: number): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/Registracija/getSlika' + `/?id=${id}`);
+  }
+
   ubaciSliku(fileToUpload: File, email: string): Observable<any> {
     const endpoint = 'http://localhost:52295/api/Registracija/ubaciSliku';
     const formData: FormData = new FormData();

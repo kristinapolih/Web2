@@ -2,7 +2,9 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
 using System.Text;
@@ -105,6 +107,7 @@ namespace WebApp.Controllers
                 registerUser.Lastname = p.Prezime;
                 registerUser.Name = p.Ime;
                 registerUser.Username = User.Identity.Name;
+                registerUser.ID = p.ID;
 
                 registerUser.TipPutnika = p.TipKorisnika.ToString();
 
@@ -222,6 +225,69 @@ namespace WebApp.Controllers
             PosaljiMail(k.Email, ProcesVerifikacije.Odbijen);
 
             return Ok($"Korisnik [email: {k.Email}] je ODBIJEN....");
+        }
+
+        /*[HttpGet, Route("getSlika")]
+        public IHttpActionResult GetSlika(int id)
+        {
+            Korisnik k = unitOfWork.KorisnikRepository.Get(id);
+
+            string slika = k.Slika;
+
+            return Ok(slika);
+        }*/
+
+        [HttpGet, Route("getSlika")]
+        public IHttpActionResult GetSlika(int id)
+        {
+            Korisnik k = unitOfWork.KorisnikRepository.Get(id);
+
+            if (k.Slika == null)
+            {
+                return Ok("Nema slike");
+            }  
+
+            var filePath =  k.Slika;
+
+            FileInfo fileInfo = new FileInfo(filePath);
+            string type = fileInfo.Extension.Split('.')[1];
+            byte[] data = new byte[fileInfo.Length];
+
+            HttpResponseMessage response = new HttpResponseMessage();
+            using (FileStream fs = fileInfo.OpenRead())
+            {
+                fs.Read(data, 0, data.Length);
+                response.StatusCode = HttpStatusCode.OK;
+                response.Content = new ByteArrayContent(data);
+                response.Content.Headers.ContentLength = data.Length;
+
+            }
+
+            response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/png");
+
+            return Ok(data);
+        }
+
+        [HttpPost, Route("dodajKontrolera")]
+        [Authorize(Roles = "Admin")]
+        public IHttpActionResult DodajKontrolera(RegistracijaModel userToRegister)
+        {
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            string returnMessage = "";
+
+            if (context.Users.Any(u => u.UserName == userToRegister.Username))
+            {
+                returnMessage = "Nalog sa ovim email-om vec postoji....";
+                return Ok(returnMessage);
+            }
+
+            var user = new ApplicationUser() { Id = userToRegister.Username, UserName = userToRegister.Username, Email = userToRegister.Username, PasswordHash = ApplicationUser.HashPassword(userToRegister.Password) };
+            userManager.Create(user);
+            userManager.AddToRole(user.Id, "Controller");
+
+            returnMessage = "Uspesno ste registrovali kotrolera...";
+            return Ok(returnMessage);
         }
 
         private void PosaljiMail(string emailTo, ProcesVerifikacije stanje)

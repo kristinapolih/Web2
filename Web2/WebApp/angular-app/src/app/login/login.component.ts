@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   ngOnInit() {
+    this.message = "";
   }
 
   onSubmit() {
@@ -51,12 +52,14 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.message = "";
     this.authService.login(this.loginForm.value).subscribe((data) => {
       console.log(data);
     });
   }
 
   logout() {
+    this.message = "";
     this.authService.logout();
     this.setMessage();
   }

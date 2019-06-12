@@ -26,6 +26,7 @@ import { CenovnikAdminComponent } from './cenovnik-admin/cenovnik-admin.componen
 import { VerifikacijaComponent } from './verifikacija/verifikacija.component';
 import { MrezaLinijaLinijaAdminComponent } from './mreza-linija-linija-admin/mreza-linija-linija-admin.component';
 import { MrezaLinijaStanicaAdminComponent } from './mreza-linija-stanica-admin/mreza-linija-stanica-admin.component';
+import { DodajKontroleraAdminComponent } from './dodaj-kontrolera-admin/dodaj-kontrolera-admin.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { MrezaLinijaStanicaAdminComponent } from './mreza-linija-stanica-admin/m
     CenovnikAdminComponent,
     VerifikacijaComponent,
     MrezaLinijaLinijaAdminComponent,
-    MrezaLinijaStanicaAdminComponent
+    MrezaLinijaStanicaAdminComponent,
+    DodajKontroleraAdminComponent
   ],
   imports: [
     BrowserModule,

@@ -31,6 +31,10 @@
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active" *ngIf="isController()" routerLink="/verifikacija">Verifikacija putnika</a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" *ngIf="isAdmin()" routerLink="/dodaj-kotrolera-admin">Dodaj kontrolera</a>
+          </li>
         </ul>
         <ul class="navbar-nav nav-pills navbar-right mt-1">
           <li class="nav-item">

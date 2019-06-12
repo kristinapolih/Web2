@@ -163,6 +163,7 @@
           </span>
         </div>
 
+        <div *ngIf="!menjaProfil"> 
         <div class="wrap-input100" *ngIf="!f.email.errors && selectedTipPutnika != 'Regularni'">
             <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" (change)="handleFileInput($event.target.files)" />
             <label for="file-5">
@@ -174,6 +175,11 @@
               </figure>
               <span>Izaberi sliku&hellip;</span>
             </label>
+          </div>
+        </div>
+
+          <div>
+            <img [src]="slika" alt="IMG" width="100%" height="100%">
           </div>
         
         <div class="container-login100-form-btn">

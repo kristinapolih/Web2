@@ -24,6 +24,7 @@ import { CenovnikAdminComponent } from './cenovnik-admin/cenovnik-admin.componen
 import { VerifikacijaComponent } from './verifikacija/verifikacija.component';
 import { MrezaLinijaLinijaAdminComponent } from './mreza-linija-linija-admin/mreza-linija-linija-admin.component';
 import { MrezaLinijaStanicaAdminComponent } from './mreza-linija-stanica-admin/mreza-linija-stanica-admin.component';
+import { DodajKontroleraAdminComponent } from './dodaj-kontrolera-admin/dodaj-kontrolera-admin.component';
 
 const routes: Routes = [
   {
@@ -79,6 +80,11 @@ const routes: Routes = [
   {
     path: 'cenovnik-admin',
     component: CenovnikAdminComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'dodaj-kotrolera-admin',
+    component: DodajKontroleraAdminComponent,
     canActivate: [AuthGuard, AdminGuard]
   },
   {

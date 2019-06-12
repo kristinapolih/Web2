@@ -20,6 +20,9 @@ export class PromeniVidiProfilComponent implements OnInit {
   fileToUpload: File = null;
   selectedTipPutnika = null;
 
+  public slika:string;
+  id:number;
+
   constructor(private fb: FormBuilder, private mainService: MainServiceService, private router: Router) { }
 
   get f() { return this.profilForm.controls; }
@@ -41,7 +44,19 @@ export class PromeniVidiProfilComponent implements OnInit {
       });
 
     this.getProfil();
+    this.slika = ' ';
   };
+
+  getSlika() {
+    this.mainService.getSlika(this.id).subscribe(
+      (res) => {
+        this.slika = 'data:image/png;base64,' + res;
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
@@ -65,7 +80,8 @@ export class PromeniVidiProfilComponent implements OnInit {
         this.profilForm.controls['datumRodjenja'].setValue(res["SendBackBirthday"]);
         this.profilForm.controls['address'].setValue(res["Adresa"]);
         this.profilForm.controls['tipputnika'].setValue(res["UserType"]);
-
+        this.id = res.ID;
+        this.getSlika();
       }
     );
 

@@ -8,8 +8,11 @@ import { MainServiceService } from '../main-service.service';
 })
 export class VerifikacijaComponent implements OnInit {
 
-  putnici:any;
-  message:string;
+  putnici: any;
+  message: string;
+
+  slikaBool: boolean = false;
+  public slika: string;
 
   constructor(private mainService: MainServiceService) { }
 
@@ -18,18 +21,16 @@ export class VerifikacijaComponent implements OnInit {
     this.message = "";
   }
 
-  getPutnike()
-  {
+  getPutnike() {
     this.mainService.getPutnike().subscribe(
       (res) => {
         this.putnici = res;
-        
+
       }
     );
   }
 
-  prihvati(id:number)
-  {
+  prihvati(id: number) {
     this.mainService.prihvatiKorisnika(id).subscribe(
       (res) => {
         this.message = res;
@@ -37,21 +38,32 @@ export class VerifikacijaComponent implements OnInit {
         setTimeout(() => {
           this.message = "";
           this.getPutnike();
-        },  5000);
+        }, 5000);
       }
     );
   }
 
-  odbij(id:number)
-  {
+  odbij(id: number) {
     this.mainService.odbijKorisnika(id).subscribe(
       (res) => {
         this.message = res;
-        
+
         setTimeout(() => {
           this.message = "";
           this.getPutnike();
-        },  5000);
+        }, 5000);
+      }
+    );
+  }
+
+  otvoriSliku(id: number) {
+    this.slikaBool = true;
+    this.mainService.getSlika(id).subscribe(
+      (res) => {
+        this.slika = 'data:image/png;base64,' + res;
+      },
+      (err) => {
+        console.error(err);
       }
     );
   }

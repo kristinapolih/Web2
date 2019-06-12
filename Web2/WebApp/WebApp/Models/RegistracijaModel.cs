@@ -7,6 +7,7 @@ namespace WebApp.Models
 {
     public class RegistracijaModel
     {
+        private int iD;
         private string username;
         private string password;
         private string originalPassword;
@@ -20,6 +21,12 @@ namespace WebApp.Models
         public RegistracijaModel()
         {
 
+        }
+
+        public int ID
+        {
+            get { return iD; }
+            set { iD = value; }
         }
 
         public string Username
