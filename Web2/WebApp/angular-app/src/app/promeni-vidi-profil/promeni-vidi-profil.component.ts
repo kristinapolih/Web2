@@ -17,6 +17,9 @@ export class PromeniVidiProfilComponent implements OnInit {
   UserValid: any;
   formValid = false;
 
+  fileToUpload: File = null;
+  selectedTipPutnika = null;
+
   constructor(private fb: FormBuilder, private mainService: MainServiceService, private router: Router) { }
 
   get f() { return this.profilForm.controls; }
@@ -39,6 +42,18 @@ export class PromeniVidiProfilComponent implements OnInit {
 
     this.getProfil();
   };
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+  }
+
+  uploadFileToActivity() {
+    let e = this.profilForm.get("email").value;
+    this.mainService.ubaciSliku(this.fileToUpload, e).subscribe(data => {
+    }, error => {
+      console.log(error);
+    });
+  }
 
   getProfil() {
     this.mainService.getProfil().subscribe(
@@ -70,6 +85,11 @@ export class PromeniVidiProfilComponent implements OnInit {
         (res) => {
           this.serverSuccessMessage = res;
           if (res === "Profil je uspesno azuriran....") {
+
+            if(this.fileToUpload != null)
+            {
+              this.uploadFileToActivity();
+            }
 
             setTimeout(() => {
               this.menjaProfil = true;

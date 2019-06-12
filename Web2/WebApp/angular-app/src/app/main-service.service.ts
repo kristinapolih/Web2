@@ -16,8 +16,27 @@ export class MainServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getKartu(id:number): Observable<any> {
-    return this.http.get<any>('http://localhost:52295/api/Karta/getKartu'+ `/?id=${id}`);
+  ubaciSliku(fileToUpload: File, email: string): Observable<any> {
+    const endpoint = 'http://localhost:52295/api/Registracija/ubaciSliku';
+    const formData: FormData = new FormData();
+    formData.append(email, fileToUpload, fileToUpload.name);
+    return this.http.post(endpoint, formData);
+  }
+
+  odbijKorisnika(id: number): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/Registracija/odbijKorisnika' + `/?id=${id}`);
+  }
+
+  prihvatiKorisnika(id: number): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/Registracija/prihvatiKorisnika' + `/?id=${id}`);
+  }
+
+  getPutnike(): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/Registracija/getPutnike');
+  }
+
+  getKartu(id: number): Observable<any> {
+    return this.http.get<any>('http://localhost:52295/api/Karta/getKartu' + `/?id=${id}`);
   }
 
   getHub(): Observable<any> {
@@ -31,8 +50,8 @@ export class MainServiceService {
       })
     }
     let c: CenovnikHelp = new CenovnikHelp();
-          c.ID = id;
-          c.DoDatuma = arg.doDatuma;
+    c.ID = id;
+    c.DoDatuma = arg.doDatuma;
     return this.http.post<any>('http://localhost:52295/api/Cenovnik/izmeniCenovnik', c, headers);
   }
 

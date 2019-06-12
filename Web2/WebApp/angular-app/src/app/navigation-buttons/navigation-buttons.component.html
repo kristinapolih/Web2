@@ -23,19 +23,26 @@
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active" routerLink="/cenovnik">Cenovnik</a>
           </li>
+
           <li class="nav-item">
-              <a class="nav-link" routerLinkActive="active" *ngIf="isController()" routerLink="/proveri-karte">Provera karti</a>
-            </li>
+            <a class="nav-link" routerLinkActive="active" *ngIf="isController()" routerLink="/proveri-karte">Provera
+              karata</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" *ngIf="isController()" routerLink="/verifikacija">Verifikacija putnika</a>
+          </li>
         </ul>
         <ul class="navbar-nav nav-pills navbar-right mt-1">
           <li class="nav-item">
-            <a routerLinkActive="active" *ngIf="isUserProfile()" class="nav-link" routerLink="/promeni-vidi-profil"> Profil </a>
+            <a routerLinkActive="active" *ngIf="isUserProfile()" class="nav-link" routerLink="/promeni-vidi-profil">
+              Profil </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active" *ngIf="!isLogin()" routerLink="/prijavite-se">Prijavite se</a>
           </li>
           <li class="nav-item">
-            <a (click)="logout()" routerLinkActive="active" *ngIf="isLogin()" class="nav-link" routerLink="/prijavite-se"> Odjavite se </a>
+            <a (click)="logout()" routerLinkActive="active" *ngIf="isLogin()" class="nav-link"
+              routerLink="/prijavite-se"> Odjavite se </a>
           </li>
         </ul>
       </div>

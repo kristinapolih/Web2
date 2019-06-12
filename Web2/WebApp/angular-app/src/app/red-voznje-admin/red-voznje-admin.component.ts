@@ -186,7 +186,6 @@ export class RedVoznjeAdminComponent implements OnInit {
       (res) => {
         this.tipDana = res;
         this.selectedtipDana = this.tipDana[0];
-        console.log(res);
       },
       (err) => {
         console.error(err);

@@ -23,6 +23,9 @@ import { AgmCoreModule } from '@agm/core';
 import { RedVoznjeAdminComponent } from './red-voznje-admin/red-voznje-admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CenovnikAdminComponent } from './cenovnik-admin/cenovnik-admin.component';
+import { VerifikacijaComponent } from './verifikacija/verifikacija.component';
+import { MrezaLinijaLinijaAdminComponent } from './mreza-linija-linija-admin/mreza-linija-linija-admin.component';
+import { MrezaLinijaStanicaAdminComponent } from './mreza-linija-stanica-admin/mreza-linija-stanica-admin.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { CenovnikAdminComponent } from './cenovnik-admin/cenovnik-admin.componen
     RedVoznjePrikaziLinijuComponent,
     MapaComponent,
     RedVoznjeAdminComponent,
-    CenovnikAdminComponent
+    CenovnikAdminComponent,
+    VerifikacijaComponent,
+    MrezaLinijaLinijaAdminComponent,
+    MrezaLinijaStanicaAdminComponent
   ],
   imports: [
     BrowserModule,

@@ -67,8 +67,8 @@ namespace WebApp.Hubs
 
         public void GetTime()
         {
-            //try
-            //{
+            try
+            {
                 foreach (string val in groupNames.Values)
                 {
                     lock (balanceLock)
@@ -112,8 +112,8 @@ namespace WebApp.Hubs
 
                     }
                 }
-            //}
-            //catch (Exception) { }
+            }
+            catch (Exception) { }
         }
 
         public override Task OnConnected()

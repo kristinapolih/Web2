@@ -21,6 +21,9 @@ import { RedVoznjePrikaziLinijuComponent } from 'src/app/red-voznje-prikazi-lini
 import { AdminGuard } from './auth/admin.guard';
 import { RedVoznjeAdminComponent } from './red-voznje-admin/red-voznje-admin.component';
 import { CenovnikAdminComponent } from './cenovnik-admin/cenovnik-admin.component';
+import { VerifikacijaComponent } from './verifikacija/verifikacija.component';
+import { MrezaLinijaLinijaAdminComponent } from './mreza-linija-linija-admin/mreza-linija-linija-admin.component';
+import { MrezaLinijaStanicaAdminComponent } from './mreza-linija-stanica-admin/mreza-linija-stanica-admin.component';
 
 const routes: Routes = [
   {
@@ -39,6 +42,7 @@ const routes: Routes = [
     path: 'cenovnik',
     component: CenovnikComponent
   },
+
   {
     path: 'prijavite-se',
     component: LoginComponent,
@@ -49,14 +53,21 @@ const routes: Routes = [
     component: RegistracijaComponent,
     canActivate: [AuthNotGuard]
   },
+  
   {
     path: 'promeni-vidi-profil',
     component: PromeniVidiProfilComponent,
     canActivate: [AuthGuard, AppUserGuard]
   },
+
   {
     path: 'proveri-karte',
     component: ProveriKarteComponent,
+    canActivate: [AuthGuard, ControllerGuard]
+  },
+  {
+    path: 'verifikacija',
+    component: VerifikacijaComponent,
     canActivate: [AuthGuard, ControllerGuard]
   },
 
@@ -68,6 +79,16 @@ const routes: Routes = [
   {
     path: 'cenovnik-admin',
     component: CenovnikAdminComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'mreza-linija-linija-admin',
+    component: MrezaLinijaLinijaAdminComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'mreza-linija-stanica-admin',
+    component: MrezaLinijaStanicaAdminComponent,
     canActivate: [AuthGuard, AdminGuard]
   }
 ];

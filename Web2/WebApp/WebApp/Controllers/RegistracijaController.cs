@@ -3,6 +3,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Mail;
+using System.Text;
+using System.Web;
 using System.Web.Http;
 using WebApp.Models;
 using WebApp.Persistence;
@@ -60,6 +64,32 @@ namespace WebApp.Controllers
             return Ok(returnMessage);
         }
 
+        [HttpPost]
+        [ActionName("ubaciSliku")]
+        public HttpResponseMessage UploadPhoto()
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            var httpRequest = HttpContext.Current.Request;
+            if (httpRequest.Files.Count > 0)
+            {
+                foreach (string file in httpRequest.Files)
+                {
+                    var postedFile = httpRequest.Files[file];
+                    var filePath = HttpContext.Current.Server.MapPath("~/UploadFile/" + postedFile.FileName);
+
+                    postedFile.SaveAs(filePath);
+
+                    Korisnik k = unitOfWork.KorisnikRepository.Find(x => String.Compare(x.Email, file) == 0).FirstOrDefault();
+                    k.Slika = filePath;
+                    k.Stanje = ProcesVerifikacije.Procesira;
+
+                    unitOfWork.KorisnikRepository.Update(k);
+                    unitOfWork.Complete();
+                }
+            }
+            return response;
+        }
+
         [Route("getProfil")]
         [Authorize(Roles = "AppUser")]
         public IHttpActionResult GetProfil()
@@ -82,7 +112,6 @@ namespace WebApp.Controllers
             }
             return Ok("Niste autentifikovani....");
         }
-
 
         [Route("izmeniProfil")]
         [Authorize(Roles = "AppUser")]
@@ -147,6 +176,81 @@ namespace WebApp.Controllers
                 return Ok(message);
             }
             return Ok("Niste autentifikovani....");
+        }
+
+        [Route("getPutnike")]
+        [Authorize(Roles = "Controller")]
+        public IHttpActionResult GetPutnike()
+        {
+            List<KorisnikHelp> ret = new List<KorisnikHelp>();
+
+            List<Korisnik> korisnici = unitOfWork.KorisnikRepository.GetAll().Where(x => x.Stanje == ProcesVerifikacije.Procesira).ToList();
+
+            foreach (Korisnik k in korisnici)
+            {
+                ret.Add(new KorisnikHelp() { ID = k.ID, Adresa = k.Adresa, DatumRodjenja = k.DatumRodjenja.ToString("dd/MMMM/yyyy"), Email = k.Email, Ime = k.Ime, Prezime = k.Prezime, Stanje = k.Stanje.ToString(), TipKorisnika = k.TipKorisnika.ToString() });
+            }
+
+            return Ok(ret);
+        }
+
+        [HttpGet, Route("prihvatiKorisnika")]
+        [Authorize(Roles = "Controller")]
+        public IHttpActionResult PrihvatiKorisnika(int id)
+        {
+            Korisnik k = unitOfWork.KorisnikRepository.Find(u => u.ID == id).FirstOrDefault();
+            k.Stanje = ProcesVerifikacije.Prihvacen;
+
+            unitOfWork.KorisnikRepository.Update(k);
+            unitOfWork.Complete();
+
+            PosaljiMail(k.Email, ProcesVerifikacije.Prihvacen);
+
+            return Ok($"Korisnik [email: {k.Email}] je PRIHVAĆEN....");
+        }
+
+        [HttpGet, Route("odbijKorisnika")]
+        [Authorize(Roles = "Controller")]
+        public IHttpActionResult OdbijKorisnika(int id)
+        {
+            Korisnik k = unitOfWork.KorisnikRepository.Find(u => u.ID == id).FirstOrDefault();
+            k.Stanje = ProcesVerifikacije.Odbijen;
+
+            unitOfWork.KorisnikRepository.Update(k);
+            unitOfWork.Complete();
+
+            PosaljiMail(k.Email, ProcesVerifikacije.Odbijen);
+
+            return Ok($"Korisnik [email: {k.Email}] je ODBIJEN....");
+        }
+
+        private void PosaljiMail(string emailTo, ProcesVerifikacije stanje)
+        {
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+            client.Timeout = 10000;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new System.Net.NetworkCredential("busns021@gmail.com", "Test123!");
+
+            string body = "";
+            string subject = "BusNs obaveštenje";
+            if (stanje == ProcesVerifikacije.Prihvacen)
+            {
+                body = "Poštovani,\n\n Ovim putem Vas obaveštavamo da je Vaš status promenjen na PRIHVAĆEN.\n Sada možete da kupujete karte.\n\n Pozdrav,\nBus Ns";
+            }
+            else if (stanje == ProcesVerifikacije.Odbijen)
+            {
+                body = "Poštovani,\n\n Ovim putem Vas obaveštavamo da je Vaš status na žalost promenjen na ODBIJEN.\nZa više informacija kontaktirajte našu službu za podršku.\nHvala na razumevanju.\n\n Pozdrav,\nBus Ns";
+            }
+
+            MailMessage mm = new MailMessage("busns021@gmail.com", emailTo, subject, body);
+            mm.BodyEncoding = UTF8Encoding.UTF8;
+            mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+
+            client.Send(mm);
         }
     }
 }

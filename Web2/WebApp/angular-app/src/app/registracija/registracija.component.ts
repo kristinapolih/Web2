@@ -14,6 +14,9 @@ export class RegistracijaComponent implements OnInit {
   submitted: boolean = false;
   serverSuccessMessage = "";
 
+  fileToUpload: File = null;
+  selectedTipPutnika = null;
+
   registracijaForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     surname: ['', [Validators.required, Validators.minLength(3)]],
@@ -32,6 +35,20 @@ export class RegistracijaComponent implements OnInit {
   get f() { return this.registracijaForm.controls; }
 
   ngOnInit() {
+    this.selectedTipPutnika = "Regularni";
+  }
+
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+  }
+
+  uploadFileToActivity() {
+    let e = this.registracijaForm.get("email").value;
+    this.mainService.ubaciSliku(this.fileToUpload, e).subscribe(data => {
+    }, error => {
+      console.log(error);
+    });
   }
 
   onSubmit() {
@@ -40,6 +57,11 @@ export class RegistracijaComponent implements OnInit {
         (res) => {
           this.serverSuccessMessage = res;
           if (res === "Uspesno registrovani...") {
+
+            if(this.fileToUpload != null)
+            {
+              this.uploadFileToActivity();
+            }
 
             setTimeout(() => {
               this.router.navigate(['/prijavite-se']);

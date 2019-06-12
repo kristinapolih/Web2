@@ -341,6 +341,7 @@
     <Compile Include="Models\Koeficijent.cs" />
     <Compile Include="Models\Koordinate.cs" />
     <Compile Include="Models\Korisnik.cs" />
+    <Compile Include="Models\KorisnikHelp.cs" />
     <Compile Include="Models\KupljenaKarta.cs" />
     <Compile Include="Models\Linija.cs" />
     <Compile Include="Models\LinijaStanica.cs" />

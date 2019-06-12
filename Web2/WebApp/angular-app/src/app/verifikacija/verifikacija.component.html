@@ -1,0 +1,57 @@
+<div class="limiter">
+  <div class="container-redvoznje100">
+    <div class="wrap-redVoznje100">
+
+      <div class="col-7">
+        <span class="login100-form-title p-b-59">Verifikacija putnika</span>
+        <div class="txt3">
+          {{message}}
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th width="30%">Email</th>
+              <th width="15%">Ime</th>
+              <th width="10%">Prezime</th>
+              <th width="10%">Adresa</th>
+              <th width="30%">Datum rođenja</th>
+              <th width="20%">Tip putnika</th>
+              <th width="20%">Stanje</th>
+              <th width="20%">Dokument</th>
+              <th width="10%">Prihvati</th>
+              <th width="10%">Odbij</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of putnici">
+              <td style="text-align:center;">{{p.Email}}</td>
+              <td style="text-align:center;">{{p.Ime}}</td>
+              <td style="text-align:center;">{{p.Prezime}}</td>
+              <td style="text-align:center;">{{p.Adresa}}</td>
+              <td style="text-align:center;">{{p.DatumRodjenja}}</td>
+              <td style="text-align:center;">{{p.TipKorisnika}}</td>
+              <td style="text-align:center;">{{p.Stanje}}</td>
+              <td style="text-align:center;">
+                <button type="button" class="btn btn-info btn-circle" (click)="otvoriSliku(p.ID)">
+                  <a id="a" class="fa fa-photo"></a>
+                </button>
+              </td>
+              <td style="text-align:center;">
+                <button type="button" class="btn btn-success btn-circle" (click)="prihvati(p.ID)">
+                  <a id="a" class="glyphicon glyphicon-ok"></a>
+                </button>
+              </td>
+              <td style="text-align:center;">
+                <button type="button" class="btn btn-danger btn-circle" (click)="odbij(p.ID)">
+                  <a id="a" class="fa fa-trash"></a>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+    </div>
+  </div>
+</div>
