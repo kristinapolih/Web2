@@ -27,48 +27,70 @@ namespace WebApp.Controllers
         [Authorize(Roles = "Admin")]
         public IHttpActionResult DodajCenovnik(CenovnikHelp cenovnik)
         {
-            Cenovnik c = new Cenovnik();
-            c.OD = DateTime.Parse( cenovnik.OdDatuma);
-            c.DO = DateTime.Parse(cenovnik.DoDatuma);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            unitOfWork.CenovnikRepository.Add(c);
-            unitOfWork.Complete();
+            if (cenovnik != null)
+            {
+                try
+                {
 
-            c = unitOfWork.CenovnikRepository.Find(x => DateTime.Compare(x.OD, c.OD) == 0 && DateTime.Compare(x.DO, c.DO) == 0).ToList()[0];
+                    Cenovnik c = new Cenovnik();
+                    c.OD = DateTime.Parse(cenovnik.OdDatuma);
+                    c.DO = DateTime.Parse(cenovnik.DoDatuma);
+                    c.Stamp = DateTime.Now;
 
-            CenovnikStavka cs = new CenovnikStavka();
-            cs.IDCenovnika = c.ID;
-            cs.IDKoeficijent = unitOfWork.KoeficijentRepository.Get(1).ID;
-            cs.IDSt5avka = 1;
-            cs.Cena = cenovnik.VremenskaCena;
-            unitOfWork.CenovnikStavkaRepository.Add(cs);
-            unitOfWork.Complete();
+                    unitOfWork.CenovnikRepository.Add(c);
+                    unitOfWork.Complete();
 
-            cs = new CenovnikStavka();
-            cs.IDCenovnika = c.ID;
-            cs.IDKoeficijent = unitOfWork.KoeficijentRepository.Get(1).ID;
-            cs.IDSt5avka = 2;
-            cs.Cena = cenovnik.DnevnaCena;
-            unitOfWork.CenovnikStavkaRepository.Add(cs);
-            unitOfWork.Complete();
+                    c = unitOfWork.CenovnikRepository.Find(x => DateTime.Compare(x.OD, c.OD) == 0 && DateTime.Compare(x.DO, c.DO) == 0).ToList()[0];
 
-            cs = new CenovnikStavka();
-            cs.IDCenovnika = c.ID;
-            cs.IDKoeficijent = unitOfWork.KoeficijentRepository.Get(1).ID;
-            cs.IDSt5avka = 3;
-            cs.Cena = cenovnik.MesecnaCena;
-            unitOfWork.CenovnikStavkaRepository.Add(cs);
-            unitOfWork.Complete();
+                    CenovnikStavka cs = new CenovnikStavka();
+                    cs.IDCenovnika = c.ID;
+                    cs.IDKoeficijent = unitOfWork.KoeficijentRepository.Get(1).ID;
+                    cs.IDSt5avka = 1;
+                    cs.Cena = cenovnik.VremenskaCena;
+                    unitOfWork.CenovnikStavkaRepository.Add(cs);
+                    unitOfWork.Complete();
 
-            cs = new CenovnikStavka();
-            cs.IDCenovnika = c.ID;
-            cs.IDKoeficijent = unitOfWork.KoeficijentRepository.Get(1).ID;
-            cs.IDSt5avka = 4;
-            cs.Cena = cenovnik.GodisnjaCena;
-            unitOfWork.CenovnikStavkaRepository.Add(cs);
-            unitOfWork.Complete();
+                    cs = new CenovnikStavka();
+                    cs.IDCenovnika = c.ID;
+                    cs.IDKoeficijent = unitOfWork.KoeficijentRepository.Get(1).ID;
+                    cs.IDSt5avka = 2;
+                    cs.Cena = cenovnik.DnevnaCena;
+                    unitOfWork.CenovnikStavkaRepository.Add(cs);
+                    unitOfWork.Complete();
 
-            return Ok("Uspešno ste dodali nov cenovnik....");
+                    cs = new CenovnikStavka();
+                    cs.IDCenovnika = c.ID;
+                    cs.IDKoeficijent = unitOfWork.KoeficijentRepository.Get(1).ID;
+                    cs.IDSt5avka = 3;
+                    cs.Cena = cenovnik.MesecnaCena;
+                    unitOfWork.CenovnikStavkaRepository.Add(cs);
+                    unitOfWork.Complete();
+
+                    cs = new CenovnikStavka();
+                    cs.IDCenovnika = c.ID;
+                    cs.IDKoeficijent = unitOfWork.KoeficijentRepository.Get(1).ID;
+                    cs.IDSt5avka = 4;
+                    cs.Cena = cenovnik.GodisnjaCena;
+                    unitOfWork.CenovnikStavkaRepository.Add(cs);
+                    unitOfWork.Complete();
+
+                    return Ok("Uspešno ste dodali nov cenovnik....");
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Cenovnik not found!");
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpGet, Route("getCenovnike")]
@@ -118,6 +140,7 @@ namespace WebApp.Controllers
             ch.DnevnaCena = listaCenovnika.Where(x => x.IDSt5avka == 2 && x.IDCenovnika == c.ID).FirstOrDefault().Cena;
             ch.MesecnaCena = listaCenovnika.Where(x => x.IDSt5avka == 3 && x.IDCenovnika == c.ID).FirstOrDefault().Cena;
             ch.GodisnjaCena = listaCenovnika.Where(x => x.IDSt5avka == 4 && x.IDCenovnika == c.ID).FirstOrDefault().Cena;
+            ch.Stamp = c.Stamp.ToString();
 
             if (DateTime.Compare(c.DO, DateTime.Now) >= 0)
                 ch.Menja = true;
@@ -129,20 +152,48 @@ namespace WebApp.Controllers
         [Authorize(Roles = "Admin")]
         public IHttpActionResult IzmeniCenovnik(CenovnikHelp cenovnik)
         {
-            Cenovnik c = unitOfWork.CenovnikRepository.Get(cenovnik.ID);
-
-            if (DateTime.Compare(c.DO, DateTime.Parse(cenovnik.DoDatuma)) < 0)
+            if (!ModelState.IsValid)
             {
-                c.DO = DateTime.Parse(cenovnik.DoDatuma);
+                return BadRequest(ModelState);
+            }
 
-                unitOfWork.CenovnikRepository.Update(c);
-                unitOfWork.Complete();
+            if (cenovnik != null)
+            {
+                try
+                {
+                    Cenovnik c = unitOfWork.CenovnikRepository.Get(cenovnik.ID);
 
-                return Ok("Uspešno ste izmenili cenovnik....");
+                    if (String.Compare(cenovnik.Stamp, c.Stamp.ToString()) == 0)
+                    {
+                        if (DateTime.Compare(c.DO, DateTime.Parse(cenovnik.DoDatuma)) < 0)
+                        {
+                            c.DO = DateTime.Parse(cenovnik.DoDatuma);
+                            c.Stamp = DateTime.Now;
+
+                            unitOfWork.CenovnikRepository.Update(c);
+                            unitOfWork.Complete();
+
+                            return Ok("Uspešno ste izmenili cenovnik....");
+                        }
+                        else
+                        {
+                            return Ok("Ne možete staviti manji datum do kojeg cenovnik važi....");
+                        }
+                    }
+                    else
+                    {
+                        return Ok("Drugi admin je vec menjao ovaj cenovnik, osvežite stranicu....");
+                    }
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }
             }
             else
             {
-                return Ok("Ne možete staviti manji datum do kojeg cenovnik važi....");
+                ModelState.AddModelError("", "Cenovnik not found!");
+                return BadRequest(ModelState);
             }
         }
     }

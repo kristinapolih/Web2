@@ -11,6 +11,7 @@ namespace WebApp.Models
         private int iD;
         private DateTime oD;
         private DateTime dO;
+        private DateTime stamp;
 
         [Key]
         public int ID
@@ -27,6 +28,11 @@ namespace WebApp.Models
         {
             get { return oD; }
             set { oD = value; }
+        }
+        public DateTime Stamp
+        {
+            get { return stamp; }
+            set { stamp = value; }
         }
     }
 }

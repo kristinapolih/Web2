@@ -10,6 +10,7 @@ export class VerifikacijaComponent implements OnInit {
 
   putnici: any;
   message: string;
+  messageKorisnik: string;
 
   slikaBool: boolean = false;
   public slika: string;
@@ -18,7 +19,9 @@ export class VerifikacijaComponent implements OnInit {
 
   ngOnInit() {
     this.getPutnike();
-    this.message = "";
+    this.slikaBool = false;
+    this.slika = "";
+    this.messageKorisnik = "";
   }
 
   getPutnike() {
@@ -31,6 +34,9 @@ export class VerifikacijaComponent implements OnInit {
   }
 
   prihvati(id: number) {
+    this.slikaBool = false;
+    this.slika = "";
+    this.messageKorisnik = "";
     this.mainService.prihvatiKorisnika(id).subscribe(
       (res) => {
         this.message = res;
@@ -44,6 +50,9 @@ export class VerifikacijaComponent implements OnInit {
   }
 
   odbij(id: number) {
+    this.slikaBool = false;
+    this.slika = "";
+    this.messageKorisnik = "";
     this.mainService.odbijKorisnika(id).subscribe(
       (res) => {
         this.message = res;
@@ -56,11 +65,19 @@ export class VerifikacijaComponent implements OnInit {
     );
   }
 
-  otvoriSliku(id: number) {
+  otvoriSliku(id: number, email: string) {
     this.slikaBool = true;
     this.mainService.getSlika(id).subscribe(
       (res) => {
-        this.slika = 'data:image/png;base64,' + res;
+        if (res == "Nema slike") {
+          this.slikaBool = false;
+          this.slika = "";
+          this.messageKorisnik = "Korisnik [Email: " + email + "] nema priloženu sliku/dokument";
+        }
+        else {
+          this.slika = 'data:image/png;base64,' + res;
+          this.messageKorisnik = "Korisnik [Email: " + email + "]";
+        }
       },
       (err) => {
         console.error(err);

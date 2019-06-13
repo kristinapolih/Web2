@@ -30,66 +30,95 @@ namespace WebApp.Controllers
         [HttpPost, Route("registracijaKorisnika")]
         public IHttpActionResult RegistracijaKorisnika(RegistracijaModel userToRegister)
         {
-            var userStore = new UserStore<ApplicationUser>(context);
-            var userManager = new UserManager<ApplicationUser>(userStore);
-            string returnMessage = "";
-
-            if (context.Users.Any(u => u.UserName == userToRegister.Username))
+            if (!ModelState.IsValid)
             {
-                returnMessage = "Nalog sa ovim email-om vec postoji....";
-                return Ok(returnMessage);
+                return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { Id = userToRegister.Username, UserName = userToRegister.Username, Email = userToRegister.Username, PasswordHash = ApplicationUser.HashPassword(userToRegister.Password) };
-            userManager.Create(user);
-            userManager.AddToRole(user.Id, "AppUser");
 
-            Korisnik passenger = new Korisnik();
-            passenger.Email = userToRegister.Username;
-            passenger.IDUser = user.Id;
-            passenger.DatumRodjenja = userToRegister.Birthday;
-            passenger.Stanje = ProcesVerifikacije.Procesira;
-            passenger.Prezime = userToRegister.Lastname;
-            passenger.Ime = userToRegister.Name;
-            passenger.Adresa = userToRegister.Adresa;
+            if (userToRegister != null)
+            {
+                try
+                {
+                    var userStore = new UserStore<ApplicationUser>(context);
+                    var userManager = new UserManager<ApplicationUser>(userStore);
+                    string returnMessage = "";
 
-            if (String.Compare(userToRegister.TipPutnika, "Regularni") == 0)
-                passenger.TipKorisnika = TipPutnika.Regularni;
-            else if (String.Compare(userToRegister.TipPutnika, "Djak") == 0)
-                passenger.TipKorisnika = TipPutnika.Djak;
+                    if (context.Users.Any(u => u.UserName == userToRegister.Username))
+                    {
+                        returnMessage = "Nalog sa ovim email-om vec postoji....";
+                        return Ok(returnMessage);
+                    }
+
+                    var user = new ApplicationUser() { Id = userToRegister.Username, UserName = userToRegister.Username, Email = userToRegister.Username, PasswordHash = ApplicationUser.HashPassword(userToRegister.Password) };
+                    userManager.Create(user);
+                    userManager.AddToRole(user.Id, "AppUser");
+
+                    Korisnik passenger = new Korisnik();
+                    passenger.Email = userToRegister.Username;
+                    passenger.IDUser = user.Id;
+                    passenger.DatumRodjenja = userToRegister.Birthday;
+                    passenger.Stanje = ProcesVerifikacije.Procesira;
+                    passenger.Prezime = userToRegister.Lastname;
+                    passenger.Ime = userToRegister.Name;
+                    passenger.Adresa = userToRegister.Adresa;
+
+                    if (String.Compare(userToRegister.TipPutnika, "Regularni") == 0)
+                        passenger.TipKorisnika = TipPutnika.Regularni;
+                    else if (String.Compare(userToRegister.TipPutnika, "Djak") == 0)
+                        passenger.TipKorisnika = TipPutnika.Djak;
+                    else
+                        passenger.TipKorisnika = TipPutnika.Penzioner;
+
+                    unitOfWork.KorisnikRepository.Add(passenger);
+                    unitOfWork.Complete();
+                    returnMessage = "Uspesno registrovani...";
+                    return Ok(returnMessage);
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }
+            }
             else
-                passenger.TipKorisnika = TipPutnika.Penzioner;
-
-            unitOfWork.KorisnikRepository.Add(passenger);
-            unitOfWork.Complete();
-            returnMessage = "Uspesno registrovani...";
-            return Ok(returnMessage);
+            {
+                ModelState.AddModelError("", "Not found!");
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpPost]
         [ActionName("ubaciSliku")]
         public HttpResponseMessage UploadPhoto()
         {
-            HttpResponseMessage response = new HttpResponseMessage();
-            var httpRequest = HttpContext.Current.Request;
-            if (httpRequest.Files.Count > 0)
+            try
             {
-                foreach (string file in httpRequest.Files)
+                HttpResponseMessage response = new HttpResponseMessage();
+                var httpRequest = HttpContext.Current.Request;
+                if (httpRequest.Files.Count > 0)
                 {
-                    var postedFile = httpRequest.Files[file];
-                    var filePath = HttpContext.Current.Server.MapPath("~/UploadFile/" + postedFile.FileName);
+                    foreach (string file in httpRequest.Files)
+                    {
+                        var postedFile = httpRequest.Files[file];
+                        var filePath = HttpContext.Current.Server.MapPath("~/UploadFile/" + postedFile.FileName);
 
-                    postedFile.SaveAs(filePath);
+                        postedFile.SaveAs(filePath);
 
-                    Korisnik k = unitOfWork.KorisnikRepository.Find(x => String.Compare(x.Email, file) == 0).FirstOrDefault();
-                    k.Slika = filePath;
-                    k.Stanje = ProcesVerifikacije.Procesira;
+                        Korisnik k = unitOfWork.KorisnikRepository.Find(x => String.Compare(x.Email, file) == 0).FirstOrDefault();
+                        k.Slika = filePath;
+                        k.Stanje = ProcesVerifikacije.Procesira;
 
-                    unitOfWork.KorisnikRepository.Update(k);
-                    unitOfWork.Complete();
+                        unitOfWork.KorisnikRepository.Update(k);
+                        unitOfWork.Complete();
+                    }
                 }
+                return response;
             }
-            return response;
+            catch (Exception)
+            {
+                return new HttpResponseMessage();
+            }
+
         }
 
         [Route("getProfil")]
@@ -120,50 +149,70 @@ namespace WebApp.Controllers
         [Authorize(Roles = "AppUser")]
         public IHttpActionResult IzmeniProfil(RegistracijaModel userToUpdate)
         {
-            if (User.Identity.IsAuthenticated)
+            if (!ModelState.IsValid)
             {
-                var userStore = new UserStore<ApplicationUser>(context);
-                var userManager = new UserManager<ApplicationUser>(userStore);
-                string returnMessage = "";
-
-                string s = User.Identity.GetUserId();
-                var user = context.Users.Any(u => u.Id == s);
-                ApplicationUser apu = new ApplicationUser();
-                apu = userManager.FindByIdAsync(s).Result;
-
-                Korisnik k = unitOfWork.KorisnikRepository.Find(u => u.IDUser == s).FirstOrDefault();
-
-                if (!userManager.CheckPasswordAsync(apu, userToUpdate.OriginalPassword).Result)
-                {
-                    returnMessage = "Uneli ste pogresnu lozinku....";
-                    return Ok(returnMessage);
-                }
-
-                if (userToUpdate.Password != null && userToUpdate.Password == "" && !String.IsNullOrEmpty( userToUpdate.Password) && !String.IsNullOrWhiteSpace(userToUpdate.Password))
-                {
-                    apu.PasswordHash = ApplicationUser.HashPassword(userToUpdate.Password);
-                    userManager.Update(apu);
-                }
-
-                k.Adresa = userToUpdate.Adresa;
-                k.DatumRodjenja = userToUpdate.Birthday;
-                k.Prezime = userToUpdate.Lastname;
-                k.Ime = userToUpdate.Name;
-
-                if (String.Compare(userToUpdate.TipPutnika, "Regularni") == 0)
-                    k.TipKorisnika = TipPutnika.Regularni;
-                else if (String.Compare(userToUpdate.TipPutnika, "Djak") == 0)
-                    k.TipKorisnika = TipPutnika.Djak;
-                else
-                    k.TipKorisnika = TipPutnika.Penzioner;
-
-                unitOfWork.KorisnikRepository.Update(k);
-                unitOfWork.Complete();
-                returnMessage = "Profil je uspesno azuriran....";
-
-                return Ok(returnMessage);
+                return BadRequest(ModelState);
             }
-            return Ok("Niste autentifikovani....");
+
+            if (userToUpdate != null)
+            {
+                try
+                {
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        var userStore = new UserStore<ApplicationUser>(context);
+                        var userManager = new UserManager<ApplicationUser>(userStore);
+                        string returnMessage = "";
+
+                        string s = User.Identity.GetUserId();
+                        var user = context.Users.Any(u => u.Id == s);
+                        ApplicationUser apu = new ApplicationUser();
+                        apu = userManager.FindByIdAsync(s).Result;
+
+                        Korisnik k = unitOfWork.KorisnikRepository.Find(u => u.IDUser == s).FirstOrDefault();
+
+                        if (!userManager.CheckPasswordAsync(apu, userToUpdate.OriginalPassword).Result)
+                        {
+                            returnMessage = "Uneli ste pogresnu lozinku....";
+                            return Ok(returnMessage);
+                        }
+
+                        if (userToUpdate.Password != null && userToUpdate.Password == "" && !String.IsNullOrEmpty(userToUpdate.Password) && !String.IsNullOrWhiteSpace(userToUpdate.Password))
+                        {
+                            apu.PasswordHash = ApplicationUser.HashPassword(userToUpdate.Password);
+                            userManager.Update(apu);
+                        }
+
+                        k.Adresa = userToUpdate.Adresa;
+                        k.DatumRodjenja = userToUpdate.Birthday;
+                        k.Prezime = userToUpdate.Lastname;
+                        k.Ime = userToUpdate.Name;
+
+                        if (String.Compare(userToUpdate.TipPutnika, "Regularni") == 0)
+                            k.TipKorisnika = TipPutnika.Regularni;
+                        else if (String.Compare(userToUpdate.TipPutnika, "Djak") == 0)
+                            k.TipKorisnika = TipPutnika.Djak;
+                        else
+                            k.TipKorisnika = TipPutnika.Penzioner;
+
+                        unitOfWork.KorisnikRepository.Update(k);
+                        unitOfWork.Complete();
+                        returnMessage = "Profil je uspesno azuriran....";
+
+                        return Ok(returnMessage);
+                    }
+                    return Ok("Niste autentifikovani....");
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Not found!");
+                return BadRequest(ModelState);
+            }
         }
 
         [Route("getTipKorisnika")]
@@ -185,6 +234,7 @@ namespace WebApp.Controllers
         [Authorize(Roles = "Controller")]
         public IHttpActionResult GetPutnike()
         {
+
             List<KorisnikHelp> ret = new List<KorisnikHelp>();
 
             List<Korisnik> korisnici = unitOfWork.KorisnikRepository.GetAll().Where(x => x.Stanje == ProcesVerifikacije.Procesira).ToList();
@@ -201,41 +251,45 @@ namespace WebApp.Controllers
         [Authorize(Roles = "Controller")]
         public IHttpActionResult PrihvatiKorisnika(int id)
         {
-            Korisnik k = unitOfWork.KorisnikRepository.Find(u => u.ID == id).FirstOrDefault();
-            k.Stanje = ProcesVerifikacije.Prihvacen;
+            try
+            {
+                Korisnik k = unitOfWork.KorisnikRepository.Find(u => u.ID == id).FirstOrDefault();
+                k.Stanje = ProcesVerifikacije.Prihvacen;
 
-            unitOfWork.KorisnikRepository.Update(k);
-            unitOfWork.Complete();
+                unitOfWork.KorisnikRepository.Update(k);
+                unitOfWork.Complete();
 
-            PosaljiMail(k.Email, ProcesVerifikacije.Prihvacen);
+                PosaljiMail(k.Email, ProcesVerifikacije.Prihvacen);
 
-            return Ok($"Korisnik [email: {k.Email}] je PRIHVAĆEN....");
+                return Ok($"Korisnik [email: {k.Email}] je PRIHVAĆEN....");
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet, Route("odbijKorisnika")]
         [Authorize(Roles = "Controller")]
         public IHttpActionResult OdbijKorisnika(int id)
         {
-            Korisnik k = unitOfWork.KorisnikRepository.Find(u => u.ID == id).FirstOrDefault();
-            k.Stanje = ProcesVerifikacije.Odbijen;
+            try
+            {
+                Korisnik k = unitOfWork.KorisnikRepository.Find(u => u.ID == id).FirstOrDefault();
+                k.Stanje = ProcesVerifikacije.Odbijen;
 
-            unitOfWork.KorisnikRepository.Update(k);
-            unitOfWork.Complete();
+                unitOfWork.KorisnikRepository.Update(k);
+                unitOfWork.Complete();
 
-            PosaljiMail(k.Email, ProcesVerifikacije.Odbijen);
+                PosaljiMail(k.Email, ProcesVerifikacije.Odbijen);
 
-            return Ok($"Korisnik [email: {k.Email}] je ODBIJEN....");
+                return Ok($"Korisnik [email: {k.Email}] je ODBIJEN....");
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
-
-        /*[HttpGet, Route("getSlika")]
-        public IHttpActionResult GetSlika(int id)
-        {
-            Korisnik k = unitOfWork.KorisnikRepository.Get(id);
-
-            string slika = k.Slika;
-
-            return Ok(slika);
-        }*/
 
         [HttpGet, Route("getSlika")]
         public IHttpActionResult GetSlika(int id)
@@ -272,22 +326,42 @@ namespace WebApp.Controllers
         [Authorize(Roles = "Admin")]
         public IHttpActionResult DodajKontrolera(RegistracijaModel userToRegister)
         {
-            var userStore = new UserStore<ApplicationUser>(context);
-            var userManager = new UserManager<ApplicationUser>(userStore);
-            string returnMessage = "";
-
-            if (context.Users.Any(u => u.UserName == userToRegister.Username))
+            if (!ModelState.IsValid)
             {
-                returnMessage = "Nalog sa ovim email-om vec postoji....";
-                return Ok(returnMessage);
+                return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { Id = userToRegister.Username, UserName = userToRegister.Username, Email = userToRegister.Username, PasswordHash = ApplicationUser.HashPassword(userToRegister.Password) };
-            userManager.Create(user);
-            userManager.AddToRole(user.Id, "Controller");
+            if (userToRegister != null)
+            {
+                try
+                {
+                    var userStore = new UserStore<ApplicationUser>(context);
+                    var userManager = new UserManager<ApplicationUser>(userStore);
+                    string returnMessage = "";
 
-            returnMessage = "Uspesno ste registrovali kotrolera...";
-            return Ok(returnMessage);
+                    if (context.Users.Any(u => u.UserName == userToRegister.Username))
+                    {
+                        returnMessage = "Nalog sa ovim email-om vec postoji....";
+                        return Ok(returnMessage);
+                    }
+
+                    var user = new ApplicationUser() { Id = userToRegister.Username, UserName = userToRegister.Username, Email = userToRegister.Username, PasswordHash = ApplicationUser.HashPassword(userToRegister.Password) };
+                    userManager.Create(user);
+                    userManager.AddToRole(user.Id, "Controller");
+
+                    returnMessage = "Uspesno ste registrovali kotrolera...";
+                    return Ok(returnMessage);
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Not found!");
+                return BadRequest(ModelState);
+            }
         }
 
         private void PosaljiMail(string emailTo, ProcesVerifikacije stanje)

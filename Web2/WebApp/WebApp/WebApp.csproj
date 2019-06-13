@@ -256,7 +256,6 @@
     <Compile Include="Controllers\MrezaLinijaController.cs" />
     <Compile Include="Controllers\RedVoznjeController.cs" />
     <Compile Include="Controllers\RegistracijaController.cs" />
-    <Compile Include="Controllers\StaniceController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -326,6 +325,10 @@
     <Compile Include="Migrations\201906100952374_FifteenthMigration.cs" />
     <Compile Include="Migrations\201906100952374_FifteenthMigration.Designer.cs">
       <DependentUpon>201906100952374_FifteenthMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906131204348_SixteenthMigration.cs" />
+    <Compile Include="Migrations\201906131204348_SixteenthMigration.Designer.cs">
+      <DependentUpon>201906131204348_SixteenthMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -523,6 +526,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906100952374_FifteenthMigration.resx">
       <DependentUpon>201906100952374_FifteenthMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906131204348_SixteenthMigration.resx">
+      <DependentUpon>201906131204348_SixteenthMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

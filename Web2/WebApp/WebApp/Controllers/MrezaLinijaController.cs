@@ -56,20 +56,27 @@ namespace WebApp.Controllers
         [HttpGet, Route("getLiniju")]
         public IHttpActionResult GetLiniju(int id)
         {
-            Linija l = unitOfWork.LinijaRepository.Get(id);
-
-            List<LinijaStanica> linijaStanica = unitOfWork.LinijaStanicaRepository.GetAll().Where(x => x.IDLinija == l.ID).ToList();
-            List<StanicaHelp> stanice = new List<StanicaHelp>();
-
-            foreach (LinijaStanica ls in linijaStanica)
+            try
             {
-                Stanica stanica = unitOfWork.StanicaRepository.Get(ls.IDStanica);
-                if (stanica != null)
-                    stanice.Add(new StanicaHelp { X = stanica.X, Y = stanica.Y, Naziv = stanica.Naziv, IsStanica = stanica.IsStanica, Adresa = unitOfWork.AdresaRepository.Get(stanica.IDAdresa) });
+                Linija l = unitOfWork.LinijaRepository.Get(id);
+
+                List<LinijaStanica> linijaStanica = unitOfWork.LinijaStanicaRepository.GetAll().Where(x => x.IDLinija == l.ID).ToList();
+                List<StanicaHelp> stanice = new List<StanicaHelp>();
+
+                foreach (LinijaStanica ls in linijaStanica)
+                {
+                    Stanica stanica = unitOfWork.StanicaRepository.Get(ls.IDStanica);
+                    if (stanica != null)
+                        stanice.Add(new StanicaHelp { X = stanica.X, Y = stanica.Y, Naziv = stanica.Naziv, IsStanica = stanica.IsStanica, Adresa = unitOfWork.AdresaRepository.Get(stanica.IDAdresa) });
+                }
+                Linije linije = new Linije() { ID = l.ID, BrojRute = l.Naziv, TipRute = l.TipVoznje };
+                linije.Stanice = stanice;
+                return Ok(linije);
             }
-            Linije linije = new Linije() { ID = l.ID, BrojRute = l.Naziv, TipRute = l.TipVoznje };
-            linije.Stanice = stanice;
-            return Ok(linije);
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
     }
 }

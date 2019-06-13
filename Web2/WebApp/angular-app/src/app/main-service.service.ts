@@ -57,7 +57,7 @@ export class MainServiceService {
     return this.http.get<any>('http://localhost:52295/api/Hub/getHub');
   }
 
-  izmeniCenovnik(arg: any, id: number): Observable<any> {
+  izmeniCenovnik(arg: any, id: number, stamp: string): Observable<any> {
     let headers = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -66,6 +66,8 @@ export class MainServiceService {
     let c: CenovnikHelp = new CenovnikHelp();
     c.ID = id;
     c.DoDatuma = arg.doDatuma;
+    c.Stamp = stamp;
+
     return this.http.post<any>('http://localhost:52295/api/Cenovnik/izmeniCenovnik', c, headers);
   }
 
@@ -117,7 +119,7 @@ export class MainServiceService {
     return this.http.get<any>('http://localhost:52295/api/RedVoznje/obrisiLinijuAdmin' + `/?id=${id}`);
   }
 
-  izmeniDanLinijeAdmin(selectedtipDana: string, idlinije: number): Observable<any> {
+  izmeniDanLinijeAdmin(selectedtipDana: string, idlinije: number, stamp:string): Observable<any> {
     let headers = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -125,12 +127,13 @@ export class MainServiceService {
     }
     let par = {
       Dan: selectedtipDana,
-      ID: idlinije
+      ID: idlinije,
+      Stamp: stamp
     };
     return this.http.post<any>('http://localhost:52295/api/RedVoznje/izmeniDanLinijeAdmin', par, headers);
   }
 
-  izmeniImeLinijeAdmin(line: string, idlinije: number): Observable<any> {
+  izmeniImeLinijeAdmin(line: string, idlinije: number, stamp:string): Observable<any> {
     let headers = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -139,12 +142,13 @@ export class MainServiceService {
 
     let par = {
       ImeRute: line,
-      ID: idlinije
+      ID: idlinije,
+      Stamp: stamp
     };
     return this.http.post<any>('http://localhost:52295/api/RedVoznje/izmeniImeLinijeAdmin', par, headers);
   }
 
-  izmeniPolaskeAdmin(arg: any, idlinije: number): Observable<any> {
+  izmeniPolaskeAdmin(arg: any, idlinije: number, stamp:string): Observable<any> {
     let headers = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -153,7 +157,8 @@ export class MainServiceService {
 
     let par = {
       Polasci: arg.svipolasci,
-      ID: idlinije
+      ID: idlinije,
+      Stamp: stamp
     };
     return this.http.post<any>('http://localhost:52295/api/RedVoznje/izmeniPolaskeAdmin', par, headers);
   }

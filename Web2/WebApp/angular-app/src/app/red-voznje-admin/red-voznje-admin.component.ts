@@ -27,6 +27,8 @@ export class RedVoznjeAdminComponent implements OnInit {
   tipRedVoznje: any;
   selectedTipRedVoznje = null;
 
+  TimeStamp: string;
+
   polasciForm = this.fb.group({
     svipolasci: [""]
   });
@@ -122,7 +124,10 @@ export class RedVoznjeAdminComponent implements OnInit {
     this.mainService.getLinijuAdmin(ID).subscribe(
       (res) => {
         this.message = "";
-        this.polasci = res;
+        let s = res.split('*');
+        this.TimeStamp = s[0];
+          this.polasci = s[1];
+        //this.polasci = res;
         this.line = ImeRute
         this.view = false;
         this.izmeni = true;
@@ -135,7 +140,7 @@ export class RedVoznjeAdminComponent implements OnInit {
   }
 
   onSubmit() {
-    this.mainService.izmeniPolaskeAdmin(this.polasciForm.value, this.idlinije).subscribe(
+    this.mainService.izmeniPolaskeAdmin(this.polasciForm.value, this.idlinije, this.TimeStamp).subscribe(
       (res) => {
         this.message = res;
       },
@@ -146,7 +151,7 @@ export class RedVoznjeAdminComponent implements OnInit {
   }
 
   onSubmitNaslov() {
-    this.mainService.izmeniImeLinijeAdmin(this.line, this.idlinije).subscribe(
+    this.mainService.izmeniImeLinijeAdmin(this.line, this.idlinije , this.TimeStamp).subscribe(
       (res) => {
         this.message = res;
         this.getLinijeAdmin();
@@ -158,7 +163,7 @@ export class RedVoznjeAdminComponent implements OnInit {
   }
 
   onSubmitDan() {
-    this.mainService.izmeniDanLinijeAdmin(this.selectedtipDana, this.idlinije).subscribe(
+    this.mainService.izmeniDanLinijeAdmin(this.selectedtipDana, this.idlinije, this.TimeStamp).subscribe(
       (res) => {
         this.message = res;
         this.getLinijeAdmin();

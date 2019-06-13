@@ -6,4 +6,5 @@ export class CenovnikHelp {
     DnevnaCena: string;
     MesecnaCena: string;
     GodisnjaCena: string;
+    Stamp: string;
 }

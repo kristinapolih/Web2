@@ -159,30 +159,45 @@ namespace WebApp.Controllers
         [Authorize(Roles = "Admin")]
         public IHttpActionResult GetLinijuAdmin(int id)
         {
-            Linija l = unitOfWork.LinijaRepository.Get(id);
-            string polasci = l.Polasci;
-            string[] vremena = polasci.Split('.');
-            string ret = "";
-            foreach (var s in vremena)
+            try
             {
-                ret += s + '\n';
+                Linija l = unitOfWork.LinijaRepository.Get(id);
+                string polasci = l.Polasci;
+                string[] vremena = polasci.Split('.');
+                string ret = "";
+                ret += l.Stamp.ToString() + '*';
+                foreach (var s in vremena)
+                {
+                    ret += s + '\n';
+                }
+                return Ok(ret);
             }
-            return Ok(ret);
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet, Route("GetLinijuListAdmin")]
         [Authorize(Roles = "Admin")]
         public IHttpActionResult GetLinijuListAdmin(int id)
         {
-            Linija l = unitOfWork.LinijaRepository.Get(id);
-            string[] vremena = l.Polasci.Split('.');
-
-            List<string> lista = new List<string>();
-            foreach (var s in vremena)
+            try
             {
-                lista.Add(s);
+                Linija l = unitOfWork.LinijaRepository.Get(id);
+                string[] vremena = l.Polasci.Split('.');
+
+                List<string> lista = new List<string>();
+                foreach (var s in vremena)
+                {
+                    lista.Add(s);
+                }
+                return Ok(lista);
             }
-            return Ok(lista);
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
 
@@ -190,34 +205,90 @@ namespace WebApp.Controllers
         [Authorize(Roles = "Admin")]
         public IHttpActionResult IzmeniPolaskeAdmin(PolasciHelp Polasci)
         {
-            Linija l = unitOfWork.LinijaRepository.Get(Polasci.ID);
-
-            string[] vremena = Polasci.Polasci.Split('\n');
-            string s = "";
-            foreach (var ss in vremena)
+            if (!ModelState.IsValid)
             {
-                s += ss + '.';
+                return BadRequest(ModelState);
             }
-            l.Polasci = s;
 
-            unitOfWork.LinijaRepository.Update(l);
-            unitOfWork.Complete();
+            if (Polasci != null)
+            {
+                try
+                {
+                    Linija l = unitOfWork.LinijaRepository.Get(Polasci.ID);
 
-            return Ok("Polasci uspešno izmenjeni...");
+                    if (String.Compare(l.Stamp.ToString(), Polasci.Stamp) == 0)
+                    {
+                        string[] vremena = Polasci.Polasci.Split('\n');
+                        string s = "";
+                        foreach (var ss in vremena)
+                        {
+                            s += ss + '.';
+                        }
+                        l.Polasci = s;
+                        l.Stamp = DateTime.Now;
+
+                        unitOfWork.LinijaRepository.Update(l);
+                        unitOfWork.Complete();
+
+                        return Ok("Polasci uspešno izmenjeni...");
+                    }
+                    else
+                    {
+                        return Ok("Drugi admin je vec menjao ovu liniju, osvežite stranicu....");
+                    }
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Not found!");
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpPost, Route("izmeniImeLinijeAdmin")]
         [Authorize(Roles = "Admin")]
         public IHttpActionResult IzmeniImeLinijeAdmin(PolasciHelp Polasci)
         {
-            Linija l = unitOfWork.LinijaRepository.Get(Polasci.ID);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            l.Naziv = Polasci.ImeRute;
+            if (Polasci != null)
+            {
+                try
+                {
+                    Linija l = unitOfWork.LinijaRepository.Get(Polasci.ID);
 
-            unitOfWork.LinijaRepository.Update(l);
-            unitOfWork.Complete();
+                    if (String.Compare(l.Stamp.ToString(), Polasci.Stamp) == 0)
+                    {
+                        l.Naziv = Polasci.ImeRute;
+                        l.Stamp = DateTime.Now;
 
-            return Ok("Ime linije uspešno izmenjeno...");
+                        unitOfWork.LinijaRepository.Update(l);
+                        unitOfWork.Complete();
+
+                        return Ok("Ime linije uspešno izmenjeno...");
+                    }
+                    else
+                    {
+                        return Ok("Drugi admin je vec menjao ovu liniju, osvežite stranicu....");
+                    }
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Not found!");
+                return BadRequest(ModelState);
+            }
         }
 
 
@@ -225,19 +296,49 @@ namespace WebApp.Controllers
         [Authorize(Roles = "Admin")]
         public IHttpActionResult IzmeniDanLinijeAdmin(PolasciHelp Polasci)
         {
-            Linija l = unitOfWork.LinijaRepository.Get(Polasci.ID);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            if (String.Compare(Polasci.Dan, DanUNedelji.RadniDan.ToString()) == 0)
-                l.Datum = DanUNedelji.RadniDan;
-            else if (String.Compare(Polasci.Dan, DanUNedelji.Subota.ToString()) == 0)
-                l.Datum = DanUNedelji.Subota;
-            else if (String.Compare(Polasci.Dan, DanUNedelji.Nedelja.ToString()) == 0)
-                l.Datum = DanUNedelji.Nedelja;
+            if (Polasci != null)
+            {
+                try
+                {
+                    Linija l = unitOfWork.LinijaRepository.Get(Polasci.ID);
 
-            unitOfWork.LinijaRepository.Update(l);
-            unitOfWork.Complete();
+                    if (String.Compare(l.Stamp.ToString(), Polasci.Stamp) == 0)
+                    {
 
-            return Ok("Dan linije uspešno izmenjen...");
+                        if (String.Compare(Polasci.Dan, DanUNedelji.RadniDan.ToString()) == 0)
+                            l.Datum = DanUNedelji.RadniDan;
+                        else if (String.Compare(Polasci.Dan, DanUNedelji.Subota.ToString()) == 0)
+                            l.Datum = DanUNedelji.Subota;
+                        else if (String.Compare(Polasci.Dan, DanUNedelji.Nedelja.ToString()) == 0)
+                            l.Datum = DanUNedelji.Nedelja;
+
+                        l.Stamp = DateTime.Now;
+
+                        unitOfWork.LinijaRepository.Update(l);
+                        unitOfWork.Complete();
+
+                        return Ok("Dan linije uspešno izmenjen...");
+                    }
+                    else
+                    {
+                        return Ok("Drugi admin je vec menjao ovu liniju, osvežite stranicu....");
+                    }
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Not found!");
+                return BadRequest(ModelState);
+            }
         }
 
 
@@ -245,43 +346,72 @@ namespace WebApp.Controllers
         [Authorize(Roles = "Admin")]
         public IHttpActionResult ObrisiLinijuAdmin(int id)
         {
-            Linija l = unitOfWork.LinijaRepository.Get(id);
-            l.Obrisana = true;
+            try
+            {
+                Linija l = unitOfWork.LinijaRepository.Get(id);
+                l.Obrisana = true;
 
-            unitOfWork.LinijaRepository.Update(l);
-            unitOfWork.Complete();
+                unitOfWork.LinijaRepository.Update(l);
+                unitOfWork.Complete();
 
-            return Ok("Linija uspesno obrisana...");
+                return Ok("Linija uspesno obrisana...");
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
+    
+
 
         [HttpPost, Route("dodajNovuLinijuAdmin")]
         [Authorize(Roles = "Admin")]
         public IHttpActionResult DodajNovuLinijuAdmin(PolasciHelp Polasci)
         {
-            Linija l = new Linija();
-            l.Obrisana = false;
-            l.Naziv = Polasci.ImeRute;
-            l.Polasci = Polasci.Polasci;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            if (String.Compare(Polasci.TipVoznje, TipVoznje.Gradski.ToString()) == 0)
-                l.TipVoznje = TipVoznje.Gradski;
+            if (Polasci != null)
+            {
+                try
+                {
+                    Linija l = new Linija();
+                    l.Obrisana = false;
+                    l.Naziv = Polasci.ImeRute;
+                    l.Polasci = Polasci.Polasci;
+
+                    if (String.Compare(Polasci.TipVoznje, TipVoznje.Gradski.ToString()) == 0)
+                        l.TipVoznje = TipVoznje.Gradski;
+                    else
+                        l.TipVoznje = TipVoznje.Prigradski;
+
+                    if (String.Compare(Polasci.Dan, DanUNedelji.RadniDan.ToString()) == 0)
+                        l.Datum = DanUNedelji.RadniDan;
+                    else if (String.Compare(Polasci.Dan, DanUNedelji.Subota.ToString()) == 0)
+                        l.Datum = DanUNedelji.Subota;
+                    else if (String.Compare(Polasci.Dan, DanUNedelji.Nedelja.ToString()) == 0)
+                        l.Datum = DanUNedelji.Nedelja;
+
+                    string[] pom = Polasci.ImeRute.Split(' ');
+                    l.Broj = pom[0];
+
+                    unitOfWork.LinijaRepository.Add(l);
+                    unitOfWork.Complete();
+
+                    return Ok("Nova linija je uspešno dodata...");
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }
+            }
             else
-                l.TipVoznje = TipVoznje.Prigradski;
-
-            if (String.Compare(Polasci.Dan, DanUNedelji.RadniDan.ToString()) == 0)
-                l.Datum = DanUNedelji.RadniDan;
-            else if (String.Compare(Polasci.Dan, DanUNedelji.Subota.ToString()) == 0)
-                l.Datum = DanUNedelji.Subota;
-            else if (String.Compare(Polasci.Dan, DanUNedelji.Nedelja.ToString()) == 0)
-                l.Datum = DanUNedelji.Nedelja;
-
-            string[] pom = Polasci.ImeRute.Split(' ');
-            l.Broj = pom[0];
-
-            unitOfWork.LinijaRepository.Add(l);
-            unitOfWork.Complete();
-
-            return Ok("Nova linija je uspešno dodata...");
+            {
+                ModelState.AddModelError("", "Not found!");
+                return BadRequest(ModelState);
+            }
         }
     }
 }

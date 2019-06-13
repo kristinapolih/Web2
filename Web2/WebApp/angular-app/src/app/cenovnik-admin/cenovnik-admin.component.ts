@@ -24,6 +24,7 @@ export class CenovnikAdminComponent implements OnInit {
   idcenovnik: number;
 
   cenovnik: CenovnikHelp;
+  TimeStamp: string;
 
   novCenovnikForm = this.fb.group({
     odDatuma: ['', Validators.required],
@@ -75,6 +76,7 @@ export class CenovnikAdminComponent implements OnInit {
           this.novCenovnikForm.controls['dnevna'].setValue(res["DnevnaCena"]);
           this.novCenovnikForm.controls['mesecna'].setValue(res["MesecnaCena"]);
           this.novCenovnikForm.controls['godisnja'].setValue(res["GodisnjaCena"]);
+          this.TimeStamp = res["Stamp"];
         }
         else
         {
@@ -134,7 +136,7 @@ export class CenovnikAdminComponent implements OnInit {
         )
       }
       else {
-        this.mainService.izmeniCenovnik(this.novCenovnikForm.value, this.idcenovnik).subscribe(
+        this.mainService.izmeniCenovnik(this.novCenovnikForm.value, this.idcenovnik, this.TimeStamp).subscribe(
           (res) => {
             this.message = res;
             this.getCenovnike();

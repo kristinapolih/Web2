@@ -53,84 +53,106 @@ namespace WebApp.Controllers
         [Authorize(Roles = "AppUser")]
         public IHttpActionResult KupiKartu(KupljenaKarta karta)
         {
-            var userStore = new UserStore<ApplicationUser>(dbContext);
-            var userManager = new UserManager<ApplicationUser>(userStore);
-
-            if (User.Identity.IsAuthenticated)
+            if (!ModelState.IsValid)
             {
-                Karta k = new Karta();
-                k.ODDatum = DateTime.Now;
-                k.DoDatum = DateTime.Now;
-                k.Cena = karta.Cena;
-
-                if (karta.TipKarte == TipKarte.Vremenska)
-                {
-                    k.DoDatum = k.DoDatum.AddHours(1);
-                    if (k.DoDatum.Day != k.ODDatum.Day)
-                    {
-                        string ss = k.ODDatum.Date.ToString();
-                        string[] niz = ss.Split(' ');
-                        niz[1] = "11:59:59 PM";
-                        string time = niz[0] + " " + niz[1];
-                        k.DoDatum = Convert.ToDateTime(time);
-                    }
-                    k.TipKarte = TipKarte.Vremenska;
-                }
-                else if (karta.TipKarte == TipKarte.Dnevna)
-                {
-                    k.DoDatum = k.DoDatum.AddDays(1);
-                    if (k.DoDatum.Day != k.ODDatum.Day)
-                    {
-                        string ss = k.ODDatum.Date.ToString();
-                        string[] niz = ss.Split(' ');
-                        niz[1] = "11:59:59 PM";
-                        string time = niz[0] + " " + niz[1];
-                        k.DoDatum = Convert.ToDateTime(time);
-                    }
-                    k.TipKarte = TipKarte.Dnevna;
-                }
-                else if (karta.TipKarte == TipKarte.Mesecna)
-                {
-                    k.DoDatum = k.DoDatum.AddMonths(1);
-                    if (k.DoDatum.Month != k.ODDatum.Month)
-                    {
-                        string ss = k.ODDatum.ToString();
-                        string[] niz = ss.Split(' ');
-                        string lastDay = GetLastDay(k.ODDatum.Month).ToString();
-                        niz[1] = "11:59:59 PM";
-                        string[] nizniz = niz[0].Split('-');
-                        nizniz[0] = lastDay;
-                        string wholeDate = nizniz[0] + "-" + nizniz[1] + "-" + nizniz[2] + " " + niz[1];
-                        k.DoDatum = Convert.ToDateTime(wholeDate);
-                    }
-                    k.TipKarte = TipKarte.Mesecna;
-                }
-                else if (karta.TipKarte == TipKarte.Godisnja)
-                {
-                    k.DoDatum = k.DoDatum.AddYears(1);
-                    if (k.ODDatum.Year != k.DoDatum.Year)
-                    {
-                        string ss = k.ODDatum.ToString();
-                        string[] niz = ss.Split(' ');
-                        string[] nizniz = niz[0].Split('-');
-                        nizniz[0] = "31";
-                        nizniz[1] = "Dec";
-                        niz[1] = "11:59:59 PM";
-                        string wholeDate = nizniz[0] + "-" + nizniz[1] + "-" + nizniz[2] + " " + niz[1];
-                        k.DoDatum = Convert.ToDateTime(wholeDate);
-                    }
-                    k.TipKarte = TipKarte.Godisnja;
-                }
-
-                string s = User.Identity.GetUserId();
-                int passenger = unitOfWork.KorisnikRepository.GetAll().Where(x => x.IDUser == s).FirstOrDefault().ID;
-                k.IDKorisnik = passenger;
-
-                unitOfWork.KartaRepository.Add(k);
-                unitOfWork.Complete();
-                return Ok("Uspesno ste kupili kartu...");
+                return BadRequest(ModelState);
             }
-            return Ok("Niste autentifikovani....");
+
+            if (karta != null)
+            {
+                try
+                {
+
+                    var userStore = new UserStore<ApplicationUser>(dbContext);
+                    var userManager = new UserManager<ApplicationUser>(userStore);
+
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        Karta k = new Karta();
+                        k.ODDatum = DateTime.Now;
+                        k.DoDatum = DateTime.Now;
+                        k.Cena = karta.Cena;
+
+                        if (karta.TipKarte == TipKarte.Vremenska)
+                        {
+                            k.DoDatum = k.DoDatum.AddHours(1);
+                            if (k.DoDatum.Day != k.ODDatum.Day)
+                            {
+                                string ss = k.ODDatum.Date.ToString();
+                                string[] niz = ss.Split(' ');
+                                niz[1] = "11:59:59 PM";
+                                string time = niz[0] + " " + niz[1];
+                                k.DoDatum = Convert.ToDateTime(time);
+                            }
+                            k.TipKarte = TipKarte.Vremenska;
+                        }
+                        else if (karta.TipKarte == TipKarte.Dnevna)
+                        {
+                            k.DoDatum = k.DoDatum.AddDays(1);
+                            if (k.DoDatum.Day != k.ODDatum.Day)
+                            {
+                                string ss = k.ODDatum.Date.ToString();
+                                string[] niz = ss.Split(' ');
+                                niz[1] = "11:59:59 PM";
+                                string time = niz[0] + " " + niz[1];
+                                k.DoDatum = Convert.ToDateTime(time);
+                            }
+                            k.TipKarte = TipKarte.Dnevna;
+                        }
+                        else if (karta.TipKarte == TipKarte.Mesecna)
+                        {
+                            k.DoDatum = k.DoDatum.AddMonths(1);
+                            if (k.DoDatum.Month != k.ODDatum.Month)
+                            {
+                                string ss = k.ODDatum.ToString();
+                                string[] niz = ss.Split(' ');
+                                string lastDay = GetLastDay(k.ODDatum.Month).ToString();
+                                niz[1] = "11:59:59 PM";
+                                string[] nizniz = niz[0].Split('-');
+                                nizniz[0] = lastDay;
+                                string wholeDate = nizniz[0] + "-" + nizniz[1] + "-" + nizniz[2] + " " + niz[1];
+                                k.DoDatum = Convert.ToDateTime(wholeDate);
+                            }
+                            k.TipKarte = TipKarte.Mesecna;
+                        }
+                        else if (karta.TipKarte == TipKarte.Godisnja)
+                        {
+                            k.DoDatum = k.DoDatum.AddYears(1);
+                            if (k.ODDatum.Year != k.DoDatum.Year)
+                            {
+                                string ss = k.ODDatum.ToString();
+                                string[] niz = ss.Split(' ');
+                                string[] nizniz = niz[0].Split('-');
+                                nizniz[0] = "31";
+                                nizniz[1] = "Dec";
+                                niz[1] = "11:59:59 PM";
+                                string wholeDate = nizniz[0] + "-" + nizniz[1] + "-" + nizniz[2] + " " + niz[1];
+                                k.DoDatum = Convert.ToDateTime(wholeDate);
+                            }
+                            k.TipKarte = TipKarte.Godisnja;
+                        }
+
+                        string s = User.Identity.GetUserId();
+                        int passenger = unitOfWork.KorisnikRepository.GetAll().Where(x => x.IDUser == s).FirstOrDefault().ID;
+                        k.IDKorisnik = passenger;
+
+                        unitOfWork.KartaRepository.Add(k);
+                        unitOfWork.Complete();
+                        return Ok("Uspesno ste kupili kartu...");
+                    }
+                    return Ok("Niste autentifikovani....");
+
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Karta not found!");
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpGet, Route("getKarte")]
@@ -171,48 +193,75 @@ namespace WebApp.Controllers
         [Authorize(Roles = "AppUser")]
         public IHttpActionResult ObrisiKartu(KartaHelp ticketHelp)
         {
-            if (User.Identity.IsAuthenticated)
+            if (!ModelState.IsValid)
             {
-                Karta k = unitOfWork.KartaRepository.Get(ticketHelp.Id);
-                k.Obrisana = true;
-                unitOfWork.KartaRepository.Update(k);
-                unitOfWork.Complete();
-
-                return Ok();
+                return BadRequest(ModelState);
             }
-            return Ok("Niste autentifikovani....");
+
+            if (ticketHelp != null)
+            {
+                try
+                {
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        Karta k = unitOfWork.KartaRepository.Get(ticketHelp.Id);
+                        k.Obrisana = true;
+                        unitOfWork.KartaRepository.Update(k);
+                        unitOfWork.Complete();
+
+                        return Ok();
+                    }
+                    return Ok("Niste autentifikovani....");
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Karta not found!");
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpGet, Route("getKartu")]
         [Authorize(Roles = "Controller")]
         public IHttpActionResult GetKartu(int id)
         {
-            List<string> poruka = new List<string>();
-            if (User.Identity.IsAuthenticated)
+            try
             {
-                Karta k = unitOfWork.KartaRepository.Find(x => x.ID == id).FirstOrDefault();
-                if (k == null)
+                List<string> poruka = new List<string>();
+                if (User.Identity.IsAuthenticated)
                 {
-                    poruka.Add("Karta sa ovim id-jem ne postoji....");
-                    return Ok(poruka);
+                    Karta k = unitOfWork.KartaRepository.Find(x => x.ID == id).FirstOrDefault();
+                    if (k == null)
+                    {
+                        poruka.Add("Karta sa ovim id-jem ne postoji....");
+                        return Ok(poruka);
+                    }
+
+                    int result = DateTime.Compare(k.DoDatum, DateTime.Now);
+                    if (result > 0)
+                    {
+                        poruka.Add("Karta je VALIDNA.");
+                        poruka.Add("Od: " + k.ODDatum.ToString());
+                        poruka.Add("Do: " + k.DoDatum.ToString());
+                        return Ok(poruka);
+                    }
+                    else
+                    {
+                        poruka.Add("Karta NIJE VALIDNA.");
+                        return Ok(poruka);
+                    }
                 }
 
-                int result = DateTime.Compare(k.DoDatum, DateTime.Now);
-                if (result > 0)
-                {
-                    poruka.Add("Karta je VALIDNA.");
-                    poruka.Add("Od: " + k.ODDatum.ToString());
-                    poruka.Add("Do: " + k.DoDatum.ToString());
-                    return Ok(poruka);
-                }
-                else
-                {
-                    poruka.Add("Karta NIJE VALIDNA.");
-                    return Ok(poruka);
-                }
+                return Ok();
             }
-
-            return Ok();
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
 

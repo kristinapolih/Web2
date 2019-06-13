@@ -79,7 +79,7 @@ export class PromeniVidiProfilComponent implements OnInit {
         this.profilForm.controls['surname'].setValue(res["Lastname"]);
         this.profilForm.controls['datumRodjenja'].setValue(res["SendBackBirthday"]);
         this.profilForm.controls['address'].setValue(res["Adresa"]);
-        this.profilForm.controls['tipputnika'].setValue(res["UserType"]);
+        this.profilForm.controls['tipputnika'].setValue(res["TipPutnika"]);
         this.id = res.ID;
         this.getSlika();
       }

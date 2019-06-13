@@ -1,10 +1,9 @@
 <div class="limiter">
-  <div class="container-redvoznje100">
-    <div class="wrap-redVoznje100">
+  <div class="container-cenovnik">
+    <div class="wrap-cenovnik100">
 
-      <div class="col-7">
-        <span class="login100-form-title p-b-59">Verifikacija putnika</span>
-        <div class="txt3">
+        <span class="login100-form-naslov">Verifikacija putnika</span>
+        <div class="txt3 midTop">
           {{message}}
         </div>
         <table>
@@ -32,7 +31,7 @@
               <td style="text-align:center;">{{p.TipKorisnika}}</td>
               <td style="text-align:center;">{{p.Stanje}}</td>
               <td style="text-align:center;">
-                <button type="button" class="btn btn-info btn-circle" (click)="otvoriSliku(p.ID)">
+                <button type="button" class="btn btn-info btn-circle" (click)="otvoriSliku(p.ID, p.Email)">
                   <a id="a" class="fa fa-photo"></a>
                 </button>
               </td>
@@ -49,10 +48,12 @@
             </tr>
           </tbody>
         </table>
-      </div>
 
-      <div *ngIf="slikaBool">
-        <img [src]="slika" alt="IMG" width="100%" height="100%">
+        <div class="txt3 midTop">
+          {{messageKorisnik}}
+        </div>
+      <div *ngIf="slikaBool" class="login100-form-title midTop">
+        <img [src]="slika" alt="IMG" width="400px" height="400px">
       </div>
 
     </div>

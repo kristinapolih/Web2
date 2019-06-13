@@ -15,6 +15,7 @@ namespace WebApp.Models
         private DanUNedelji datum;
         private string polasci;
         private bool obrisana = false;
+        private DateTime stamp;
 
         [Key]
         public int ID
@@ -51,6 +52,11 @@ namespace WebApp.Models
         {
             get { return obrisana; }
             set { obrisana = value; }
+        }
+        public DateTime Stamp
+        {
+            get { return stamp; }
+            set { stamp = value; }
         }
     }
 }

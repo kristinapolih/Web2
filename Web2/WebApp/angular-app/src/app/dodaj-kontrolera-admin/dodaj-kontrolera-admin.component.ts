@@ -46,6 +46,9 @@ export class DodajKontroleraAdminComponent implements OnInit {
               this.router.navigate(['/dodaj-kotrolera-admin']);
             }, 5000);
           }
+          else{
+            this.message = "Nalog sa ovim email-om već postoji...";
+          }
         }
       );
     }
