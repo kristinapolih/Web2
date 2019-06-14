@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     pass: ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder, private router:Router, private mainService:MainServiceService, private http: HttpClient, public authService: AuthService) {  }
+  constructor(private fb: FormBuilder, private router: Router, private mainService: MainServiceService, private http: HttpClient, public authService: AuthService) { }
 
   get f() { return this.loginForm.controls; }
 
@@ -30,25 +30,21 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     let poruka = this.authService.login(this.loginForm.value).subscribe(
       (res) => {
-        if(res == undefined)
-        {
+        if (res == undefined) {
           this.message = "Email ili lozinka su pogrešni...";
         }
         this.message = res;
         console.log(res);
-        if(localStorage.role == "AppUser")
-        {
+        if (localStorage.role == "AppUser") {
           this.router.navigate(['/red-voznje']);
         }
-        else if(localStorage.role == "Admin")
-        {
+        else if (localStorage.role == "Admin") {
           this.router.navigate(['/red-voznje']);
         }
-        else if(localStorage.role == "Controller")
-        {
+        else if (localStorage.role == "Controller") {
           this.router.navigate(['/proveri-karte']);
         }
-        else{
+        else {
           this.message = "Email ili lozinka su pogrešni...";
         }
       });

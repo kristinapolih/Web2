@@ -14,6 +14,8 @@ namespace WebApp.Models
         private double x;
         private double y;
         private bool isStanica;
+        private DateTime stamp;
+        private bool obrisana;
 
         [Key]
         public int ID
@@ -45,6 +47,16 @@ namespace WebApp.Models
         {
             get { return isStanica; }
             set { isStanica = value; }
+        }
+        public bool Obrisana
+        {
+            get { return obrisana; }
+            set { obrisana = value; }
+        }
+        public DateTime Stamp
+        {
+            get { return stamp; }
+            set { stamp = value; }
         }
     }
 }

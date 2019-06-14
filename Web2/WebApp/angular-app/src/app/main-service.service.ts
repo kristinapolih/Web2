@@ -16,6 +16,58 @@ export class MainServiceService {
 
   constructor(private http: HttpClient) { }
 
+  onSubmitSaveChanges(arg:any):Observable<any>
+  {
+    return this.http.post<any>('http://localhost:52295/api/MrezaLinija/saveStationChanges', arg);
+  }
+
+  deleteStationFromRoute(arg:any):Observable<any>
+  {
+    let par = {
+      BrojRute: arg.BrojRute,
+      Naziv: arg.DeleteStationRoute,
+      ID: arg.IdStation
+    };
+
+    return this.http.post<any>('http://localhost:52295/api/MrezaLinija/deleteStationFromRoute', par);
+  }
+
+  addStation(arg:any):Observable<any>
+  {
+    let par = {
+      Naziv: arg.Name,
+      Adresa: arg.Address,
+      string: arg.RouteNumber,
+      IDRute: arg.IdRoute,
+      X: arg.X,
+      Y: arg.Y,
+      BrojeviRuta: arg.RouteNumbers,
+      brojURuti: arg.NumberInRoute,
+    };
+
+    return this.http.post<any>('http://localhost:52295/api/MrezaLinija/addStation', par);
+  }
+
+  addLines(arg:any):Observable<any>
+  {
+    return this.http.post<any>('http://localhost:52295/api/MrezaLinija/addLines', arg);
+  }
+
+  getNewRoutes(): Observable<any>
+  {
+    return this.http.get<any>('http://localhost:52295/api/MrezaLinija/getNewRoutes');
+  }
+
+  getRoutesAddStation(): Observable<any>
+  {
+    return this.http.get<any>('http://localhost:52295/api/MrezaLinija/getRoutesAddStation');
+  }
+
+  getStationsAdmin(): Observable<any>
+  {
+    return this.http.get<any>('http://localhost:52295/api/MrezaLinija/getStanice');
+  }
+
   dodajKontrolera(arg: any): Observable<any> {
 
     let par = {

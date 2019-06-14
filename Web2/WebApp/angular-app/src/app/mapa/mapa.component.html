@@ -23,5 +23,8 @@
       [longitude]="markerInfo.location.longitude" [title]="markerInfo.title" [iconUrl]="markerInfo.iconUrl">
     </agm-marker>
 
+    <agm-marker *ngFor="let markerInfo of markers" [latitude]="markerInfo.location.latitude"
+      [longitude]="markerInfo.location.longitude" [title]="markerInfo.title" [iconUrl]="markerInfo.iconUrl">
+    </agm-marker>
   </agm-map>
 </p>

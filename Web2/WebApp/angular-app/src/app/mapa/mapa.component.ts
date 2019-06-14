@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, NgZone } from '@angular/core';
+import { Component, OnInit, Input, NgZone, Output, EventEmitter } from '@angular/core';
 import { MarkerInfo } from './model/marker-info.model';
 import { GeoLocation } from './model/geolocation';
 import { Polyline } from './model/polyline';
@@ -15,18 +15,27 @@ export class MapaComponent implements OnInit {
   public polyline: Polyline;
   public stationsIcon: MarkerInfo[];
   public busLocation: MarkerInfo[];
+  public markers : MarkerInfo[];
+
   public zoom: number;
   private _route: any;
   private _bus:  any;
 
+  private _type: any;
+  private isPop: any = false;
+
   markerInfo: MarkerInfo;
 
   ngOnInit() {
+    this.markers = [];
     this.polyline= new Polyline([], '#369691', { url:"", scaledSize: {width: 50, height: 50}});
   }
 
   constructor(private ngZone: NgZone){
   }
+
+  @Output() sendData = new EventEmitter<any>();
+  @Output() sendDataDot = new EventEmitter<any>();
 
   @Input()
   set route(route: any) {
@@ -43,6 +52,11 @@ export class MapaComponent implements OnInit {
     if(this._bus){
        this.drowBus();
     }
+  }
+
+  @Input()
+  set type(type: any) {
+    this._type = type;
   }
 
   HaveBus()
@@ -86,8 +100,33 @@ export class MapaComponent implements OnInit {
 
   placeMarker($event){
     if(localStorage.role == "Admin"){
-      this.polyline.addLocation(new GeoLocation($event.coords.lat, $event.coords.lng));
-      console.log(this.polyline);
+      if(this._type == true)
+      {
+        if(this.isPop == true){
+          this.stationsIcon.pop();
+        }
+        this.isPop = true;
+        let pom = {
+          'X' : $event.coords.lat,
+          'Y' : $event.coords.lng
+        };
+
+        this.sendData.emit(pom);
+
+        this.stationsIcon.push(new MarkerInfo(new GeoLocation($event.coords.lat, $event.coords.lng), "assets/busicon.png",
+        "" , "",""));
+      }else{
+        this.polyline.addLocation(new GeoLocation($event.coords.lat, $event.coords.lng));
+        this.markers.push(new MarkerInfo(new GeoLocation($event.coords.lat, $event.coords.lng), "assets/dot.png",
+        "" , "",""));
+
+        let pom = {
+          'X' : $event.coords.lat,
+          'Y' : $event.coords.lng
+        };
+
+        this.sendDataDot.emit(pom);
+      }
     }
   }
 

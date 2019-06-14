@@ -1,11 +1,21 @@
 <div class="limiter">
         <div class="container-cenovnik">
                 <div class="wrap-login100">
+                        <div class="container-login100-form-btn">
+                                <div class="wrap-login100-form-btn">
+                                        <button routerLink="/mreza-linija-stanica-admin" class="login100-form-btn">
+                                                Izmeni linije i stanice
+                                        </button>
+                                </div>
+                        </div>
+                        <br/><br/><br/>
                         <div>
                                 <span class="txt font-color-gradske">Gradske linije</span>
                                 <ul>
                                         <li *ngFor="let route of routesGradske" (click)="selektovanaRuta(route)">
-                                                <button type="button" class="btn btn-warning btn-circle btn-lg btn-color-gradske txt" title="{{route.ImeRute}}">
+                                                <button type="button"
+                                                        class="btn btn-warning btn-circle btn-lg btn-color-gradske txt"
+                                                        title="{{route.ImeRute}}">
                                                         <a>{{route.BrojRute}}</a>
                                                 </button>
                                         </li>
@@ -15,7 +25,9 @@
                                 <span class="txt font-color-prigradske">Prigradske linije</span>
                                 <ul>
                                         <li *ngFor="let route of routesPrigradske" (click)="selektovanaRuta(route)">
-                                                <button type="button" class="btn btn-warning btn-circle btn-lg btn-color-prigradske txt" title="{{route.ImeRute}}">
+                                                <button type="button"
+                                                        class="btn btn-warning btn-circle btn-lg btn-color-prigradske txt"
+                                                        title="{{route.ImeRute}}">
                                                         <a>{{route.BrojRute}}</a>
                                                 </button>
                                         </li>
@@ -23,7 +35,7 @@
                         </div>
 
                         <div>
-                                <app-mapa [route]="sRoute" [bus] = "sBus"></app-mapa>
+                                <app-mapa [route]="sRoute" [bus]="sBus"></app-mapa>
                         </div>
                 </div>
         </div>

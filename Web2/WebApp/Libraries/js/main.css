@@ -29,8 +29,7 @@
 [ RESTYLE TAG ]*/
 
 * {
-	margin: 0px; 
-	padding: 0px; 
+	margin: 0px;  
 	box-sizing: border-box;
 }
 
@@ -161,6 +160,30 @@ iframe {
   color: #000000;
 }
 
+.txtValid {
+  font-family: Poppins-Bold;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #e7dd82;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+}
+
+.txtInvalid {
+  font-family: Poppins-Bold;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #990000;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+}
+
 
 /*//////////////////////////////////////////////////////////////////
 [ login ]*/
@@ -183,7 +206,6 @@ iframe {
   align-items: center;
   align-content: center;
   align-self: center;
-  padding: 0px;
   background: #31af7f;
   background: -webkit-linear-gradient(-135deg, #31af7f, #5485c5);
   background: -o-linear-gradient(-135deg, #31af7f, #5485c5);
@@ -217,6 +239,21 @@ iframe {
   align-items: right;
   align-content: right;
   align-self: right;
+}
+
+.mid{
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  padding: 177px 130px 33px 95px;
+}
+
+.midTop{
+  justify-content: center;
+  align-items: top;
+  align-content: top;
+  align-self: top;
 }
 
 .container-redvoznje100 {
@@ -303,6 +340,20 @@ iframe {
   padding-left: 10%; 
 }
 
+.wrap-cenovnik100 {
+  width: 960px;
+  border-radius: 10px;
+  overflow: hidden;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 /*------------------------------------------------------------------
 [  ]*/
 .login100-pic {
@@ -330,6 +381,18 @@ iframe {
   width: 100%;
   display: block;
   padding-bottom: 25px;
+}
+
+.login100-form-naslov {
+  font-family: Poppins-Bold;
+  font-size: 24px;
+  color: #333333;
+  line-height: 5;
+  text-align: center;
+
+  height: 30px;
+  width: 100%;
+  display: block;
 }
 
 
@@ -660,3 +723,4 @@ iframe {
     opacity: 1;
   }
 }
+

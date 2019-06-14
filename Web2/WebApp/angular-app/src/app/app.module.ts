@@ -24,7 +24,6 @@ import { RedVoznjeAdminComponent } from './red-voznje-admin/red-voznje-admin.com
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CenovnikAdminComponent } from './cenovnik-admin/cenovnik-admin.component';
 import { VerifikacijaComponent } from './verifikacija/verifikacija.component';
-import { MrezaLinijaLinijaAdminComponent } from './mreza-linija-linija-admin/mreza-linija-linija-admin.component';
 import { MrezaLinijaStanicaAdminComponent } from './mreza-linija-stanica-admin/mreza-linija-stanica-admin.component';
 import { DodajKontroleraAdminComponent } from './dodaj-kontrolera-admin/dodaj-kontrolera-admin.component';
 
@@ -44,7 +43,6 @@ import { DodajKontroleraAdminComponent } from './dodaj-kontrolera-admin/dodaj-ko
     RedVoznjeAdminComponent,
     CenovnikAdminComponent,
     VerifikacijaComponent,
-    MrezaLinijaLinijaAdminComponent,
     MrezaLinijaStanicaAdminComponent,
     DodajKontroleraAdminComponent
   ],

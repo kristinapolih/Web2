@@ -1,3 +1,214 @@
-<p>
-  mreza-linija-stanica-admin works!
-</p>
+<div class="limiter">
+  <div class="container-cenovnik">
+    <div class="wrap-redVoznje100">
+
+      <p class="login100-form-naslov p-b-59">Stanice</p>
+
+      <div>
+        <table style="max-height: 500px; overflow: auto; display: inline-block;">
+          <thead>
+            <tr>
+              <th>X koordinata</th>
+              <th>Y koordinata</th>
+              <th>Naziv</th>
+              <th>Adresa</th>
+              <th>Linija</th>
+              <th width="10%">Izmeni</th>
+              <th width="10%">Obriši</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let l of stations">
+              <td style="text-align:center;">{{l.X}}</td>
+              <td style="text-align:center;">{{l.Y}}</td>
+              <td style="text-align:center;">{{l.Naziv}}</td>
+              <td style="text-align:center;">{{l.Adresa}}</td>
+              <td style="text-align:center;">{{l.BrojRute}}</td>
+              <td style="text-align:center;">
+                <button type="button" class="btn btn-primary btn-circle" (click)="changeStation(l.ID, l.Naziv)">
+                  <a id="a" class="glyphicon glyphicon-pencil"></a>
+                </button>
+              </td>
+              <td style="text-align:center;">
+                <button type="button" class="btn btn-danger btn-circle" (click)="deleteRouteAdmin(l)">
+                  <a id="a" class="glyphicon glyphicon-trash"></a>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+
+        <div>
+          <div>
+            <div class="container-login100-form-btn">
+              <div class="wrap-login100-form-btn">
+                <button (click)="addNewStation()" class="login100-form-btn" *ngIf="newStation">
+                  Dodaj novu stanicu
+                </button>
+                <br />
+                <button (click)="addNewStations()" class="login100-form-btn" *ngIf="newStations">
+                  Dodaj liniju na rutu
+                </button>
+              </div>
+            </div>
+          </div>
+          <br />
+          <br />
+          <!--changeStation-->
+          <div *ngIf="changeStationbool">
+            <form [formGroup]="changeStationForm" (ngSubmit)="onSubmitSaveChanges()"
+              class="login100-form validate-form">
+              <div class="wrap-input100 validate-input">
+                <p class="label-input100">Naziv stanice</p>
+                <input class="input100" type="text" formControlName="Name" placeholder="Unesite naziv..." required>
+                <span class="focus-input100"></span>
+                <span class="symbol-reg100">
+                  <i class="fa fa-font" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div *ngIf="f.Name.invalid && (f.Name.dirty || f.Name.touched)" class="alert alert-danger">
+                <div *ngIf="f.Name.errors.required">
+                  Naziv je obavezan.
+                </div>
+              </div>
+              <div>
+                <div class="container-login100-form-btn">
+                  <div class="wrap-login100-form-btn">
+                    <button type="submit" class="login100-form-btn">
+                      Sačuvaj izmene
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!--deleteRouteAdmin-->
+          <div *ngIf="deleteStationAdminbool">
+            <form [formGroup]="deleteStationForm" (ngSubmit)="onSubmitSaveDelete()" class="login100-form validate-form">
+              <div class="wrap-input100 validate-input">
+                <p class="label-input100">Obriši stanicu sa rute linije</p>
+                <select class="selectbox input100" style="width: 255px;" formControlName="DeleteStationRoute"
+                  [(ngModel)]="selectedRouteDel">
+                  <option *ngFor="let c of listRoutes" [ngValue]="c">{{c}}</option>
+                </select>
+                <span class="focus-input100"></span>
+                <span class="symbol-reg100">
+                  <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div>
+                <div class="container-login100-form-btn">
+                  <div class="wrap-login100-form-btn">
+                    <button type="submit" class="login100-form-btn">
+                      Obriši
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!--addNewStation-->
+          <div *ngIf="newStationbool">
+            <form [formGroup]="addStationForm" (ngSubmit)="onSubmitAddStation()" class="login100-form validate-form">
+
+              <div class="wrap-input100 validate-input">
+                <p class="label-input100">Naziv stanice</p>
+                <input class="input100" type="text" formControlName="Name" placeholder="Enter name.." required>
+                <span class="focus-input100"></span>
+                <span class="symbol-reg100">
+                  <i class="fa fa-font" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div *ngIf="d.Name.invalid && (d.Name.dirty || d.Name.touched)" class="alert alert-danger">
+                <div *ngIf="d.Name.errors.required">
+                  Naziv je obavezan.
+                </div>
+              </div>
+
+              <div class="wrap-input100 validate-input">
+                <p class="label-input100">Adresa stanice</p>
+                <input class="input100" type="text" formControlName="Address" placeholder="Enter address.." required>
+                <span class="focus-input100"></span>
+                <span class="symbol-reg100">
+                  <i class="fa fa-home" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div *ngIf="d.Address.invalid && (d.Address.dirty || d.Address.touched)" class="alert alert-danger">
+                <div *ngIf="d.Address.errors.required">
+                  Adresa je obavezna.
+                </div>
+              </div>
+
+              <div class="wrap-input100 validate-input">
+                <p class="label-input100">Redni broj stanice u ruti</p>
+                <input class="input100" type="text" formControlName="RouteNumbers" placeholder="Enter station number.."
+                  required>
+                <span class="focus-input100"></span>
+                <span class="symbol-reg100">
+                  <i class="fa fa-font" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div *ngIf="d.RouteNumbers.invalid && (d.RouteNumbers.dirty || d.RouteNumbers.touched)"
+                class="alert alert-danger">
+                <div *ngIf="d.RouteNumbers.errors.required" class="my-font">
+                  Broj linije je obavezan.
+                </div>
+              </div>
+
+              <div class="wrap-input100 validate-input">
+                <p class="label-input100">Pripada liniji</p>
+                <select class="selectbox input100" style="width: 255px;" formControlName="RouteNumber"
+                  (change)="mySelectHandler()" [(ngModel)]="selectedRouteAddStation">
+                  <option *ngFor="let c of listRoutesAddStation" [ngValue]="c">{{c.BrojRute}}</option>
+                </select>
+                <span class="focus-input100"></span>
+                <span class="symbol-reg100">
+                  <i class="glyphicon glyphicon-road" aria-hidden="true"></i>
+                </span>
+              </div>
+
+              <app-mapa [route]="sRoute" [type]="sType" (sendData)="XYData($event)"></app-mapa>
+              <div>
+                <div class="container-login100-form-btn">
+                  <div class="wrap-login100-form-btn">
+                    <button type="submit" class="login100-form-btn">
+                      Sačuvaj izmene
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!--addNewStations-->
+          <div *ngIf="newStationsbool">
+
+            <div class="wrap-input100 validate-input">
+              <p class="label-input100">Nove rute</p>
+              <select class="selectbox input100" style="width: 255px;" [(ngModel)]="selectedRouteNewRoute">
+                <option *ngFor="let c of listRoutesNewRoute" [ngValue]="c">{{c.BrojRute}}</option>
+              </select>
+              <span class="focus-input100"></span>
+              <span class="symbol-reg100">
+                <i class="glyphicon glyphicon-road" aria-hidden="true"></i>
+              </span>
+            </div>
+            <app-mapa [route]="sRoute" [bus]="sBus" (sendDataDot)="XYDataDot($event)"></app-mapa>
+
+            <div class="container-login100-form-btn">
+              <div class="wrap-login100-form-btn">
+                <button class="login100-form-btn" (click)="onSubmitSaveRouteLines()">
+                  Sačuvaj izmene
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

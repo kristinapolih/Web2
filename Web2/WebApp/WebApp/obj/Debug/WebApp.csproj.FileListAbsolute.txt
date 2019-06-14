@@ -473,3 +473,4 @@ E:\WEB2\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.Migrations.ThirteenthMigration.
 E:\WEB2\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.Migrations.FourtheenthMigration.resources
 E:\WEB2\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.Migrations.FifteenthMigration.resources
 E:\WEB2\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.Migrations.SixteenthMigration.resources
+E:\WEB2\Web2\Web2\WebApp\WebApp\obj\Debug\WebApp.Migrations.SeventeenthMigration.resources
